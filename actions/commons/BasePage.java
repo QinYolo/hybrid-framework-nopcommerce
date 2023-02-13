@@ -1,6 +1,7 @@
 package commons;
 
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 import org.openqa.selenium.Alert;
@@ -16,8 +17,23 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class BasePage {
+	
+	public static BasePage getBasePageObject() {
+		return new BasePage();
+	}
+	
 	public void openPageURL (WebDriver driver, String pageURL) {
 		driver.get(pageURL);
+	}
+	
+	public int getRandomNumber() {
+		Random rand = new Random();
+		return rand.nextInt(9999);
+
+	}
+	
+	public void quitPageURL (WebDriver driver) {
+		driver.quit();
 	}
 	
 	public String getPageTitle (WebDriver driver) {
@@ -110,15 +126,15 @@ public class BasePage {
 		}
 	}
 	
-	public WebElement getWebElement (WebDriver driver, String xpathLocator) {
+	private WebElement getWebElement (WebDriver driver, String xpathLocator) {
 		return driver.findElement(getByXpath(xpathLocator));
 	}
 	
-	public List<WebElement> getListWebElement (WebDriver driver, String xpathLocator) {
+	private List<WebElement> getListWebElement (WebDriver driver, String xpathLocator) {
 		return driver.findElements(getByXpath(xpathLocator));
 	}
 	
-	public By getByXpath (String xpathLocator) {
+	private By getByXpath (String xpathLocator) {
 		return By.xpath(xpathLocator);
 	}
 	
@@ -134,7 +150,7 @@ public class BasePage {
 		
 	public void selectItemInDefaultDropDown(WebDriver driver, String locator, String textItem) {
 		Select select = new Select(getWebElement(driver, locator));
-		select.selectByValue(textItem);
+		select.selectByVisibleText(textItem);
 	}
 	
 	public String getSelectedItemDefaultDropDown (WebDriver driver, String locator) {
