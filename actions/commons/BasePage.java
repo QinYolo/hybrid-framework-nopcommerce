@@ -348,5 +348,15 @@ public class BasePage {
 		explicitWait.until(ExpectedConditions.elementToBeClickable(getByXpath(locator)));
 	}
 	
+	public boolean isKeywordDisplayInSearchResult(WebDriver driver, String locator, String keywords) {
+		List<WebElement> listElement = getListWebElement(driver, locator);
+		for (WebElement eachElement : listElement) {
+			if (eachElement.getText().contains(keywords)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	private long longTimeout = 30;
 }
