@@ -3,6 +3,9 @@ package com.nopcommerce.user;
 import org.testng.annotations.Test;
 
 import commons.BasePage;
+import pageObjects.HomePageObject;
+import pageObjects.LoginPageObject;
+import pageObjects.RegisterPageObject;
 
 import org.testng.annotations.BeforeClass;
 
@@ -14,9 +17,6 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 
 public class User_02_Login extends BasePage {
-	WebDriver driver;
-	String projectPath = System.getProperty("user.dir");
-	String emailAdress = "automationTest" + getRandomNumber() + "@gmail.com";
 
 	@BeforeClass
 	public void beforeClass() {
@@ -24,97 +24,124 @@ public class User_02_Login extends BasePage {
 		driver = new FirefoxDriver();
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
+		openPageURL(driver, "https://demo.nopcommerce.com/");
+
+		emailAdress = "automationTest" + getRandomNumber() + "@gmail.com";
+		password = "123456";
+		
+		homePage = new HomePageObject(driver);
+		registerPage = new RegisterPageObject(driver);
+		loginPage = new LoginPageObject(driver);
 	}
 
 	@Test
-	public void TC_07_Login_Empty_Data() {
-		openPageURL(driver, "https://demo.nopcommerce.com/");
+	public void TC_01_Login_Empty_Data() {
+		System.out.println("Home Page - Step 01: Click to Login Link");
+		homePage.clickToLoginLink();
 
-		waitForElementClickable(driver, "//a[@class='ico-login']");
-		clickToElement(driver, "//a[@class='ico-login']");
+		System.out.println("Login Page - Step 02: Click to Login Button");
+		loginPage.clickToLoginButton();
 
-		waitForElementClickable(driver, "//button[contains(@class,'login-button')]");
-		clickToElement(driver, "//button[contains(@class,'login-button')]");
-		Assert.assertEquals(getElementText(driver, "//span[@id='Email-error']"), "Please enter your email");
+		System.out.println("Login Page - Step 03: Verify error message displayed");
+		Assert.assertEquals(loginPage.getErrorMessageAtEmailTextBox(), "Please enter your email");
 	}
 
 	@Test
-	public void TC_08_Login_Wrong_Email() {
-		openPageURL(driver, "https://demo.nopcommerce.com/");
+	public void TC_02_Login_Wrong_Email() {
+		System.out.println("Home Page - Step 01: Click to Login Link");
+		homePage.clickToLoginLink();
 
-		waitForElementClickable(driver, "//a[@class='ico-login']");
-		clickToElement(driver, "//a[@class='ico-login']");
+		System.out.println("Login Page - Step 02: Input to Email and Password textbox");
+		loginPage.inputToEmailTexbox("emailtesting63947#^@mila%c");
+		loginPage.inputToPasswordTextbox(password);
 
-		sendKeyToElement(driver, "//input[@id='Email']", "emailtesting63947#^@mila%c");
-		sendKeyToElement(driver, "//input[@id='Password']", "123456");
-		clickToElement(driver, "//button[contains(@class,'login-button')]");
-		Assert.assertEquals(getElementText(driver, "//span[@id='Email-error']"), "Wrong email");
+		System.out.println("Login Page - Step 03: Click to Login Button");
+		loginPage.clickToLoginButton();
+
+		System.out.println("Login Page - Step 04: Verify error message displayed");
+		Assert.assertEquals(loginPage.getErrorMessageAtEmailTextBox(), "Wrong email");
 	}
 
 	@Test
-	public void TC_09_Login_No_Customer_Account_Found() {
-		openPageURL(driver, "https://demo.nopcommerce.com/");
+	public void TC_03_Login_No_Customer_Account_Found() {
+		System.out.println("Home Page - Step 01: Click to Login Link");
+		homePage.clickToLoginLink();
 
-		waitForElementClickable(driver, "//a[@class='ico-login']");
-		clickToElement(driver, "//a[@class='ico-login']");
+		System.out.println("Login Page - Step 02: Input to Email and Password textbox");
+		loginPage.inputToEmailTexbox("emailtesting" + getRandomNumber() + "@gmail.com");
+		loginPage.inputToPasswordTextbox(password);
 
-		sendKeyToElement(driver, "//input[@id='Email']", "emailtesting" + getRandomNumber() + "@gmail.com");
-		sendKeyToElement(driver, "//input[@id='Password']", "123456");
-		clickToElement(driver, "//button[contains(@class,'login-button')]");
-		Assert.assertEquals(getElementText(driver, "//div[starts-with(@class,'message-error')]"),
+		System.out.println("Login Page - Step 03: Click to Login Button");
+		loginPage.clickToLoginButton();
+
+		System.out.println("Login Page - Step 04: Verify error message displayed");
+		Assert.assertEquals(loginPage.getLoginErrorMessage(),
 				"Login was unsuccessful. Please correct the errors and try again.\nNo customer account found");
 	}
 
 	@Test
-	public void TC_10_Login_No_Input_Pwd() {
-		openPageURL(driver, "https://demo.nopcommerce.com/");
+	public void TC_04_Login_No_Input_Pwd() {
+		System.out.println("Home Page - Step 01: Click to Register Link");
+		homePage.clickToRegisterLink();
 
-		waitForElementClickable(driver, "//a[@class='ico-register']");
-		clickToElement(driver, "//a[@class='ico-register']");
+		System.out.println("Register Page - Step 02: Input to Required fields");
+		registerPage.inputToFirstNameTextbox("Automation");
+		registerPage.inputToLastNameTextbox("Testing");
+		registerPage.inputToEmailTextbox(emailAdress);
+		registerPage.inputToPasswordTextbox(password);
+		registerPage.inputToConfirmPasswordTextbox(password);
 
-		sendKeyToElement(driver, "//input[@id='FirstName']", "Automation");
-		sendKeyToElement(driver, "//input[@id='LastName']", "Testing");
-		sendKeyToElement(driver, "//input[@id='Email']", emailAdress);
-		sendKeyToElement(driver, "//input[@id='Password']", "123456");
-		sendKeyToElement(driver, "//input[@id='ConfirmPassword']", "123456");
-		clickToElement(driver, "//button[@id='register-button']");
+		System.out.println("Register Page - Step 03: Click to Register Button");
+		registerPage.clickToRegisterButton();
 
-		Assert.assertEquals(getElementText(driver, "//div[@class='result']"), "Your registration completed");
+		System.out.println("Register Page - Step 04: Verify successful message displayed");
+		Assert.assertEquals(registerPage.getRegisterSuccessMessage(), "Your registration completed");
 
-		waitForElementClickable(driver, "//a[@class='ico-login']");
-		clickToElement(driver, "//a[@class='ico-login']");
+		System.out.println("Home Page - Step 05: Click to Login Link");
+		homePage.clickToLoginLink();
 
-		sendKeyToElement(driver, "//input[@id='Email']", emailAdress);
-		clickToElement(driver, "//button[contains(@class,'login-button')]");
-		Assert.assertEquals(getElementText(driver, "//div[starts-with(@class,'message-error')]"),
+		System.out.println("Login Page - Step 06: Input to Email textbox");
+		loginPage.inputToEmailTexbox(emailAdress);
+
+		System.out.println("Login Page - Step 07: Click to Login Button");
+		loginPage.clickToLoginButton();
+
+		System.out.println("Login Page - Step 08: Verify error message displayed");
+		Assert.assertEquals(loginPage.getLoginErrorMessage(),
 				"Login was unsuccessful. Please correct the errors and try again.\nThe credentials provided are incorrect");
 	}
 
 	@Test
-	public void TC_11_Login_Wrong_Pwd() {
-		openPageURL(driver, "https://demo.nopcommerce.com/");
+	public void TC_05_Login_Wrong_Pwd() {
+		System.out.println("Home Page - Step 01: Click to Login Link");
+		homePage.clickToLoginLink();
 
-		waitForElementClickable(driver, "//a[@class='ico-login']");
-		clickToElement(driver, "//a[@class='ico-login']");
+		System.out.println("Login Page - Step 02: Input to Email and Password textbox");
+		loginPage.inputToEmailTexbox(emailAdress);
+		loginPage.inputToPasswordTextbox("789456");
 
-		sendKeyToElement(driver, "//input[@id='Email']", emailAdress);
-		sendKeyToElement(driver, "//input[@id='Password']", "789456");
-		clickToElement(driver, "//button[contains(@class,'login-button')]");
-		Assert.assertEquals(getElementText(driver, "//div[starts-with(@class,'message-error')]"),
+		System.out.println("Login Page - Step 03: Click to Login Button");
+		loginPage.clickToLoginButton();
+
+		System.out.println("Login Page - Step 04: Verify error message displayed");
+		Assert.assertEquals(loginPage.getLoginErrorMessage(),
 				"Login was unsuccessful. Please correct the errors and try again.\nThe credentials provided are incorrect");
 	}
 
 	@Test
-	public void TC_12_Login_Successful() {
-		openPageURL(driver, "https://demo.nopcommerce.com/");
+	public void TC_06_Login_Successful() {
+		System.out.println("Home Page - Step 01: Click to Login Link");
+		homePage.clickToLoginLink();
 
-		waitForElementClickable(driver, "//a[@class='ico-login']");
-		clickToElement(driver, "//a[@class='ico-login']");
-
-		sendKeyToElement(driver, "//input[@id='Email']", emailAdress);
-		sendKeyToElement(driver, "//input[@id='Password']", "123456");
-		clickToElement(driver, "//button[contains(@class,'login-button')]");
-		Assert.assertEquals(getPageURL(driver), "https://demo.nopcommerce.com/");
+		System.out.println("Login Page - Step 02: Input to Email and Password textbox");
+		loginPage.inputToEmailTexbox(emailAdress);
+		loginPage.inputToPasswordTextbox(password);
+		
+		System.out.println("Login Page - Step 03: Click to Login Button");
+		loginPage.clickToLoginButton();
+		
+		System.out.println("Login Page - Step 04: Verify URL Page Loading Successful");
+		Assert.assertEquals(homePage.getHomePageURL(), "https://demo.nopcommerce.com/");
 	}
 
 	@AfterClass
@@ -122,4 +149,10 @@ public class User_02_Login extends BasePage {
 		quitPageURL(driver);
 	}
 
+	private WebDriver driver;
+	private String projectPath = System.getProperty("user.dir");
+	private String emailAdress, password;
+	private HomePageObject homePage;
+	private LoginPageObject loginPage;
+	private RegisterPageObject registerPage;
 }
