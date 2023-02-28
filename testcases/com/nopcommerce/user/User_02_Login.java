@@ -2,44 +2,59 @@ package com.nopcommerce.user;
 
 import org.testng.annotations.Test;
 
-import commons.BasePage;
+import commons.BaseTest;
 import pageObjects.HomePageObject;
 import pageObjects.LoginPageObject;
 import pageObjects.RegisterPageObject;
 
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
 
-import java.util.concurrent.TimeUnit;
+import java.util.Random;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 
-public class User_02_Login extends BasePage {
+public class User_02_Login extends BaseTest {
 
+	@Parameters("browser")
 	@BeforeClass
-	public void beforeClass() {
-		System.setProperty("webdriver.gecko.driver", projectPath + "\\browserDrivers\\geckodriver.exe");
-		driver = new FirefoxDriver();
-		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-		driver.manage().window().maximize();
-		openPageURL(driver, "https://demo.nopcommerce.com/");
+	public void beforeClass(String browserName) {
+		driver = getBrowserDriver(browserName);
 
-		emailAdress = "automationTest" + getRandomNumber() + "@gmail.com";
+		validEmail = "automationTest" + getRandomNumber() + "@gmail.com";
 		password = "123456";
+		noAccountEmail = "emailtesting" + getRandomNumber() + "@gmail.com";
 		
 		homePage = new HomePageObject(driver);
+		System.out.println("Home Page - Step 01: Click to Register Link");
+		homePage.clickToRegisterLink();
+
+		System.out.println("Register Page - Step 02: Input to Required fields");
 		registerPage = new RegisterPageObject(driver);
-		loginPage = new LoginPageObject(driver);
+		registerPage.inputToFirstNameTextbox("Automation");
+		registerPage.inputToLastNameTextbox("Testing");
+		registerPage.inputToEmailTextbox(validEmail);
+		registerPage.inputToPasswordTextbox(password);
+		registerPage.inputToConfirmPasswordTextbox(password);
+
+		System.out.println("Register Page - Step 03: Click to Register Button");
+		registerPage.clickToRegisterButton();
+
+		System.out.println("Register Page - Step 04: Verify successful message displayed");
+		Assert.assertEquals(registerPage.getRegisterSuccessMessage(), "Your registration completed");
+		
+		homePage = new HomePageObject(driver);
 	}
 
 	@Test
-	public void TC_01_Login_Empty_Data() {
+	public void Login_01_Empty_Data() {
 		System.out.println("Home Page - Step 01: Click to Login Link");
 		homePage.clickToLoginLink();
 
 		System.out.println("Login Page - Step 02: Click to Login Button");
+		loginPage = new LoginPageObject(driver);
 		loginPage.clickToLoginButton();
 
 		System.out.println("Login Page - Step 03: Verify error message displayed");
@@ -47,11 +62,12 @@ public class User_02_Login extends BasePage {
 	}
 
 	@Test
-	public void TC_02_Login_Wrong_Email() {
+	public void Login_02_Email_NotValid() {
 		System.out.println("Home Page - Step 01: Click to Login Link");
 		homePage.clickToLoginLink();
 
 		System.out.println("Login Page - Step 02: Input to Email and Password textbox");
+		loginPage = new LoginPageObject(driver);
 		loginPage.inputToEmailTexbox("emailtesting63947#^@mila%c");
 		loginPage.inputToPasswordTextbox(password);
 
@@ -63,12 +79,13 @@ public class User_02_Login extends BasePage {
 	}
 
 	@Test
-	public void TC_03_Login_No_Customer_Account_Found() {
+	public void Login_03_No_Customer_Account_Found() {
 		System.out.println("Home Page - Step 01: Click to Login Link");
 		homePage.clickToLoginLink();
 
 		System.out.println("Login Page - Step 02: Input to Email and Password textbox");
-		loginPage.inputToEmailTexbox("emailtesting" + getRandomNumber() + "@gmail.com");
+		loginPage = new LoginPageObject(driver);
+		loginPage.inputToEmailTexbox(noAccountEmail);
 		loginPage.inputToPasswordTextbox(password);
 
 		System.out.println("Login Page - Step 03: Click to Login Button");
@@ -80,44 +97,30 @@ public class User_02_Login extends BasePage {
 	}
 
 	@Test
-	public void TC_04_Login_No_Input_Pwd() {
-		System.out.println("Home Page - Step 01: Click to Register Link");
-		homePage.clickToRegisterLink();
-
-		System.out.println("Register Page - Step 02: Input to Required fields");
-		registerPage.inputToFirstNameTextbox("Automation");
-		registerPage.inputToLastNameTextbox("Testing");
-		registerPage.inputToEmailTextbox(emailAdress);
-		registerPage.inputToPasswordTextbox(password);
-		registerPage.inputToConfirmPasswordTextbox(password);
-
-		System.out.println("Register Page - Step 03: Click to Register Button");
-		registerPage.clickToRegisterButton();
-
-		System.out.println("Register Page - Step 04: Verify successful message displayed");
-		Assert.assertEquals(registerPage.getRegisterSuccessMessage(), "Your registration completed");
-
-		System.out.println("Home Page - Step 05: Click to Login Link");
+	public void Login_04_No_Input_Password() {
+		System.out.println("Home Page - Step 01: Click to Login Link");
 		homePage.clickToLoginLink();
 
-		System.out.println("Login Page - Step 06: Input to Email textbox");
-		loginPage.inputToEmailTexbox(emailAdress);
+		System.out.println("Login Page - Step 02: Input to Email textbox");
+		loginPage = new LoginPageObject(driver);
+		loginPage.inputToEmailTexbox(validEmail);
 
-		System.out.println("Login Page - Step 07: Click to Login Button");
+		System.out.println("Login Page - Step 03: Click to Login Button");
 		loginPage.clickToLoginButton();
 
-		System.out.println("Login Page - Step 08: Verify error message displayed");
+		System.out.println("Login Page - Step 04: Verify error message displayed");
 		Assert.assertEquals(loginPage.getLoginErrorMessage(),
 				"Login was unsuccessful. Please correct the errors and try again.\nThe credentials provided are incorrect");
 	}
 
 	@Test
-	public void TC_05_Login_Wrong_Pwd() {
+	public void Login_05_Wrong_Password() {
 		System.out.println("Home Page - Step 01: Click to Login Link");
 		homePage.clickToLoginLink();
 
 		System.out.println("Login Page - Step 02: Input to Email and Password textbox");
-		loginPage.inputToEmailTexbox(emailAdress);
+		loginPage = new LoginPageObject(driver);
+		loginPage.inputToEmailTexbox(validEmail);
 		loginPage.inputToPasswordTextbox("789456");
 
 		System.out.println("Login Page - Step 03: Click to Login Button");
@@ -129,29 +132,35 @@ public class User_02_Login extends BasePage {
 	}
 
 	@Test
-	public void TC_06_Login_Successful() {
+	public void Login_06_Login_Successful() {
 		System.out.println("Home Page - Step 01: Click to Login Link");
 		homePage.clickToLoginLink();
 
 		System.out.println("Login Page - Step 02: Input to Email and Password textbox");
-		loginPage.inputToEmailTexbox(emailAdress);
+		loginPage = new LoginPageObject(driver);
+		loginPage.inputToEmailTexbox(validEmail);
 		loginPage.inputToPasswordTextbox(password);
 		
 		System.out.println("Login Page - Step 03: Click to Login Button");
 		loginPage.clickToLoginButton();
 		
-		System.out.println("Login Page - Step 04: Verify URL Page Loading Successful");
-		Assert.assertEquals(homePage.getHomePageURL(), "https://demo.nopcommerce.com/");
+		System.out.println("Login Page - Step 04: Verify My Account Link Displayed");
+		homePage = new HomePageObject(driver);
+		Assert.assertTrue(homePage.isMyAccountLinkDisplayed());
 	}
 
 	@AfterClass
 	public void afterClass() {
-		quitPageURL(driver);
+		driver.quit();
+	}
+	
+	private int getRandomNumber() {
+		Random rand = new Random();
+		return rand.nextInt(9999);
 	}
 
 	private WebDriver driver;
-	private String projectPath = System.getProperty("user.dir");
-	private String emailAdress, password;
+	private String validEmail, noAccountEmail, password;
 	private HomePageObject homePage;
 	private LoginPageObject loginPage;
 	private RegisterPageObject registerPage;

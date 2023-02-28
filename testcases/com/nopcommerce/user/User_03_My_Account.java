@@ -3,9 +3,14 @@ package com.nopcommerce.user;
 import org.testng.annotations.Test;
 
 import commons.BasePage;
+import pageObjects.HomePageObject;
+import pageObjects.LoginPageObject;
+import pageObjects.MyAccountPageObject;
+import pageObjects.RegisterPageObject;
 
 import org.testng.annotations.BeforeClass;
 
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
@@ -14,185 +19,247 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 
 public class User_03_My_Account extends BasePage {
-	WebDriver driver;
-	String projectPath = System.getProperty("user.dir");
-	String emailAdress = "automationTest" + getRandomNumber() + "@gmail.com";
-	String emailAdress2 = "automationfc.vn" + getRandomNumber() + "@gmail.com";
-	String homepageURL = "https://demo.nopcommerce.com/";
-	String firstName1st = "Automation", lastName1st = "Testing", company1st = "FNZ", pwd1st = "123456";
-	String firstName2st = "Automation", lastName2st = "FC", company2st = "Automation FC", pwd2st = "123456789";
-
+	
 	@BeforeClass
 	public void beforeClass() {
 		System.setProperty("webdriver.gecko.driver", projectPath + "\\browserDrivers\\geckodriver.exe");
 		driver = new FirefoxDriver();
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
+		homePage = new HomePageObject(driver);
+		driver.get("https://demo.nopcommerce.com/");
+		
+		firstName1st = "Automation"; 
+		lastName1st = "Testing"; 
+		pwd1st = "123456";
+		pwd2st = "123456789";
+		firstName2st = "Automation"; 
+		lastName2st = "FC"; 
+		company2st = "Automation FC"; 
+		emailAdress = "automationTest" + getRandomNumber() + "@gmail.com";
+		emailAdress2 = "automationfc.vn" + getRandomNumber() + "@gmail.com";
+		productToReview = "Build your own computer";
+		reviewTitle = "Demo Review " + getRandomNumber();
+		
+		System.out.println("Home Page - Step 01: Click to Register Link");
+		homePage.clickToRegisterLink();
+
+		System.out.println("Register Page - Step 02: Input to Required fields");
+		registerPage = new RegisterPageObject(driver);
+		registerPage.inputToFirstNameTextbox(firstName1st);
+		registerPage.inputToLastNameTextbox(lastName1st);
+		registerPage.inputToEmailTextbox(emailAdress);
+		registerPage.inputToPasswordTextbox(pwd1st);
+		registerPage.inputToConfirmPasswordTextbox(pwd1st);
+
+		System.out.println("Register Page - Step 03: Click to Register Button");
+		registerPage.clickToRegisterButton();
+
+		System.out.println("Register Page - Step 04: Verify successful message displayed");
+		Assert.assertEquals(registerPage.getRegisterSuccessMessage(), "Your registration completed");
+		
+		System.out.println("Home Page - Step 05: Click to Login Link");
+		homePage = new HomePageObject(driver);
+		homePage.clickToLoginLink();
+		
+		System.out.println("Login Page - Step 02: Input to Email and Password textbox");
+		loginPage = new LoginPageObject(driver);
+		loginPage.inputToEmailTexbox(emailAdress);
+		loginPage.inputToPasswordTextbox(pwd1st);
+		
+		System.out.println("Login Page - Step 03: Click to Login Button");
+		loginPage.clickToLoginButton();
+		
+		System.out.println("Login Page - Step 04: Verify My Account Link Displayed");
+		homePage = new HomePageObject(driver);
+		Assert.assertTrue(homePage.isMyAccountLinkDisplayed());
 	}
 
 	@Test
-	public void TC_01_Customer_Infor() {
-		openPageURL(driver, homepageURL);
-
-		waitForElementClickable(driver, "//a[@class='ico-register']");
-		clickToElement(driver, "//a[@class='ico-register']");
-
-		clickToElement(driver, "//input[@id='gender-male']");
-		sendKeyToElement(driver, "//input[@id='FirstName']", firstName1st);
-		sendKeyToElement(driver, "//input[@id='LastName']", lastName1st);
-		selectItemInDefaultDropDown(driver, "//select[@name='DateOfBirthDay']", "3");
-		selectItemInDefaultDropDown(driver, "//select[@name='DateOfBirthMonth']", "January");
-		selectItemInDefaultDropDown(driver, "//select[@name='DateOfBirthYear']", "1917");
-		sendKeyToElement(driver, "//input[@id='Email']", emailAdress);
-		sendKeyToElement(driver, "//input[@id='Company']", company1st);
-		sendKeyToElement(driver, "//input[@id='Password']", pwd1st);
-		sendKeyToElement(driver, "//input[@id='ConfirmPassword']", pwd1st);
-		clickToElement(driver, "//button[@id='register-button']");
-		Assert.assertEquals(getElementText(driver, "//div[@class='result']"), "Your registration completed");
+	public void My_Account_01_Update_Customer_Infor() {
+		System.out.println("Home Page - Step 01: Click to My Account Link");
+		homePage.clickToMyAccountLink();
+//		waitForElementClickable(driver, "//a[@class='ico-account']");
+//		clickToElement(driver, "//a[@class='ico-account']");
 		
-		waitForElementClickable(driver, "//a[@class='ico-login']");
-		clickToElement(driver, "//a[@class='ico-login']");
+		System.out.println("My Account Page - Step 02: Update to Required fields");
+		myAccountPage = new MyAccountPageObject(driver);
+		myAccountPage.clickToGenderRadioButton();
+		myAccountPage.inputToFirstNameTextbox(firstName2st);
+		myAccountPage.inputToLastNameTextbox(lastName2st);
+		myAccountPage.selectDayDropdown("1");
+		myAccountPage.selectMonthDropdown("January");
+		myAccountPage.selectYearDropdown("1999");
+		myAccountPage.inputToEmailTextbox(emailAdress2);
+		myAccountPage.inputToCompanyNameTextbox(company2st);
+//		clickToElement(driver, "//input[@id='gender-female']");
+//		sendKeyToElement(driver, "//input[@id='FirstName']", firstName2st);
+//		sendKeyToElement(driver, "//input[@id='LastName']", lastName2st);
+//		selectItemInDefaultDropDown(driver, "//select[@name='DateOfBirthDay']", "1");
+//		selectItemInDefaultDropDown(driver, "//select[@name='DateOfBirthMonth']", "January");
+//		selectItemInDefaultDropDown(driver, "//select[@name='DateOfBirthYear']", "1999");
+//		sendKeyToElement(driver, "//input[@id='Email']", emailAdress2);
+//		sendKeyToElement(driver, "//input[@id='Company']", company2st);
 		
-		sendKeyToElement(driver, "//input[@id='Email']", emailAdress);
-		sendKeyToElement(driver, "//input[@id='Password']", pwd1st);
-		clickToElement(driver, "//button[contains(@class,'login-button')]");
-		Assert.assertEquals(getPageURL(driver), homepageURL);
+		System.out.println("My Account Page - Step 03: Click to Save Button");
+		myAccountPage.clickToSaveCustomerInfoButton();
+//		clickToElement(driver, "//button[@id='save-info-button']");
 		
-		waitForElementClickable(driver, "//a[@class='ico-account']");
-		clickToElement(driver, "//a[@class='ico-account']");
+		System.out.println("My Account Page - Step 04: Verify update information Succesfully");
+//		Assert.assertEquals(getElementText(driver, "//div[starts-with(@class,'bar-notification')]/p"), "The customer info has been updated successfully.");
+		Assert.assertEquals(myAccountPage.getSuccessMessageAtBarNotification(), "The customer info has been updated successfully.");
 		
-		Assert.assertTrue(isElementSelected(driver, "//input[@id='gender-male']"));
-		Assert.assertEquals(getElementAttribute(driver, "//input[@id='FirstName']", "value"), firstName1st);
-		Assert.assertEquals(getElementAttribute(driver, "//input[@id='LastName']", "value"), lastName1st);
-		Assert.assertEquals(getSelectedItemDefaultDropDown(driver, "//select[@name='DateOfBirthDay']"), "3");
-		Assert.assertEquals(getSelectedItemDefaultDropDown(driver, "//select[@name='DateOfBirthMonth']"), "January");
-		Assert.assertEquals(getSelectedItemDefaultDropDown(driver, "//select[@name='DateOfBirthYear']"), "1917");
-		Assert.assertEquals(getElementAttribute(driver, "//input[@id='Email']", "value"), emailAdress);
-		Assert.assertEquals(getElementAttribute(driver, "//input[@id='Company']", "value"), company1st);
-		
-		clickToElement(driver, "//input[@id='gender-female']");
-		sendKeyToElement(driver, "//input[@id='FirstName']", firstName2st);
-		sendKeyToElement(driver, "//input[@id='LastName']", lastName2st);
-		selectItemInDefaultDropDown(driver, "//select[@name='DateOfBirthDay']", "1");
-		selectItemInDefaultDropDown(driver, "//select[@name='DateOfBirthMonth']", "January");
-		selectItemInDefaultDropDown(driver, "//select[@name='DateOfBirthYear']", "1999");
-		sendKeyToElement(driver, "//input[@id='Email']", emailAdress2);
-		sendKeyToElement(driver, "//input[@id='Company']", company2st);
-		clickToElement(driver, "//button[@id='save-info-button']");
-		clickToElement(driver, "//input[@id='Newsletter']");
-		
-		Assert.assertEquals(getElementText(driver, "//div[starts-with(@class,'bar-notification')]/p"), "The customer info has been updated successfully.");
-		clickToElement(driver, "//div[starts-with(@class,'bar-notification')]//span");
-		
-		sleepInSecond(3);
-		clickToElement(driver, "//a[@class='ico-logout']");
+		System.out.println("My Account Page - Step 05: Close Bar Notification Message");
+//		clickToElement(driver, "//div[starts-with(@class,'bar-notification')]//span");
+		myAccountPage.clickCloseButtonAtBarNotification();
 	}
 
 	@Test
-	public void TC_02_Addressess() {
-		openPageURL(driver, homepageURL);
-
-		waitForElementClickable(driver, "//a[@class='ico-login']");
-		clickToElement(driver, "//a[@class='ico-login']");
+	public void My_Account_02_Add_New_Addressess() {
+		System.out.println("Home Page - Step 01: Click to My Account Link");
+		homePage.clickToMyAccountLink();
+//		waitForElementClickable(driver, "//a[@class='ico-account']");
+//		clickToElement(driver, "//a[@class='ico-account']");
 		
-		sendKeyToElement(driver, "//input[@id='Email']", emailAdress2);
-		sendKeyToElement(driver, "//input[@id='Password']", pwd1st);
-		clickToElement(driver, "//button[contains(@class,'login-button')]");
+		System.out.println("My Account Page - Step 02: Click to Addresses Link");
+		myAccountPage = new MyAccountPageObject(driver);
+//		clickToElement(driver, "//li[starts-with(@class,'customer-addresses')]/a");
+		myAccountPage.clickToAddressesNavigationLink();
 		
-		waitForElementClickable(driver, "//a[@class='ico-account']");
-		clickToElement(driver, "//a[@class='ico-account']");
+		System.out.println("My Account Page - Step 03: Click to Add New Addresses Button");
+//		waitForElementClickable(driver, "//button[contains(@class,'add-address-button')]");
+//		clickToElement(driver, "//button[contains(@class,'add-address-button')]");
+		myAccountPage.clickToAddNewButtonAddress();
 		
-		clickToElement(driver, "//li[starts-with(@class,'customer-addresses')]/a");
-		waitForElementClickable(driver, "//button[contains(@class,'add-address-button')]");
-		clickToElement(driver, "//button[contains(@class,'add-address-button')]");
+		System.out.println("My Account Page - Step 04: Input to Required fields");
+//		sendKeyToElement(driver, "//input[@id='Address_FirstName']", firstName2st);
+//		sendKeyToElement(driver, "//input[@id='Address_LastName']", lastName2st);
+//		sendKeyToElement(driver, "//input[@id='Address_Email']", emailAdress2);
+//		sendKeyToElement(driver, "//input[@id='Address_Company']", company2st);
+//		selectItemInDefaultDropDown(driver, "//select[@id='Address_CountryId']", "Viet Nam");
+//		sendKeyToElement(driver, "//input[@id='Address_City']", "Da Nang");
+//		sendKeyToElement(driver, "//input[@id='Address_Address1']", "123/4 Le Lai");
+//		sendKeyToElement(driver, "//input[@id='Address_Address2']", "234/5 Hai Phong");
+//		sendKeyToElement(driver, "//input[@id='Address_ZipPostalCode']", "550000");
+//		sendKeyToElement(driver, "//input[@id='Address_PhoneNumber']", "0123456789");
+//		sendKeyToElement(driver, "//input[@id='Address_FaxNumber']", "0987654321");
+		myAccountPage.inputToFirstNameTextboxAddress(firstName2st);
+		myAccountPage.inputToLastNameTextboxAddress(lastName2st);
+		myAccountPage.inputToEmailTextboxAddress(emailAdress2);
+		myAccountPage.inputToCompanyTextboxAddress(company2st);
+		myAccountPage.selectCountryDropdownListAddress("Viet Nam");
+		myAccountPage.selectStateProvinceDropdownListAddress("Other");
+		myAccountPage.inputToCityTextboxAddress("Da Nang");
+		myAccountPage.inputToAddress1TextboxAddress("123/4 Le Lai");
+		myAccountPage.inputToAddress2TextboxAddress("234/5 Hai Phong");
+		myAccountPage.inputToZipPostalCodeTextboxAddress("550000");
+		myAccountPage.inputToPhoneNumberTextboxAddress("0123456789");
+		myAccountPage.inputToFaxNumberTextboxAddress("0987654321");
 		
-		sendKeyToElement(driver, "//input[@id='Address_FirstName']", firstName2st);
-		sendKeyToElement(driver, "//input[@id='Address_LastName']", lastName2st);
-		sendKeyToElement(driver, "//input[@id='Address_Email']", emailAdress2);
-		sendKeyToElement(driver, "//input[@id='Address_Company']", company2st);
-		selectItemInDefaultDropDown(driver, "//select[@id='Address_CountryId']", "Viet Nam");
-		sendKeyToElement(driver, "//input[@id='Address_City']", "Da Nang");
-		sendKeyToElement(driver, "//input[@id='Address_Address1']", "123/4 Le Lai");
-		sendKeyToElement(driver, "//input[@id='Address_Address2']", "234/5 Hai Phong");
-		sendKeyToElement(driver, "//input[@id='Address_ZipPostalCode']", "550000");
-		sendKeyToElement(driver, "//input[@id='Address_PhoneNumber']", "0123456789");
-		sendKeyToElement(driver, "//input[@id='Address_FaxNumber']", "0987654321");
+		System.out.println("My Account Page - Step 05: Click to Save Address Button");
 		clickToElement(driver, "//button[contains(@class,'save-address-button')]");
+		myAccountPage.clickToSaveButtonAddress();
 		
-		Assert.assertEquals(getElementText(driver, "//div[starts-with(@class,'bar-notification')]/p"), "The new address has been added successfully.");
-		clickToElement(driver, "//div[starts-with(@class,'bar-notification')]//span");
+		System.out.println("My Account Page - Step 06: Verify successful message displayed");
+//		Assert.assertEquals(getElementText(driver, "//div[starts-with(@class,'bar-notification')]/p"), "The new address has been added successfully.");
+		Assert.assertEquals(myAccountPage.getSuccessMessageAtBarNotification(), "The new address has been added successfully.");
 		
-		Assert.assertEquals(getElementText(driver, "//li[@class='name']"), firstName2st + " " + lastName2st);
-		Assert.assertEquals(getElementText(driver, "//li[@class='email']"), "Email: " + emailAdress2);
-		Assert.assertEquals(getElementText(driver, "//li[@class='phone']"), "Phone number: " + "0123456789");
-		Assert.assertEquals(getElementText(driver, "//li[@class='fax']"), "Fax number: " + "0987654321");
-		Assert.assertEquals(getElementText(driver, "//li[@class='company']"), company2st);
-		Assert.assertEquals(getElementText(driver, "//li[@class='address1']"), "123/4 Le Lai");
-		Assert.assertEquals(getElementText(driver, "//li[@class='address2']"), "234/5 Hai Phong");
-		Assert.assertEquals(getElementText(driver, "//li[@class='city-state-zip']"), "Da Nang" + ", " + "550000");
-		Assert.assertEquals(getElementText(driver, "//li[@class='country']"), "Viet Nam");
+		System.out.println("My Account Page - Step 07: Close Bar Notification Message");
+//		clickToElement(driver, "//div[starts-with(@class,'bar-notification')]//span");
+		myAccountPage.clickCloseButtonAtBarNotification();
 		
-		sleepInSecond(3);
-		clickToElement(driver, "//a[@class='ico-logout']");
+		System.out.println("My Account Page - Step 08: Verify add New Address Succesfully");
+//		Assert.assertEquals(getElementText(driver, "//li[@class='name']"), firstName2st + " " + lastName2st);
+//		Assert.assertEquals(getElementText(driver, "//li[@class='email']"), "Email: " + emailAdress2);
+//		Assert.assertEquals(getElementText(driver, "//li[@class='phone']"), "Phone number: " + "0123456789");
+//		Assert.assertEquals(getElementText(driver, "//li[@class='fax']"), "Fax number: " + "0987654321");
+//		Assert.assertEquals(getElementText(driver, "//li[@class='company']"), company2st);
+//		Assert.assertEquals(getElementText(driver, "//li[@class='address1']"), "123/4 Le Lai");
+//		Assert.assertEquals(getElementText(driver, "//li[@class='address2']"), "234/5 Hai Phong");
+//		Assert.assertEquals(getElementText(driver, "//li[@class='city-state-zip']"), "Da Nang" + ", " + "550000");
+//		Assert.assertEquals(getElementText(driver, "//li[@class='country']"), "Viet Nam");
+		Assert.assertEquals(myAccountPage.getNameAddressList(), firstName2st + " " + lastName2st);
+		Assert.assertEquals(myAccountPage.getEmailAddressList(), "Email: " + emailAdress2);
+		Assert.assertEquals(myAccountPage.getPhoneAddressList(), "Phone number: " + "0123456789");
+		Assert.assertEquals(myAccountPage.getFaxNumberAddressList(), "Fax number: " + "0987654321");
+		Assert.assertEquals(myAccountPage.getCompanyNameAddressList(), company2st);
+		Assert.assertEquals(myAccountPage.getAddress1AddressList(), "123/4 Le Lai");
+		Assert.assertEquals(myAccountPage.getAddress2AddressList(), "234/5 Hai Phong");
+		Assert.assertEquals(myAccountPage.getCityStateZipAddressList(), "Da Nang" + ", " + "550000");
+		Assert.assertEquals(myAccountPage.getCountryNameAddressList(), "Viet Nam");	
 	}
 
 	@Test
-	public void TC_03_Change_Pwd() {
-		openPageURL(driver, homepageURL);
-
-		waitForElementClickable(driver, "//a[@class='ico-login']");
-		clickToElement(driver, "//a[@class='ico-login']");
+	public void My_Account_03_Change_Password() {
+		System.out.println("Home Page - Step 01: Click to My Account Link");
+		homePage.clickToMyAccountLink();
+//		waitForElementClickable(driver, "//a[@class='ico-account']");
+//		clickToElement(driver, "//a[@class='ico-account']");
 		
-		sendKeyToElement(driver, "//input[@id='Email']", emailAdress2);
-		sendKeyToElement(driver, "//input[@id='Password']", pwd1st);
-		clickToElement(driver, "//button[contains(@class,'login-button')]");
+		System.out.println("My Account Page - Step 02: Click to Change Password Link");
+		myAccountPage = new MyAccountPageObject(driver);
+//		clickToElement(driver, "//li[starts-with(@class,'change-password')]/a");
+		myAccountPage.clickToChangePasswordNavigationLink();
 		
-		waitForElementClickable(driver, "//a[@class='ico-account']");
-		clickToElement(driver, "//a[@class='ico-account']");
+		System.out.println("My Account Page - Step 03: Input to required fields");
+//		sendKeyToElement(driver, "//input[@id='OldPassword']", pwd1st);
+//		sendKeyToElement(driver, "//input[@id='NewPassword']", pwd2st);
+//		sendKeyToElement(driver, "//input[@id='ConfirmNewPassword']", pwd2st);
+		myAccountPage.inputToOldPasswordTextbox(pwd1st);
+		myAccountPage.inputToNewPasswordTextbox(pwd2st);
+		myAccountPage.inputToConfirmNewPasswordTextbox(pwd2st);
 		
-		clickToElement(driver, "//li[starts-with(@class,'change-password')]/a");
-		sendKeyToElement(driver, "//input[@id='OldPassword']", pwd1st);
-		sendKeyToElement(driver, "//input[@id='NewPassword']", pwd2st);
-		sendKeyToElement(driver, "//input[@id='ConfirmNewPassword']", pwd2st);
-		clickToElement(driver, "//button[contains(@class,'change-password-button')]");
+		System.out.println("My Account Page - Step 04: Click to Change Password Button");
+//		clickToElement(driver, "//button[contains(@class,'change-password-button')]");
+		myAccountPage.clickToChangePasswordButton();
 		
-		Assert.assertEquals(getElementText(driver, "//div[starts-with(@class,'bar-notification')]/p"), "Password was changed");
-		clickToElement(driver, "//div[starts-with(@class,'bar-notification')]//span");
+		System.out.println("My Account Page - Step 05: Verify successful message displayed");
+//		Assert.assertEquals(getElementText(driver, "//div[starts-with(@class,'bar-notification')]/p"), "Password was changed");
+		Assert.assertEquals(myAccountPage.getSuccessMessageAtBarNotification(), "Password was changed");
 		
-		sleepInSecond(3);
-		clickToElement(driver, "//a[@class='ico-logout']");
-		waitForElementClickable(driver, "//a[@class='ico-login']");
-		clickToElement(driver, "//a[@class='ico-login']");
+		System.out.println("My Account Page - Step 06: Close Bar Notification Message");
+//		clickToElement(driver, "//div[starts-with(@class,'bar-notification')]//span");
+		myAccountPage.clickCloseButtonAtBarNotification();
 		
-		sendKeyToElement(driver, "//input[@id='Email']", emailAdress2);
-		sendKeyToElement(driver, "//input[@id='Password']", pwd1st);
-		clickToElement(driver, "//button[contains(@class,'login-button')]");
-		Assert.assertEquals(getElementText(driver, "//div[starts-with(@class,'message-error')]"), "Login was unsuccessful. Please correct the errors and try again.\nThe credentials provided are incorrect");
+		System.out.println("Home Page - Step 07: Click to Log out Link");
+		homePage = new HomePageObject(driver);
+		homePage.clickToLogOutLink();
 		
-		sendKeyToElement(driver, "//input[@id='Email']", emailAdress2);
-		sendKeyToElement(driver, "//input[@id='Password']", pwd2st);
-		clickToElement(driver, "//button[contains(@class,'login-button')]");
-		Assert.assertEquals(getPageURL(driver), homepageURL);
+		System.out.println("Home Page - Step 08: Click to Log in Link");
+		homePage.clickToLoginLink();
 		
-		waitForElementClickable(driver, "//a[@class='ico-logout']");
-		clickToElement(driver, "//a[@class='ico-logout']");
+		System.out.println("Login Page - Step 09: Input to Email and Password textbox");
+		loginPage = new LoginPageObject(driver);
+		loginPage.inputToEmailTexbox(emailAdress2);
+		loginPage.inputToPasswordTextbox(pwd1st);
+		
+		System.out.println("Login Page - Step 10: Click to Login Button");
+		loginPage.clickToLoginButton();
+		
+		System.out.println("Login Page - Step 11: Verify error message displayed");
+		Assert.assertEquals(loginPage.getLoginErrorMessage(), "Login was unsuccessful. Please correct the errors and try again.\nThe credentials provided are incorrect");
+		
+		System.out.println("Home Page - Step 12: Click to Login Button");
+		homePage = new HomePageObject(driver);
+		
+		System.out.println("Login Page - Step 13: Input to Email and Password textbox");
+		loginPage = new LoginPageObject(driver);
+		loginPage.inputToEmailTexbox(emailAdress2);
+		loginPage.inputToPasswordTextbox(pwd2st);
+		
+		System.out.println("Login Page - Step 14: Click to Login Button");
+		loginPage.clickToLoginButton();
+		
+		System.out.println("Login Page - Step 15: Verify My Account Link Displayed");
+		homePage = new HomePageObject(driver);
+		Assert.assertTrue(homePage.isMyAccountLinkDisplayed());
 	}
 
 	@Test
-	public void TC_04_My_Product_Reviews() {
-		openPageURL(driver, homepageURL);
-		String productToReview = "Build your own computer";
-		String reviewTitle = "Demo Review " + getRandomNumber();
-		
-		waitForElementClickable(driver, "//a[@class='ico-login']");
-		clickToElement(driver, "//a[@class='ico-login']");
-		
-		sendKeyToElement(driver, "//input[@id='Email']", emailAdress2);
-		sendKeyToElement(driver, "//input[@id='Password']", pwd2st);
-		clickToElement(driver, "//button[contains(@class,'login-button')]");
-		
-		hoverMouseToElement(driver, "//ul[@class='top-menu notmobile']//a[text()='Computers ']");
-		clickToElement(driver, "//ul[@class='top-menu notmobile']//a[text()='Desktops ']");
+	public void My_Account_04_My_Product_Reviews() {
+		System.out.println("Home Page - Step 01: Click to Desktop Link Menu");
+//		hoverMouseToElement(driver, "//ul[@class='top-menu notmobile']//a[text()='Computers ']");
+//		clickToElement(driver, "//ul[@class='top-menu notmobile']//a[text()='Desktops ']");
 		
 		waitForElementClickable(driver, "//div[@class='center-2']//a[text()='" + productToReview + "']");
 		clickToElement(driver, "//div[@class='center-2']//a[text()='Build your own computer']");
@@ -219,7 +286,20 @@ public class User_03_My_Account extends BasePage {
 
 	@AfterClass
 	public void afterClass() {
-		quitPageURL(driver);
+		driver.quit();
+	}
+	
+	private int getRandomNumber() {
+		Random rand = new Random();
+		return rand.nextInt(9999);
 	}
 
+	private WebDriver driver;
+	private String projectPath = System.getProperty("user.dir");
+	private String homepageURL, emailAdress, emailAdress2, productToReview, reviewTitle;
+	private String firstName1st, lastName1st, pwd1st, firstName2st, lastName2st, company2st, pwd2st;
+	private HomePageObject homePage;
+	private RegisterPageObject registerPage;
+	private LoginPageObject loginPage;
+	private MyAccountPageObject myAccountPage;
 }

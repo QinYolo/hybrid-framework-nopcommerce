@@ -1,43 +1,39 @@
 package com.nopcommerce.user;
 
-import java.util.concurrent.TimeUnit;
+import java.util.Random;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import commons.BasePage;
+import commons.BaseTest;
 import pageObjects.HomePageObject;
 import pageObjects.RegisterPageObject;
 
-public class User_01_Register extends BasePage {
+public class User_01_Register extends BaseTest {
 
+	@Parameters("browser")
 	@BeforeClass
-	public void beforeClass() {
-		System.setProperty("webdriver.gecko.driver", projectPath + "\\browserDrivers\\geckodriver.exe");
-		driver = new FirefoxDriver();
-		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-		driver.manage().window().maximize();
-		openPageURL(driver, "https://demo.nopcommerce.com/");
-		
+	public void beforeClass(String browserName) {
+		driver = getBrowserDriver(browserName);
 		firstName = "Automation";
 		lastName = "Testing";
 		password = "123456";
 		emailAdress = "automationTest" + getRandomNumber() + "@gmail.com";
 		
 		homePage = new HomePageObject(driver);
-		registerPage = new RegisterPageObject(driver);
 	}
 
 	@Test
-	public void TC_01_Register_Empty_Data() {
+	public void Register_01_Empty_Data() {
 		System.out.println("Home Page - Step 01: Click to Register Link");
 		homePage.clickToRegisterLink();
 
 		System.out.println("Register Page - Step 02: Click to Register Button");
+		registerPage = new RegisterPageObject(driver);
 		registerPage.clickToRegisterButton();
 
 		System.out.println("Register Page - Step 03: Verify error message displayed");
@@ -49,11 +45,12 @@ public class User_01_Register extends BasePage {
 	}
 
 	@Test
-	public void TC_02_Register_Wrong_Email() {
+	public void Register_02_Email_NotValid() {
 		System.out.println("Home Page - Step 01: Click to Register Link");
 		homePage.clickToRegisterLink();
 
 		System.out.println("Register Page - Step 02: Input to Required fields");
+		registerPage = new RegisterPageObject(driver);
 		registerPage.inputToFirstNameTextbox(firstName);
 		registerPage.inputToLastNameTextbox(lastName);
 		registerPage.inputToEmailTextbox("randdddd678@yu.67#!");
@@ -68,11 +65,12 @@ public class User_01_Register extends BasePage {
 	}
 
 	@Test
-	public void TC_03_Register_Successful() {
+	public void Register_03_Register_Successful() {
 		System.out.println("Home Page - Step 01: Click to Register Link");
 		homePage.clickToRegisterLink();
 
 		System.out.println("Register Page - Step 02: Input to Required fields");
+		registerPage = new RegisterPageObject(driver);
 		registerPage.inputToFirstNameTextbox(firstName);
 		registerPage.inputToLastNameTextbox(lastName);
 		registerPage.inputToEmailTextbox(emailAdress);
@@ -87,11 +85,12 @@ public class User_01_Register extends BasePage {
 	}
 
 	@Test
-	public void TC_04_Register_Email_Already_Exists() {
+	public void Register_04_Email_Already_Exists() {
 		System.out.println("Home Page - Step 01: Click to Register Link");
 		homePage.clickToRegisterLink();
 
 		System.out.println("Register Page - Step 02: Input to Required fields");
+		registerPage = new RegisterPageObject(driver);
 		registerPage.inputToFirstNameTextbox(firstName);
 		registerPage.inputToLastNameTextbox(lastName);
 		registerPage.inputToEmailTextbox(emailAdress);
@@ -106,11 +105,12 @@ public class User_01_Register extends BasePage {
 	}
 
 	@Test
-	public void TC_05_Register_Pwd_Less_Than_6_Chars() {
+	public void  Register_05_Password_Less_Than_6_Chars() {
 		System.out.println("Home Page - Step 01: Click to Register Link");
 		homePage.clickToRegisterLink();
 
 		System.out.println("Register Page - Step 02: Input to Required fields");
+		registerPage = new RegisterPageObject(driver);
 		registerPage.inputToFirstNameTextbox(firstName);
 		registerPage.inputToLastNameTextbox(lastName);
 		registerPage.inputToEmailTextbox(emailAdress);
@@ -126,11 +126,12 @@ public class User_01_Register extends BasePage {
 	}
 
 	@Test
-	public void TC_06_Register_Pwd_Confirmation_Does_Not_Match() {
+	public void  Register_06_Password_Confirmation_Does_Not_Match() {
 		System.out.println("Home Page - Step 01: Click to Register Link");
 		homePage.clickToRegisterLink();
 
 		System.out.println("Register Page - Step 02: Input to Required fields");
+		registerPage = new RegisterPageObject(driver);
 		registerPage.inputToFirstNameTextbox(firstName);
 		registerPage.inputToLastNameTextbox(lastName);
 		registerPage.inputToEmailTextbox(emailAdress);
@@ -146,11 +147,15 @@ public class User_01_Register extends BasePage {
 
 	@AfterClass
 	public void afterClass() {
-		quitPageURL(driver);
+		driver.quit();
 	}
 
+	private int getRandomNumber() {
+		Random rand = new Random();
+		return rand.nextInt(9999);
+	}
+	
 	private WebDriver driver;
-	private String projectPath = System.getProperty("user.dir");
 	private String firstName, lastName, emailAdress, password;
 	private HomePageObject homePage;
 	private RegisterPageObject registerPage;

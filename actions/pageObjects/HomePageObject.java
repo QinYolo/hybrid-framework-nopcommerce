@@ -23,9 +23,19 @@ public class HomePageObject extends BasePage{
 		clickToElement(driver, HomePageUI.LOGIN_LINK);
 	}
 
-	public String getHomePageURL() {
-		sleepInSecond(1);
-		return getPageURL(driver);
+	public void clickToLogOutLink() {
+		waitForElementClickable(driver, HomePageUI.LOG_OUT_LINK);
+		clickToElement(driver, HomePageUI.LOG_OUT_LINK);
+	}
+
+	public boolean isMyAccountLinkDisplayed() {
+		waitForElementVisible(driver, HomePageUI.MY_ACCOUNT_LINK);
+		return isElementDisplayed(driver, HomePageUI.MY_ACCOUNT_LINK);
+	}
+
+	public void clickToMyAccountLink() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

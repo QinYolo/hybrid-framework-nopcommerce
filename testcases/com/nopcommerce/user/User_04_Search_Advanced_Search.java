@@ -1,5 +1,6 @@
 package com.nopcommerce.user;
 
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
@@ -173,6 +174,11 @@ public class User_04_Search_Advanced_Search extends BasePage {
 	@AfterClass
 	public void afterClass() {
 		quitPageURL(driver);
+	}
+	
+	private int getRandomNumber() {
+		Random rand = new Random();
+		return rand.nextInt(9999);
 	}
 
 }
