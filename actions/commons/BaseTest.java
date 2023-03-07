@@ -1,5 +1,6 @@
 package commons;
 
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
@@ -8,7 +9,6 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.opera.OperaDriver;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
@@ -38,8 +38,7 @@ public class BaseTest {
 			WebDriverManager.edgedriver().setup();
 			driver = new EdgeDriver();
 		} else if (browserName.equals("opera")) {
-			WebDriverManager.operadriver().setup();
-			driver = new OperaDriver();
+			driver = WebDriverManager.operadriver().create();
 		} else if (browserName.equals("coccoc")) {
 			WebDriverManager.chromedriver().driverVersion("109.0.5414.74").setup();
 			ChromeOptions options = new ChromeOptions();
@@ -59,5 +58,10 @@ public class BaseTest {
 		driver.get("https://demo.nopcommerce.com/");
 		
 		return driver;
+	}
+	
+	protected int getRandomNumber() {
+		Random rand = new Random();
+		return rand.nextInt(9999);
 	}
 }

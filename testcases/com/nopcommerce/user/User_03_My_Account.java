@@ -3,10 +3,10 @@ package com.nopcommerce.user;
 import org.testng.annotations.Test;
 
 import commons.BasePage;
-import pageObjects.HomePageObject;
-import pageObjects.LoginPageObject;
-import pageObjects.MyAccountPageObject;
-import pageObjects.RegisterPageObject;
+import pageObjects.nopcommerce.HomePageObject;
+import pageObjects.nopcommerce.LoginPageObject;
+import pageObjects.nopcommerce.MyAccountPageObject;
+import pageObjects.nopcommerce.RegisterPageObject;
 
 import org.testng.annotations.BeforeClass;
 
