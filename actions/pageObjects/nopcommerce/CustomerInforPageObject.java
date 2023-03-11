@@ -3,12 +3,13 @@ package pageObjects.nopcommerce;
 import org.openqa.selenium.WebDriver;
 
 import commons.BasePage;
+import pageUIs.nopcommerce.CustomerInforPageUI;
 
-public class MyAccountPageObject extends BasePage {
+public class CustomerInforPageObject extends BasePage {
 
 	private WebDriver driver;
 
-	public MyAccountPageObject(WebDriver driver) {
+	public CustomerInforPageObject(WebDriver driver) {
 		this.driver = driver;
 	}
 
@@ -211,6 +212,12 @@ public class MyAccountPageObject extends BasePage {
 		// TODO Auto-generated method stub
 		
 	}
+
+	public boolean isCustomerInforPageTitleDisplayed() {
+		waitForElementVisible(driver, CustomerInforPageUI.CUSTOMER_INFOR_PAGE_TITLE);
+		return isElementDisplayed(driver, CustomerInforPageUI.CUSTOMER_INFOR_PAGE_TITLE);
+	}
+
 
 
 

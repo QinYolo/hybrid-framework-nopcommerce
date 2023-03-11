@@ -35,8 +35,10 @@ public class HomePageObject extends BasePage{
 		return isElementDisplayed(driver, HomePageUI.MY_ACCOUNT_LINK);
 	}
 
-	public void clickToMyAccountLink() {
-		// TODO Auto-generated method stub
+	public CustomerInforPageObject clickToMyAccountLink() {
+		waitForElementClickable(driver, HomePageUI.MY_ACCOUNT_LINK);
+		clickToElement(driver, HomePageUI.MY_ACCOUNT_LINK);
+		return PageGeneratorManager.getCustomerInforPage(driver);
 		
 	}
 

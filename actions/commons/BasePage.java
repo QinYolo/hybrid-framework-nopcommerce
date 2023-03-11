@@ -15,6 +15,13 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import pageObjects.nopcommerce.AddressesPageObject;
+import pageObjects.nopcommerce.ChangePasswordPageObject;
+import pageObjects.nopcommerce.MyProductReviewsPageObject;
+import pageObjects.nopcommerce.OrdersPageObject;
+import pageObjects.nopcommerce.PageGeneratorManager;
+import pageUIs.nopcommerce.BasePageUI;
+
 public class BasePage {
 	
 	public static BasePage getBasePageObject() {
@@ -349,6 +356,30 @@ public class BasePage {
 			}
 		}
 		return false;
+	}
+	
+	public AddressesPageObject openAddressesPage(WebDriver driver) {
+		waitForElementVisible(driver, BasePageUI.ADDRESSES_LINK);
+		clickToElement(driver, BasePageUI.ADDRESSES_LINK);
+		return PageGeneratorManager.getAddressesPage(driver);
+	}
+	
+	public OrdersPageObject openOrdersPage(WebDriver driver) {
+		waitForElementVisible(driver, BasePageUI.ORDERS_LINK);
+		clickToElement(driver, BasePageUI.ORDERS_LINK);
+		return PageGeneratorManager.getOrdersPage(driver);
+	}
+	
+	public ChangePasswordPageObject openChangePasswordPage(WebDriver driver) {
+		waitForElementVisible(driver, BasePageUI.CHANGE_PASSWORD_LINK);
+		clickToElement(driver, BasePageUI.CHANGE_PASSWORD_LINK);
+		return PageGeneratorManager.getChangePasswordPage(driver);
+	}
+	
+	public MyProductReviewsPageObject openMyProductReviewsPage(WebDriver driver) {
+		waitForElementVisible(driver, BasePageUI.MY_PRODUCT_REVIEWS_LINK);
+		clickToElement(driver, BasePageUI.MY_PRODUCT_REVIEWS_LINK);
+		return PageGeneratorManager.getMyProductReviewsPage(driver);
 	}
 	
 	private long longTimeout = 30;

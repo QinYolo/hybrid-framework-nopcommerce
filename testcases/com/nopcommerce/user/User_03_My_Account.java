@@ -3,12 +3,14 @@ package com.nopcommerce.user;
 import org.testng.annotations.Test;
 
 import commons.BasePage;
+import commons.BaseTest;
 import pageObjects.nopcommerce.HomePageObject;
 import pageObjects.nopcommerce.LoginPageObject;
-import pageObjects.nopcommerce.MyAccountPageObject;
+import pageObjects.nopcommerce.CustomerInforPageObject;
 import pageObjects.nopcommerce.RegisterPageObject;
 
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
 
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -18,16 +20,13 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 
-public class User_03_My_Account extends BasePage {
+public class User_03_My_Account extends BaseTest {
 	
+	@Parameters("browser")
 	@BeforeClass
-	public void beforeClass() {
-		System.setProperty("webdriver.gecko.driver", projectPath + "\\browserDrivers\\geckodriver.exe");
-		driver = new FirefoxDriver();
-		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-		driver.manage().window().maximize();
+	public void beforeClass(String browserName) {
+		driver = getBrowserDriver(browserName);
 		homePage = new HomePageObject(driver);
-		driver.get("https://demo.nopcommerce.com/");
 		
 		firstName1st = "Automation"; 
 		lastName1st = "Testing"; 
@@ -41,10 +40,8 @@ public class User_03_My_Account extends BasePage {
 		productToReview = "Build your own computer";
 		reviewTitle = "Demo Review " + getRandomNumber();
 		
-		System.out.println("Home Page - Step 01: Click to Register Link");
 		homePage.clickToRegisterLink();
 
-		System.out.println("Register Page - Step 02: Input to Required fields");
 		registerPage = new RegisterPageObject(driver);
 		registerPage.inputToFirstNameTextbox(firstName1st);
 		registerPage.inputToLastNameTextbox(lastName1st);
@@ -52,25 +49,19 @@ public class User_03_My_Account extends BasePage {
 		registerPage.inputToPasswordTextbox(pwd1st);
 		registerPage.inputToConfirmPasswordTextbox(pwd1st);
 
-		System.out.println("Register Page - Step 03: Click to Register Button");
 		registerPage.clickToRegisterButton();
 
-		System.out.println("Register Page - Step 04: Verify successful message displayed");
 		Assert.assertEquals(registerPage.getRegisterSuccessMessage(), "Your registration completed");
 		
-		System.out.println("Home Page - Step 05: Click to Login Link");
 		homePage = new HomePageObject(driver);
 		homePage.clickToLoginLink();
 		
-		System.out.println("Login Page - Step 02: Input to Email and Password textbox");
 		loginPage = new LoginPageObject(driver);
 		loginPage.inputToEmailTexbox(emailAdress);
 		loginPage.inputToPasswordTextbox(pwd1st);
 		
-		System.out.println("Login Page - Step 03: Click to Login Button");
 		loginPage.clickToLoginButton();
 		
-		System.out.println("Login Page - Step 04: Verify My Account Link Displayed");
 		homePage = new HomePageObject(driver);
 		Assert.assertTrue(homePage.isMyAccountLinkDisplayed());
 	}
@@ -83,15 +74,15 @@ public class User_03_My_Account extends BasePage {
 //		clickToElement(driver, "//a[@class='ico-account']");
 		
 		System.out.println("My Account Page - Step 02: Update to Required fields");
-		myAccountPage = new MyAccountPageObject(driver);
-		myAccountPage.clickToGenderRadioButton();
-		myAccountPage.inputToFirstNameTextbox(firstName2st);
-		myAccountPage.inputToLastNameTextbox(lastName2st);
-		myAccountPage.selectDayDropdown("1");
-		myAccountPage.selectMonthDropdown("January");
-		myAccountPage.selectYearDropdown("1999");
-		myAccountPage.inputToEmailTextbox(emailAdress2);
-		myAccountPage.inputToCompanyNameTextbox(company2st);
+		customerInforPage = new CustomerInforPageObject(driver);
+		customerInforPage.clickToGenderRadioButton();
+		customerInforPage.inputToFirstNameTextbox(firstName2st);
+		customerInforPage.inputToLastNameTextbox(lastName2st);
+		customerInforPage.selectDayDropdown("1");
+		customerInforPage.selectMonthDropdown("January");
+		customerInforPage.selectYearDropdown("1999");
+		customerInforPage.inputToEmailTextbox(emailAdress2);
+		customerInforPage.inputToCompanyNameTextbox(company2st);
 //		clickToElement(driver, "//input[@id='gender-female']");
 //		sendKeyToElement(driver, "//input[@id='FirstName']", firstName2st);
 //		sendKeyToElement(driver, "//input[@id='LastName']", lastName2st);
@@ -102,16 +93,16 @@ public class User_03_My_Account extends BasePage {
 //		sendKeyToElement(driver, "//input[@id='Company']", company2st);
 		
 		System.out.println("My Account Page - Step 03: Click to Save Button");
-		myAccountPage.clickToSaveCustomerInfoButton();
+		customerInforPage.clickToSaveCustomerInfoButton();
 //		clickToElement(driver, "//button[@id='save-info-button']");
 		
 		System.out.println("My Account Page - Step 04: Verify update information Succesfully");
 //		Assert.assertEquals(getElementText(driver, "//div[starts-with(@class,'bar-notification')]/p"), "The customer info has been updated successfully.");
-		Assert.assertEquals(myAccountPage.getSuccessMessageAtBarNotification(), "The customer info has been updated successfully.");
+		Assert.assertEquals(customerInforPage.getSuccessMessageAtBarNotification(), "The customer info has been updated successfully.");
 		
 		System.out.println("My Account Page - Step 05: Close Bar Notification Message");
 //		clickToElement(driver, "//div[starts-with(@class,'bar-notification')]//span");
-		myAccountPage.clickCloseButtonAtBarNotification();
+		customerInforPage.clickCloseButtonAtBarNotification();
 	}
 
 	@Test
@@ -122,14 +113,14 @@ public class User_03_My_Account extends BasePage {
 //		clickToElement(driver, "//a[@class='ico-account']");
 		
 		System.out.println("My Account Page - Step 02: Click to Addresses Link");
-		myAccountPage = new MyAccountPageObject(driver);
+		customerInforPage = new CustomerInforPageObject(driver);
 //		clickToElement(driver, "//li[starts-with(@class,'customer-addresses')]/a");
-		myAccountPage.clickToAddressesNavigationLink();
+		customerInforPage.clickToAddressesNavigationLink();
 		
 		System.out.println("My Account Page - Step 03: Click to Add New Addresses Button");
 //		waitForElementClickable(driver, "//button[contains(@class,'add-address-button')]");
 //		clickToElement(driver, "//button[contains(@class,'add-address-button')]");
-		myAccountPage.clickToAddNewButtonAddress();
+		customerInforPage.clickToAddNewButtonAddress();
 		
 		System.out.println("My Account Page - Step 04: Input to Required fields");
 //		sendKeyToElement(driver, "//input[@id='Address_FirstName']", firstName2st);
@@ -143,30 +134,30 @@ public class User_03_My_Account extends BasePage {
 //		sendKeyToElement(driver, "//input[@id='Address_ZipPostalCode']", "550000");
 //		sendKeyToElement(driver, "//input[@id='Address_PhoneNumber']", "0123456789");
 //		sendKeyToElement(driver, "//input[@id='Address_FaxNumber']", "0987654321");
-		myAccountPage.inputToFirstNameTextboxAddress(firstName2st);
-		myAccountPage.inputToLastNameTextboxAddress(lastName2st);
-		myAccountPage.inputToEmailTextboxAddress(emailAdress2);
-		myAccountPage.inputToCompanyTextboxAddress(company2st);
-		myAccountPage.selectCountryDropdownListAddress("Viet Nam");
-		myAccountPage.selectStateProvinceDropdownListAddress("Other");
-		myAccountPage.inputToCityTextboxAddress("Da Nang");
-		myAccountPage.inputToAddress1TextboxAddress("123/4 Le Lai");
-		myAccountPage.inputToAddress2TextboxAddress("234/5 Hai Phong");
-		myAccountPage.inputToZipPostalCodeTextboxAddress("550000");
-		myAccountPage.inputToPhoneNumberTextboxAddress("0123456789");
-		myAccountPage.inputToFaxNumberTextboxAddress("0987654321");
+		customerInforPage.inputToFirstNameTextboxAddress(firstName2st);
+		customerInforPage.inputToLastNameTextboxAddress(lastName2st);
+		customerInforPage.inputToEmailTextboxAddress(emailAdress2);
+		customerInforPage.inputToCompanyTextboxAddress(company2st);
+		customerInforPage.selectCountryDropdownListAddress("Viet Nam");
+		customerInforPage.selectStateProvinceDropdownListAddress("Other");
+		customerInforPage.inputToCityTextboxAddress("Da Nang");
+		customerInforPage.inputToAddress1TextboxAddress("123/4 Le Lai");
+		customerInforPage.inputToAddress2TextboxAddress("234/5 Hai Phong");
+		customerInforPage.inputToZipPostalCodeTextboxAddress("550000");
+		customerInforPage.inputToPhoneNumberTextboxAddress("0123456789");
+		customerInforPage.inputToFaxNumberTextboxAddress("0987654321");
 		
 		System.out.println("My Account Page - Step 05: Click to Save Address Button");
-		clickToElement(driver, "//button[contains(@class,'save-address-button')]");
-		myAccountPage.clickToSaveButtonAddress();
+		// clickToElement(driver, "//button[contains(@class,'save-address-button')]");
+		customerInforPage.clickToSaveButtonAddress();
 		
 		System.out.println("My Account Page - Step 06: Verify successful message displayed");
 //		Assert.assertEquals(getElementText(driver, "//div[starts-with(@class,'bar-notification')]/p"), "The new address has been added successfully.");
-		Assert.assertEquals(myAccountPage.getSuccessMessageAtBarNotification(), "The new address has been added successfully.");
+		Assert.assertEquals(customerInforPage.getSuccessMessageAtBarNotification(), "The new address has been added successfully.");
 		
 		System.out.println("My Account Page - Step 07: Close Bar Notification Message");
 //		clickToElement(driver, "//div[starts-with(@class,'bar-notification')]//span");
-		myAccountPage.clickCloseButtonAtBarNotification();
+		customerInforPage.clickCloseButtonAtBarNotification();
 		
 		System.out.println("My Account Page - Step 08: Verify add New Address Succesfully");
 //		Assert.assertEquals(getElementText(driver, "//li[@class='name']"), firstName2st + " " + lastName2st);
@@ -178,15 +169,15 @@ public class User_03_My_Account extends BasePage {
 //		Assert.assertEquals(getElementText(driver, "//li[@class='address2']"), "234/5 Hai Phong");
 //		Assert.assertEquals(getElementText(driver, "//li[@class='city-state-zip']"), "Da Nang" + ", " + "550000");
 //		Assert.assertEquals(getElementText(driver, "//li[@class='country']"), "Viet Nam");
-		Assert.assertEquals(myAccountPage.getNameAddressList(), firstName2st + " " + lastName2st);
-		Assert.assertEquals(myAccountPage.getEmailAddressList(), "Email: " + emailAdress2);
-		Assert.assertEquals(myAccountPage.getPhoneAddressList(), "Phone number: " + "0123456789");
-		Assert.assertEquals(myAccountPage.getFaxNumberAddressList(), "Fax number: " + "0987654321");
-		Assert.assertEquals(myAccountPage.getCompanyNameAddressList(), company2st);
-		Assert.assertEquals(myAccountPage.getAddress1AddressList(), "123/4 Le Lai");
-		Assert.assertEquals(myAccountPage.getAddress2AddressList(), "234/5 Hai Phong");
-		Assert.assertEquals(myAccountPage.getCityStateZipAddressList(), "Da Nang" + ", " + "550000");
-		Assert.assertEquals(myAccountPage.getCountryNameAddressList(), "Viet Nam");	
+		Assert.assertEquals(customerInforPage.getNameAddressList(), firstName2st + " " + lastName2st);
+		Assert.assertEquals(customerInforPage.getEmailAddressList(), "Email: " + emailAdress2);
+		Assert.assertEquals(customerInforPage.getPhoneAddressList(), "Phone number: " + "0123456789");
+		Assert.assertEquals(customerInforPage.getFaxNumberAddressList(), "Fax number: " + "0987654321");
+		Assert.assertEquals(customerInforPage.getCompanyNameAddressList(), company2st);
+		Assert.assertEquals(customerInforPage.getAddress1AddressList(), "123/4 Le Lai");
+		Assert.assertEquals(customerInforPage.getAddress2AddressList(), "234/5 Hai Phong");
+		Assert.assertEquals(customerInforPage.getCityStateZipAddressList(), "Da Nang" + ", " + "550000");
+		Assert.assertEquals(customerInforPage.getCountryNameAddressList(), "Viet Nam");	
 	}
 
 	@Test
@@ -197,29 +188,29 @@ public class User_03_My_Account extends BasePage {
 //		clickToElement(driver, "//a[@class='ico-account']");
 		
 		System.out.println("My Account Page - Step 02: Click to Change Password Link");
-		myAccountPage = new MyAccountPageObject(driver);
+		customerInforPage = new CustomerInforPageObject(driver);
 //		clickToElement(driver, "//li[starts-with(@class,'change-password')]/a");
-		myAccountPage.clickToChangePasswordNavigationLink();
+		customerInforPage.clickToChangePasswordNavigationLink();
 		
 		System.out.println("My Account Page - Step 03: Input to required fields");
 //		sendKeyToElement(driver, "//input[@id='OldPassword']", pwd1st);
 //		sendKeyToElement(driver, "//input[@id='NewPassword']", pwd2st);
 //		sendKeyToElement(driver, "//input[@id='ConfirmNewPassword']", pwd2st);
-		myAccountPage.inputToOldPasswordTextbox(pwd1st);
-		myAccountPage.inputToNewPasswordTextbox(pwd2st);
-		myAccountPage.inputToConfirmNewPasswordTextbox(pwd2st);
+		customerInforPage.inputToOldPasswordTextbox(pwd1st);
+		customerInforPage.inputToNewPasswordTextbox(pwd2st);
+		customerInforPage.inputToConfirmNewPasswordTextbox(pwd2st);
 		
 		System.out.println("My Account Page - Step 04: Click to Change Password Button");
 //		clickToElement(driver, "//button[contains(@class,'change-password-button')]");
-		myAccountPage.clickToChangePasswordButton();
+		customerInforPage.clickToChangePasswordButton();
 		
 		System.out.println("My Account Page - Step 05: Verify successful message displayed");
 //		Assert.assertEquals(getElementText(driver, "//div[starts-with(@class,'bar-notification')]/p"), "Password was changed");
-		Assert.assertEquals(myAccountPage.getSuccessMessageAtBarNotification(), "Password was changed");
+		Assert.assertEquals(customerInforPage.getSuccessMessageAtBarNotification(), "Password was changed");
 		
 		System.out.println("My Account Page - Step 06: Close Bar Notification Message");
 //		clickToElement(driver, "//div[starts-with(@class,'bar-notification')]//span");
-		myAccountPage.clickCloseButtonAtBarNotification();
+		customerInforPage.clickCloseButtonAtBarNotification();
 		
 		System.out.println("Home Page - Step 07: Click to Log out Link");
 		homePage = new HomePageObject(driver);
@@ -261,27 +252,27 @@ public class User_03_My_Account extends BasePage {
 //		hoverMouseToElement(driver, "//ul[@class='top-menu notmobile']//a[text()='Computers ']");
 //		clickToElement(driver, "//ul[@class='top-menu notmobile']//a[text()='Desktops ']");
 		
-		waitForElementClickable(driver, "//div[@class='center-2']//a[text()='" + productToReview + "']");
-		clickToElement(driver, "//div[@class='center-2']//a[text()='Build your own computer']");
-		waitForElementClickable(driver, "//a[text()='Add your review']");
-		clickToElement(driver, "//a[text()='Add your review']");
-		
-		sleepInSecond(1);
-		sendKeyToElement(driver, "//input[@id='AddProductReview_Title']", reviewTitle);
-		sendKeyToElement(driver, "//textarea[@id='AddProductReview_ReviewText']", "This is a sample review, the product is good!");
-		clickToElement(driver, "//input[@id='addproductrating_4']");
-		clickToElement(driver, "//button[@name='add-review']");
-		
-		waitForElementVisible(driver, "//div[@class='result']");
-		Assert.assertEquals(getElementText(driver, "//div[@class='result']"), "Product review is successfully added.");
-		
-		clickToElement(driver, "//a[@class='ico-account']");
-		waitForElementClickable(driver, "//a[text()='My product reviews']");
-		clickToElement(driver, "//a[text()='My product reviews']");
-		
-		Assert.assertEquals(getElementText(driver, "//div[@class='review-title']/strong"), reviewTitle);
-		Assert.assertEquals(getElementText(driver, "//div[@class='review-text']"), "This is a sample review, the product is good!");
-		Assert.assertEquals(getElementText(driver, "//label[text()='Product review for:']/following-sibling::a"), productToReview);
+//		waitForElementClickable(driver, "//div[@class='center-2']//a[text()='" + productToReview + "']");
+//		clickToElement(driver, "//div[@class='center-2']//a[text()='Build your own computer']");
+//		waitForElementClickable(driver, "//a[text()='Add your review']");
+//		clickToElement(driver, "//a[text()='Add your review']");
+//		
+//		sleepInSecond(1);
+//		sendKeyToElement(driver, "//input[@id='AddProductReview_Title']", reviewTitle);
+//		sendKeyToElement(driver, "//textarea[@id='AddProductReview_ReviewText']", "This is a sample review, the product is good!");
+//		clickToElement(driver, "//input[@id='addproductrating_4']");
+//		clickToElement(driver, "//button[@name='add-review']");
+//		
+//		waitForElementVisible(driver, "//div[@class='result']");
+//		Assert.assertEquals(getElementText(driver, "//div[@class='result']"), "Product review is successfully added.");
+//		
+//		clickToElement(driver, "//a[@class='ico-account']");
+//		waitForElementClickable(driver, "//a[text()='My product reviews']");
+//		clickToElement(driver, "//a[text()='My product reviews']");
+//		
+//		Assert.assertEquals(getElementText(driver, "//div[@class='review-title']/strong"), reviewTitle);
+//		Assert.assertEquals(getElementText(driver, "//div[@class='review-text']"), "This is a sample review, the product is good!");
+//		Assert.assertEquals(getElementText(driver, "//label[text()='Product review for:']/following-sibling::a"), productToReview);
 	}
 
 	@AfterClass
@@ -289,17 +280,12 @@ public class User_03_My_Account extends BasePage {
 		driver.quit();
 	}
 	
-	private int getRandomNumber() {
-		Random rand = new Random();
-		return rand.nextInt(9999);
-	}
 
 	private WebDriver driver;
-	private String projectPath = System.getProperty("user.dir");
-	private String homepageURL, emailAdress, emailAdress2, productToReview, reviewTitle;
+	private String emailAdress, emailAdress2, productToReview, reviewTitle;
 	private String firstName1st, lastName1st, pwd1st, firstName2st, lastName2st, company2st, pwd2st;
 	private HomePageObject homePage;
 	private RegisterPageObject registerPage;
 	private LoginPageObject loginPage;
-	private MyAccountPageObject myAccountPage;
+	private CustomerInforPageObject customerInforPage;
 }

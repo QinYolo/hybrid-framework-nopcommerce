@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="NopCommerce">
 
-	<test name="Run On chrome">
-		<parameter name="browser" value="chrome" />
+	<test name="Run On Firefox">
+		<parameter name="browser" value="firefox" />
 		<classes>
-			<class name="com.nopcommerce.user.User_02_Login" />
+			<class name="base.testcase.Level_01_Switch_Page" />
 		</classes>
 	</test>
 
