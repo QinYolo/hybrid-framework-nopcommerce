@@ -4,10 +4,10 @@ import org.testng.annotations.Test;
 
 import commons.BasePage;
 import commons.BaseTest;
-import pageObjects.nopcommerce.HomePageObject;
-import pageObjects.nopcommerce.LoginPageObject;
-import pageObjects.nopcommerce.CustomerInforPageObject;
-import pageObjects.nopcommerce.RegisterPageObject;
+import pageObjects.nopcommerce.user.UserCustomerInforPageObject;
+import pageObjects.nopcommerce.user.UserHomePageObject;
+import pageObjects.nopcommerce.user.UserLoginPageObject;
+import pageObjects.nopcommerce.user.UserRegisterPageObject;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
@@ -26,7 +26,7 @@ public class User_03_My_Account extends BaseTest {
 	@BeforeClass
 	public void beforeClass(String browserName) {
 		driver = getBrowserDriver(browserName);
-		homePage = new HomePageObject(driver);
+		homePage = new UserHomePageObject(driver);
 		
 		firstName1st = "Automation"; 
 		lastName1st = "Testing"; 
@@ -42,7 +42,7 @@ public class User_03_My_Account extends BaseTest {
 		
 		homePage.clickToRegisterLink();
 
-		registerPage = new RegisterPageObject(driver);
+		registerPage = new UserRegisterPageObject(driver);
 		registerPage.inputToFirstNameTextbox(firstName1st);
 		registerPage.inputToLastNameTextbox(lastName1st);
 		registerPage.inputToEmailTextbox(emailAdress);
@@ -53,16 +53,16 @@ public class User_03_My_Account extends BaseTest {
 
 		Assert.assertEquals(registerPage.getRegisterSuccessMessage(), "Your registration completed");
 		
-		homePage = new HomePageObject(driver);
+		homePage = new UserHomePageObject(driver);
 		homePage.clickToLoginLink();
 		
-		loginPage = new LoginPageObject(driver);
+		loginPage = new UserLoginPageObject(driver);
 		loginPage.inputToEmailTexbox(emailAdress);
 		loginPage.inputToPasswordTextbox(pwd1st);
 		
 		loginPage.clickToLoginButton();
 		
-		homePage = new HomePageObject(driver);
+		homePage = new UserHomePageObject(driver);
 		Assert.assertTrue(homePage.isMyAccountLinkDisplayed());
 	}
 
@@ -74,7 +74,7 @@ public class User_03_My_Account extends BaseTest {
 //		clickToElement(driver, "//a[@class='ico-account']");
 		
 		System.out.println("My Account Page - Step 02: Update to Required fields");
-		customerInforPage = new CustomerInforPageObject(driver);
+		customerInforPage = new UserCustomerInforPageObject(driver);
 		customerInforPage.clickToGenderRadioButton();
 		customerInforPage.inputToFirstNameTextbox(firstName2st);
 		customerInforPage.inputToLastNameTextbox(lastName2st);
@@ -113,7 +113,7 @@ public class User_03_My_Account extends BaseTest {
 //		clickToElement(driver, "//a[@class='ico-account']");
 		
 		System.out.println("My Account Page - Step 02: Click to Addresses Link");
-		customerInforPage = new CustomerInforPageObject(driver);
+		customerInforPage = new UserCustomerInforPageObject(driver);
 //		clickToElement(driver, "//li[starts-with(@class,'customer-addresses')]/a");
 		customerInforPage.clickToAddressesNavigationLink();
 		
@@ -188,7 +188,7 @@ public class User_03_My_Account extends BaseTest {
 //		clickToElement(driver, "//a[@class='ico-account']");
 		
 		System.out.println("My Account Page - Step 02: Click to Change Password Link");
-		customerInforPage = new CustomerInforPageObject(driver);
+		customerInforPage = new UserCustomerInforPageObject(driver);
 //		clickToElement(driver, "//li[starts-with(@class,'change-password')]/a");
 		customerInforPage.clickToChangePasswordNavigationLink();
 		
@@ -213,14 +213,14 @@ public class User_03_My_Account extends BaseTest {
 		customerInforPage.clickCloseButtonAtBarNotification();
 		
 		System.out.println("Home Page - Step 07: Click to Log out Link");
-		homePage = new HomePageObject(driver);
-		homePage.clickToLogOutLink();
+		homePage = new UserHomePageObject(driver);
+		homePage.clickToLogOutLinkAtUserPage(driver);
 		
 		System.out.println("Home Page - Step 08: Click to Log in Link");
 		homePage.clickToLoginLink();
 		
 		System.out.println("Login Page - Step 09: Input to Email and Password textbox");
-		loginPage = new LoginPageObject(driver);
+		loginPage = new UserLoginPageObject(driver);
 		loginPage.inputToEmailTexbox(emailAdress2);
 		loginPage.inputToPasswordTextbox(pwd1st);
 		
@@ -231,10 +231,10 @@ public class User_03_My_Account extends BaseTest {
 		Assert.assertEquals(loginPage.getLoginErrorMessage(), "Login was unsuccessful. Please correct the errors and try again.\nThe credentials provided are incorrect");
 		
 		System.out.println("Home Page - Step 12: Click to Login Button");
-		homePage = new HomePageObject(driver);
+		homePage = new UserHomePageObject(driver);
 		
 		System.out.println("Login Page - Step 13: Input to Email and Password textbox");
-		loginPage = new LoginPageObject(driver);
+		loginPage = new UserLoginPageObject(driver);
 		loginPage.inputToEmailTexbox(emailAdress2);
 		loginPage.inputToPasswordTextbox(pwd2st);
 		
@@ -242,7 +242,7 @@ public class User_03_My_Account extends BaseTest {
 		loginPage.clickToLoginButton();
 		
 		System.out.println("Login Page - Step 15: Verify My Account Link Displayed");
-		homePage = new HomePageObject(driver);
+		homePage = new UserHomePageObject(driver);
 		Assert.assertTrue(homePage.isMyAccountLinkDisplayed());
 	}
 
@@ -284,8 +284,8 @@ public class User_03_My_Account extends BaseTest {
 	private WebDriver driver;
 	private String emailAdress, emailAdress2, productToReview, reviewTitle;
 	private String firstName1st, lastName1st, pwd1st, firstName2st, lastName2st, company2st, pwd2st;
-	private HomePageObject homePage;
-	private RegisterPageObject registerPage;
-	private LoginPageObject loginPage;
-	private CustomerInforPageObject customerInforPage;
+	private UserHomePageObject homePage;
+	private UserRegisterPageObject registerPage;
+	private UserLoginPageObject loginPage;
+	private UserCustomerInforPageObject customerInforPage;
 }

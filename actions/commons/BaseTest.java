@@ -55,7 +55,7 @@ public class BaseTest {
 		
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
-		driver.get("https://demo.nopcommerce.com/");
+		driver.get(GlobalConstant.USER_PAGE_URL);
 		
 		return driver;
 	}

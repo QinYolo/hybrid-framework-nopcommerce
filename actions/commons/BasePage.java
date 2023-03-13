@@ -15,12 +15,15 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import pageObjects.nopcommerce.AddressesPageObject;
-import pageObjects.nopcommerce.ChangePasswordPageObject;
-import pageObjects.nopcommerce.MyProductReviewsPageObject;
-import pageObjects.nopcommerce.OrdersPageObject;
-import pageObjects.nopcommerce.PageGeneratorManager;
-import pageUIs.nopcommerce.BasePageUI;
+import pageObjects.nopcommerce.user.UserAddressesPageObject;
+import pageObjects.nopcommerce.user.UserChangePasswordPageObject;
+import pageObjects.nopcommerce.user.UserHomePageObject;
+import pageObjects.nopcommerce.user.UserMyProductReviewsPageObject;
+import pageObjects.nopcommerce.user.UserOrdersPageObject;
+import pageUIs.nopcommerce.user.BasePageUI;
+import pageUIs.nopcommerce.user.UserHomePageUI;
+import pageObjects.nopcommerce.admin.AdminLoginPageObject;
+import pageObjects.nopcommerce.user.PageGeneratorManager;
 
 public class BasePage {
 	
@@ -28,7 +31,7 @@ public class BasePage {
 		return new BasePage();
 	}
 	
-	protected void openPageURL (WebDriver driver, String pageURL) {
+	public void openPageURL (WebDriver driver, String pageURL) {
 		driver.get(pageURL);
 	}
 	
@@ -358,28 +361,40 @@ public class BasePage {
 		return false;
 	}
 	
-	public AddressesPageObject openAddressesPage(WebDriver driver) {
+	public UserAddressesPageObject openAddressesPage(WebDriver driver) {
 		waitForElementVisible(driver, BasePageUI.ADDRESSES_LINK);
 		clickToElement(driver, BasePageUI.ADDRESSES_LINK);
-		return PageGeneratorManager.getAddressesPage(driver);
+		return PageGeneratorManager.getUserAddressesPage(driver);
 	}
 	
-	public OrdersPageObject openOrdersPage(WebDriver driver) {
+	public UserOrdersPageObject openOrdersPage(WebDriver driver) {
 		waitForElementVisible(driver, BasePageUI.ORDERS_LINK);
 		clickToElement(driver, BasePageUI.ORDERS_LINK);
-		return PageGeneratorManager.getOrdersPage(driver);
+		return PageGeneratorManager.getUserOrdersPage(driver);
 	}
 	
-	public ChangePasswordPageObject openChangePasswordPage(WebDriver driver) {
+	public UserChangePasswordPageObject openChangePasswordPage(WebDriver driver) {
 		waitForElementVisible(driver, BasePageUI.CHANGE_PASSWORD_LINK);
 		clickToElement(driver, BasePageUI.CHANGE_PASSWORD_LINK);
-		return PageGeneratorManager.getChangePasswordPage(driver);
+		return PageGeneratorManager.getUserChangePasswordPage(driver);
 	}
 	
-	public MyProductReviewsPageObject openMyProductReviewsPage(WebDriver driver) {
+	public UserMyProductReviewsPageObject openMyProductReviewsPage(WebDriver driver) {
 		waitForElementVisible(driver, BasePageUI.MY_PRODUCT_REVIEWS_LINK);
 		clickToElement(driver, BasePageUI.MY_PRODUCT_REVIEWS_LINK);
-		return PageGeneratorManager.getMyProductReviewsPage(driver);
+		return PageGeneratorManager.getUserMyProductReviewsPage(driver);
+	}
+	
+	public UserHomePageObject clickToLogOutLinkAtUserPage(WebDriver driver) {
+		waitForElementClickable(driver, BasePageUI.LOGOUT_LINK_AT_USER);
+		clickToElement(driver, BasePageUI.LOGOUT_LINK_AT_USER);
+		return PageGeneratorManager.getUserHomePage(driver);
+	}
+	
+	public AdminLoginPageObject clickToLogOutLinkAtAdminPage(WebDriver driver) {
+		waitForElementClickable(driver, BasePageUI.LOGOUT_LINK_AT_ADMIN);
+		clickToElement(driver, BasePageUI.LOGOUT_LINK_AT_ADMIN);
+		return PageGeneratorManager.getAdminLoginPage(driver);
 	}
 	
 	private long longTimeout = 30;

@@ -8,9 +8,9 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import commons.BaseTest;
-import pageObjects.nopcommerce.HomePageObject;
-import pageObjects.nopcommerce.PageGeneratorManager;
-import pageObjects.nopcommerce.RegisterPageObject;
+import pageObjects.nopcommerce.user.UserHomePageObject;
+import pageObjects.nopcommerce.user.PageGeneratorManager;
+import pageObjects.nopcommerce.user.UserRegisterPageObject;
 
 public class User_01_Register extends BaseTest {
 
@@ -23,96 +23,96 @@ public class User_01_Register extends BaseTest {
 		password = "123456";
 		emailAdress = "automationTest" + getRandomNumber() + "@gmail.com";
 		
-		homePage = PageGeneratorManager.getHomePage(driver);
+		userHomePage = PageGeneratorManager.getUserHomePage(driver);
 	}
 
 	@Test
 	public void Register_01_Empty_Data() {
-		registerPage = homePage.clickToRegisterLink();
+		userRegisterPage = userHomePage.clickToRegisterLink();
 
-		registerPage.clickToRegisterButton();
+		userRegisterPage.clickToRegisterButton();
 
-		Assert.assertEquals(registerPage.getErrorMessageAtFirstNameTextbox(), "First name is required.");
-		Assert.assertEquals(registerPage.getErrorMessageAtLastNameTextbox(), "Last name is required.");
-		Assert.assertEquals(registerPage.getErrorMessageAtEmailTextbox(), "Email is required.");
-		Assert.assertEquals(registerPage.getErrorMessageAtPasswordTextbox(), "Password is required.");
-		Assert.assertEquals(registerPage.getErrorMessageAtConfirmPasswordTextbox(), "Password is required.");
+		Assert.assertEquals(userRegisterPage.getErrorMessageAtFirstNameTextbox(), "First name is required.");
+		Assert.assertEquals(userRegisterPage.getErrorMessageAtLastNameTextbox(), "Last name is required.");
+		Assert.assertEquals(userRegisterPage.getErrorMessageAtEmailTextbox(), "Email is required.");
+		Assert.assertEquals(userRegisterPage.getErrorMessageAtPasswordTextbox(), "Password is required.");
+		Assert.assertEquals(userRegisterPage.getErrorMessageAtConfirmPasswordTextbox(), "Password is required.");
 	}
 
 	@Test
 	public void Register_02_Email_NotValid() {
-		registerPage = homePage.clickToRegisterLink();
+		userRegisterPage = userHomePage.clickToRegisterLink();
 
-		registerPage.inputToFirstNameTextbox(firstName);
-		registerPage.inputToLastNameTextbox(lastName);
-		registerPage.inputToEmailTextbox("randdddd678@yu.67#!");
-		registerPage.inputToPasswordTextbox(password);
-		registerPage.inputToConfirmPasswordTextbox(password);
+		userRegisterPage.inputToFirstNameTextbox(firstName);
+		userRegisterPage.inputToLastNameTextbox(lastName);
+		userRegisterPage.inputToEmailTextbox("randdddd678@yu.67#!");
+		userRegisterPage.inputToPasswordTextbox(password);
+		userRegisterPage.inputToConfirmPasswordTextbox(password);
 
-		registerPage.clickToRegisterButton();
+		userRegisterPage.clickToRegisterButton();
 
-		Assert.assertEquals(registerPage.getErrorMessageAtEmailTextbox(), "Wrong email");
+		Assert.assertEquals(userRegisterPage.getErrorMessageAtEmailTextbox(), "Wrong email");
 	}
 
 	@Test
 	public void Register_03_Register_Successful() {
-		registerPage = homePage.clickToRegisterLink();
+		userRegisterPage = userHomePage.clickToRegisterLink();
 
-		registerPage.inputToFirstNameTextbox(firstName);
-		registerPage.inputToLastNameTextbox(lastName);
-		registerPage.inputToEmailTextbox(emailAdress);
-		registerPage.inputToPasswordTextbox(password);
-		registerPage.inputToConfirmPasswordTextbox(password);
+		userRegisterPage.inputToFirstNameTextbox(firstName);
+		userRegisterPage.inputToLastNameTextbox(lastName);
+		userRegisterPage.inputToEmailTextbox(emailAdress);
+		userRegisterPage.inputToPasswordTextbox(password);
+		userRegisterPage.inputToConfirmPasswordTextbox(password);
 
-		registerPage.clickToRegisterButton();
+		userRegisterPage.clickToRegisterButton();
 
-		Assert.assertEquals(registerPage.getRegisterSuccessMessage(), "Your registration completed");
+		Assert.assertEquals(userRegisterPage.getRegisterSuccessMessage(), "Your registration completed");
 	}
 
 	@Test
 	public void Register_04_Email_Already_Exists() {
-		registerPage = homePage.clickToRegisterLink();
+		userRegisterPage = userHomePage.clickToRegisterLink();
 
-		registerPage.inputToFirstNameTextbox(firstName);
-		registerPage.inputToLastNameTextbox(lastName);
-		registerPage.inputToEmailTextbox(emailAdress);
-		registerPage.inputToPasswordTextbox(password);
-		registerPage.inputToConfirmPasswordTextbox(password);
+		userRegisterPage.inputToFirstNameTextbox(firstName);
+		userRegisterPage.inputToLastNameTextbox(lastName);
+		userRegisterPage.inputToEmailTextbox(emailAdress);
+		userRegisterPage.inputToPasswordTextbox(password);
+		userRegisterPage.inputToConfirmPasswordTextbox(password);
 
-		registerPage.clickToRegisterButton();
+		userRegisterPage.clickToRegisterButton();
 
-		Assert.assertEquals(registerPage.getErrorEmailExistingMessage(), "The specified email already exists");
+		Assert.assertEquals(userRegisterPage.getErrorEmailExistingMessage(), "The specified email already exists");
 	}
 
 	@Test
 	public void  Register_05_Password_Less_Than_6_Chars() {
-		registerPage = homePage.clickToRegisterLink();
+		userRegisterPage = userHomePage.clickToRegisterLink();
 
-		registerPage.inputToFirstNameTextbox(firstName);
-		registerPage.inputToLastNameTextbox(lastName);
-		registerPage.inputToEmailTextbox(emailAdress);
-		registerPage.inputToPasswordTextbox("123");
-		registerPage.inputToConfirmPasswordTextbox("123");
+		userRegisterPage.inputToFirstNameTextbox(firstName);
+		userRegisterPage.inputToLastNameTextbox(lastName);
+		userRegisterPage.inputToEmailTextbox(emailAdress);
+		userRegisterPage.inputToPasswordTextbox("123");
+		userRegisterPage.inputToConfirmPasswordTextbox("123");
 
-		registerPage.clickToRegisterButton();
+		userRegisterPage.clickToRegisterButton();
 
-		Assert.assertEquals(registerPage.getErrorMessageAtPasswordTextbox(),
+		Assert.assertEquals(userRegisterPage.getErrorMessageAtPasswordTextbox(),
 				"Password must meet the following rules:\nmust have at least 6 characters");
 	}
 
 	@Test
 	public void  Register_06_Password_Confirmation_Does_Not_Match() {
-		registerPage = homePage.clickToRegisterLink();
+		userRegisterPage = userHomePage.clickToRegisterLink();
 
-		registerPage.inputToFirstNameTextbox(firstName);
-		registerPage.inputToLastNameTextbox(lastName);
-		registerPage.inputToEmailTextbox(emailAdress);
-		registerPage.inputToPasswordTextbox(password);
-		registerPage.inputToConfirmPasswordTextbox("123");
+		userRegisterPage.inputToFirstNameTextbox(firstName);
+		userRegisterPage.inputToLastNameTextbox(lastName);
+		userRegisterPage.inputToEmailTextbox(emailAdress);
+		userRegisterPage.inputToPasswordTextbox(password);
+		userRegisterPage.inputToConfirmPasswordTextbox("123");
 
-		registerPage.clickToRegisterButton();
+		userRegisterPage.clickToRegisterButton();
 		
-		Assert.assertEquals(registerPage.getErrorMessageAtConfirmPasswordTextbox(), "The password and confirmation password do not match.");
+		Assert.assertEquals(userRegisterPage.getErrorMessageAtConfirmPasswordTextbox(), "The password and confirmation password do not match.");
 	}
 
 	@AfterClass
@@ -122,6 +122,6 @@ public class User_01_Register extends BaseTest {
 
 	private WebDriver driver;
 	private String firstName, lastName, emailAdress, password;
-	private HomePageObject homePage;
-	private RegisterPageObject registerPage;
+	private UserHomePageObject userHomePage;
+	private UserRegisterPageObject userRegisterPage;
 }

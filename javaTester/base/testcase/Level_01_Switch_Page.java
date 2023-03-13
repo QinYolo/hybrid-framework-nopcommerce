@@ -3,15 +3,17 @@ package base.testcase;
 import org.testng.annotations.Test;
 
 import commons.BaseTest;
-import pageObjects.nopcommerce.AddressesPageObject;
-import pageObjects.nopcommerce.ChangePasswordPageObject;
-import pageObjects.nopcommerce.CustomerInforPageObject;
-import pageObjects.nopcommerce.HomePageObject;
-import pageObjects.nopcommerce.LoginPageObject;
-import pageObjects.nopcommerce.MyProductReviewsPageObject;
-import pageObjects.nopcommerce.OrdersPageObject;
-import pageObjects.nopcommerce.PageGeneratorManager;
-import pageObjects.nopcommerce.RegisterPageObject;
+import commons.GlobalConstant;
+import pageObjects.nopcommerce.user.UserAddressesPageObject;
+import pageObjects.nopcommerce.user.UserChangePasswordPageObject;
+import pageObjects.nopcommerce.user.UserCustomerInforPageObject;
+import pageObjects.nopcommerce.user.UserHomePageObject;
+import pageObjects.nopcommerce.user.UserLoginPageObject;
+import pageObjects.nopcommerce.user.UserOrdersPageObject;
+import pageObjects.nopcommerce.admin.AdminDashboardPageObject;
+import pageObjects.nopcommerce.admin.AdminLoginPageObject;
+import pageObjects.nopcommerce.user.PageGeneratorManager;
+import pageObjects.nopcommerce.user.UserRegisterPageObject;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
@@ -28,64 +30,87 @@ public class Level_01_Switch_Page extends BaseTest {
 		driver = getBrowserDriver(browserName);
 		firstName = "Automation";
 		lastName = "Testing";
-		password = "123456";
-		emailAdress = "automationTest" + getRandomNumber() + "@gmail.com";
-		homePage = PageGeneratorManager.getHomePage(driver);
+		userPassword = "123456";
+		userEmailAdress = "automationTest" + getRandomNumber() + "@gmail.com";
+		adminEmailAddress = "admin@yourstore.com";
+		adminPassword = "admin";
+		userHomePage = PageGeneratorManager.getUserHomePage(driver);
 	}
 
 	@Test
 	public void User_01_Register() {
-		registerPage = homePage.clickToRegisterLink();
+		userRegisterPage = userHomePage.clickToRegisterLink();
 
-		registerPage.inputToFirstNameTextbox(firstName);
-		registerPage.inputToLastNameTextbox(lastName);
-		registerPage.inputToEmailTextbox(emailAdress);
-		registerPage.inputToPasswordTextbox(password);
-		registerPage.inputToConfirmPasswordTextbox(password);
-		registerPage.clickToRegisterButton();
+		userRegisterPage.inputToFirstNameTextbox(firstName);
+		userRegisterPage.inputToLastNameTextbox(lastName);
+		userRegisterPage.inputToEmailTextbox(userEmailAdress);
+		userRegisterPage.inputToPasswordTextbox(userPassword);
+		userRegisterPage.inputToConfirmPasswordTextbox(userPassword);
+		userRegisterPage.clickToRegisterButton();
 		
-		System.out.println(emailAdress);
-		Assert.assertEquals(registerPage.getRegisterSuccessMessage(), "Your registration completed");
+		System.out.println(userEmailAdress);
+		Assert.assertEquals(userRegisterPage.getRegisterSuccessMessage(), "Your registration completed");
 	}
 	
 	@Test
 	public void User_02_Login() {
-		homePage = PageGeneratorManager.getHomePage(driver);
-		loginPage = homePage.clickToLoginLink();
+		userHomePage = PageGeneratorManager.getUserHomePage(driver);
+		userLoginPage = userHomePage.clickToLoginLink();
 		
-		loginPage.inputToEmailTexbox(emailAdress);
-		loginPage.inputToPasswordTextbox(password);
+		userLoginPage.inputToEmailTexbox(userEmailAdress);
+		userLoginPage.inputToPasswordTextbox(userPassword);
 		
-		homePage = loginPage.clickToLoginButton();
+		userHomePage = userLoginPage.clickToLoginButton();
 	}
 	
 	@Test
 	public void User_03_My_Account() {
-		customerInforPage = homePage.clickToMyAccountLink();
-		Assert.assertTrue(customerInforPage.isCustomerInforPageTitleDisplayed());
+		userCustomerInforPage = userHomePage.clickToMyAccountLink();
+		Assert.assertTrue(userCustomerInforPage.isCustomerInforPageTitleDisplayed());
 	}
 	
 	@Test
 	public void User_04_Switch_Page() {
-		addressPage = customerInforPage.openAddressesPage(driver);
-		ordersPage = addressPage.openOrdersPage(driver);
-		changePasswordPage = ordersPage.openChangePasswordPage(driver);
-		myProductReviewsPage = changePasswordPage.openMyProductReviewsPage(driver);
+		userAddressPage = userCustomerInforPage.openAddressesPage(driver);
+		userOrdersPage = userAddressPage.openOrdersPage(driver);
+		userChangePasswordPage = userOrdersPage.openChangePasswordPage(driver);
+		userChangePasswordPage.openMyProductReviewsPage(driver);
 	}
 
+	@Test
+	public void User_05_Switch_Role_User_To_Admin() {
+		userHomePage = PageGeneratorManager.getUserHomePage(driver);
+		userHomePage.clickToLogOutLinkAtUserPage(driver);
+		userHomePage.openPageURL(driver, GlobalConstant.ADMIN_PAGE_URL);
+		adminLoginPage = PageGeneratorManager.getAdminLoginPage(driver);
+		adminDashboardPage = adminLoginPage.loginAsAdmin(adminEmailAddress, adminPassword);
+		Assert.assertTrue(adminDashboardPage.isAdminDashboardHeaderDisplayed());
+		adminLoginPage = adminDashboardPage.clickToLogOutLinkAtAdminPage(driver);
+	}
+	
+	@Test
+	public void User_06_Switch_Role_Admin_To_User() {
+		adminLoginPage.openPageURL(driver, GlobalConstant.USER_PAGE_URL);
+		userHomePage = PageGeneratorManager.getUserHomePage(driver);
+		userLoginPage = userHomePage.clickToLoginLink();
+		userHomePage = userLoginPage.loginAsUser(userEmailAdress, userPassword);
+		Assert.assertTrue(userHomePage.isMyAccountLinkDisplayed());
+	}
+	
 	@AfterClass
 	public void afterClass() {
 		driver.quit();
 	}
 	
 	private WebDriver driver;
-	private String firstName, lastName, emailAdress, password;
-	private HomePageObject homePage;
-	private RegisterPageObject registerPage;
-	private LoginPageObject loginPage;
-	private CustomerInforPageObject customerInforPage;
-	private AddressesPageObject addressPage;
-	private OrdersPageObject ordersPage;
-	private ChangePasswordPageObject changePasswordPage;
-	private MyProductReviewsPageObject myProductReviewsPage;
+	private String firstName, lastName, userEmailAdress, userPassword, adminEmailAddress, adminPassword;
+	private UserHomePageObject userHomePage;
+	private UserRegisterPageObject userRegisterPage;
+	private UserLoginPageObject userLoginPage;
+	private UserCustomerInforPageObject userCustomerInforPage;
+	private UserAddressesPageObject userAddressPage;
+	private UserOrdersPageObject userOrdersPage;
+	private UserChangePasswordPageObject userChangePasswordPage;
+	private AdminLoginPageObject adminLoginPage;
+	private AdminDashboardPageObject adminDashboardPage;
 }
