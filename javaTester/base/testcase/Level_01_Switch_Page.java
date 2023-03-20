@@ -71,10 +71,10 @@ public class Level_01_Switch_Page extends BaseTest {
 	
 	@Test
 	public void User_04_Switch_Page() {
-		userAddressPage = userCustomerInforPage.openAddressesPage(driver);
-		userOrdersPage = userAddressPage.openOrdersPage(driver);
-		userChangePasswordPage = userOrdersPage.openChangePasswordPage(driver);
-		userChangePasswordPage.openMyProductReviewsPage(driver);
+		userAddressPage = (UserAddressesPageObject) userCustomerInforPage.openPageAtMyAccountByName(driver, "Addresses");
+		userOrdersPage = (UserOrdersPageObject) userAddressPage.openPageAtMyAccountByName(driver, "Orders");
+		userChangePasswordPage = (UserChangePasswordPageObject) userOrdersPage.openPageAtMyAccountByName(driver, "Change password");
+		userChangePasswordPage.openPageAtMyAccountByName(driver, "My product reviews");
 	}
 
 	@Test
