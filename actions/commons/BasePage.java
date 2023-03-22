@@ -456,30 +456,6 @@ public class BasePage {
 		return false;
 	}
 	
-	public UserAddressesPageObject openAddressesPage(WebDriver driver) {
-		waitForElementVisible(driver, BasePageUI.ADDRESSES_LINK);
-		clickToElement(driver, BasePageUI.ADDRESSES_LINK);
-		return PageGeneratorManager.getUserAddressesPage(driver);
-	}
-	
-	public UserOrdersPageObject openOrdersPage(WebDriver driver) {
-		waitForElementVisible(driver, BasePageUI.ORDERS_LINK);
-		clickToElement(driver, BasePageUI.ORDERS_LINK);
-		return PageGeneratorManager.getUserOrdersPage(driver);
-	}
-	
-	public UserChangePasswordPageObject openChangePasswordPage(WebDriver driver) {
-		waitForElementVisible(driver, BasePageUI.CHANGE_PASSWORD_LINK);
-		clickToElement(driver, BasePageUI.CHANGE_PASSWORD_LINK);
-		return PageGeneratorManager.getUserChangePasswordPage(driver);
-	}
-	
-	public UserMyProductReviewsPageObject openMyProductReviewsPage(WebDriver driver) {
-		waitForElementVisible(driver, BasePageUI.MY_PRODUCT_REVIEWS_LINK);
-		clickToElement(driver, BasePageUI.MY_PRODUCT_REVIEWS_LINK);
-		return PageGeneratorManager.getUserMyProductReviewsPage(driver);
-	}
-	
 	public BasePage openPageAtMyAccountByName(WebDriver driver, String pageName) {
 		waitForElementClickable(driver, BasePageUI.DYNAMIC_PAGE_AT_MY_ACCOUNT_AREA, pageName);
 		clickToElement(driver, BasePageUI.DYNAMIC_PAGE_AT_MY_ACCOUNT_AREA, pageName);
@@ -504,6 +480,7 @@ public class BasePage {
 	}
 	
 	public AdminLoginPageObject clickToLogOutLinkAtAdminPage(WebDriver driver) {
+		waitForElementInvisible(driver, BasePageUI.LOADING_ICON_ON_HEADER_ADMIN);
 		waitForElementClickable(driver, BasePageUI.LOGOUT_LINK_AT_ADMIN);
 		clickToElement(driver, BasePageUI.LOGOUT_LINK_AT_ADMIN);
 		return PageGeneratorManager.getAdminLoginPage(driver);
