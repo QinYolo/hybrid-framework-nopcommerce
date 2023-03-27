@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="NopCommerce">
 
+	<parameter name="environment" value= "DEV" />
 	<test name="Run On Firefox">
 		<parameter name="browser" value="firefox" />
 		<classes>

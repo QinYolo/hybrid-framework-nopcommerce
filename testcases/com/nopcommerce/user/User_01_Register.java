@@ -14,10 +14,10 @@ import pageObjects.nopcommerce.user.UserRegisterPageObject;
 
 public class User_01_Register extends BaseTest {
 
-	@Parameters("browser")
+	@Parameters({"browser", "environment"})
 	@BeforeClass
-	public void beforeClass(String browserName) {
-		driver = getBrowserDriver(browserName);
+	public void beforeClass(String browserName, String environmentName) {
+		driver = getBrowserDriver(browserName, environmentName);
 		firstName = "Automation";
 		lastName = "Testing";
 		password = "123456";

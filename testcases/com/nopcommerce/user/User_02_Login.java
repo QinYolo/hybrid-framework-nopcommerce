@@ -17,10 +17,10 @@ import org.testng.annotations.AfterClass;
 
 public class User_02_Login extends BaseTest {
 
-	@Parameters("browser")
+	@Parameters({"browser", "environment"})
 	@BeforeClass
-	public void beforeClass(String browserName) {
-		driver = getBrowserDriver(browserName);
+	public void beforeClass(String browserName, String environmentName) {
+		driver = getBrowserDriver(browserName, environmentName);
 
 		validEmail = "automationTest" + getRandomNumber() + "@gmail.com";
 		password = "123456";

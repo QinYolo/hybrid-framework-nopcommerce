@@ -22,10 +22,10 @@ import org.testng.annotations.AfterClass;
 
 public class User_03_My_Account extends BaseTest {
 	
-	@Parameters("browser")
+	@Parameters({"browser", "environment"})
 	@BeforeClass
-	public void beforeClass(String browserName) {
-		driver = getBrowserDriver(browserName);
+	public void beforeClass(String browserName, String environmentName) {
+		driver = getBrowserDriver(browserName, environmentName);
 		homePage = new UserHomePageObject(driver);
 		
 		firstName1st = "Automation"; 

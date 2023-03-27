@@ -3,4 +3,6 @@ package commons;
 public class GlobalConstant {
 	public static final String ADMIN_PAGE_URL = "https://admin-demo.nopcommerce.com/";
 	public static final String USER_PAGE_URL = "https://demo.nopcommerce.com/";
+	public static final String STAGING_PAGE_URL = "https://staging.nopcommerce.com/";
+	public static final String PRODUCTION_PAGE_URL = "https://production.nopcommerce.com/";
 }
