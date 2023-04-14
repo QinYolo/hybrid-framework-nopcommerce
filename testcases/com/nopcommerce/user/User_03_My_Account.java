@@ -2,7 +2,6 @@ package com.nopcommerce.user;
 
 import org.testng.annotations.Test;
 
-import commons.BasePage;
 import commons.BaseTest;
 import pageObjects.nopcommerce.user.UserCustomerInforPageObject;
 import pageObjects.nopcommerce.user.UserHomePageObject;
@@ -12,20 +11,17 @@ import pageObjects.nopcommerce.user.UserRegisterPageObject;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 
-import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 
 public class User_03_My_Account extends BaseTest {
 	
-	@Parameters({"browser", "environment"})
+	@Parameters("browser")
 	@BeforeClass
-	public void beforeClass(String browserName, String environmentName) {
-		driver = getBrowserDriver(browserName, environmentName);
+	public void beforeClass(String browserName) {
+		driver = getBrowserDriver(browserName);
 		homePage = new UserHomePageObject(driver);
 		
 		firstName1st = "Automation"; 

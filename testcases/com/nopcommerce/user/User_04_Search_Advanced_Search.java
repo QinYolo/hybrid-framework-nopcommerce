@@ -100,7 +100,7 @@ public class User_04_Search_Advanced_Search extends BasePage {
 
 		sendKeyToElement(driver, "//input[starts-with(@class,'search-text')]", "Apple Macbook Pro");
 		
-		checkToDefautCheckboxRadio(driver, "//input[@id='advs']");
+		checkToDefautCheckboxOrRadio(driver, "//input[@id='advs']");
 		waitForAllElementsVisible(driver, "//select[@id='cid']");
 		selectItemInDefaultDropDown(driver, "//select[@id='cid']", "Computers");
 		
@@ -117,10 +117,10 @@ public class User_04_Search_Advanced_Search extends BasePage {
 
 		sendKeyToElement(driver, "//input[starts-with(@class,'search-text')]", "Apple Macbook Pro");
 		
-		checkToDefautCheckboxRadio(driver, "//input[@id='advs']");
+		checkToDefautCheckboxOrRadio(driver, "//input[@id='advs']");
 		waitForAllElementsVisible(driver, "//select[@id='cid']");
 		selectItemInDefaultDropDown(driver, "//select[@id='cid']", "Computers");
-		checkToDefautCheckboxRadio(driver, "//input[@id='isc']");
+		checkToDefautCheckboxOrRadio(driver, "//input[@id='isc']");
 		
 		clickToElement(driver, "//button[contains(@class,'search-button')]");
 		sleepInSecond(1);
@@ -136,10 +136,10 @@ public class User_04_Search_Advanced_Search extends BasePage {
 
 		sendKeyToElement(driver, "//input[starts-with(@class,'search-text')]", "Apple Macbook Pro");
 		
-		checkToDefautCheckboxRadio(driver, "//input[@id='advs']");
+		checkToDefautCheckboxOrRadio(driver, "//input[@id='advs']");
 		waitForAllElementsVisible(driver, "//select[@id='cid']");
 		selectItemInDefaultDropDown(driver, "//select[@id='cid']", "Computers");
-		checkToDefautCheckboxRadio(driver, "//input[@id='isc']");
+		checkToDefautCheckboxOrRadio(driver, "//input[@id='isc']");
 		waitForAllElementsVisible(driver, "//select[@id='mid']");
 		selectItemInDefaultDropDown(driver, "//select[@id='mid']", "HP");
 		
@@ -156,10 +156,10 @@ public class User_04_Search_Advanced_Search extends BasePage {
 
 		sendKeyToElement(driver, "//input[starts-with(@class,'search-text')]", "Apple Macbook Pro");
 		
-		checkToDefautCheckboxRadio(driver, "//input[@id='advs']");
+		checkToDefautCheckboxOrRadio(driver, "//input[@id='advs']");
 		waitForAllElementsVisible(driver, "//select[@id='cid']");
 		selectItemInDefaultDropDown(driver, "//select[@id='cid']", "Computers");
-		checkToDefautCheckboxRadio(driver, "//input[@id='isc']");
+		checkToDefautCheckboxOrRadio(driver, "//input[@id='isc']");
 		waitForAllElementsVisible(driver, "//select[@id='mid']");
 		selectItemInDefaultDropDown(driver, "//select[@id='mid']", "Apple");
 		

@@ -6,6 +6,7 @@ import java.util.Set;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -15,11 +16,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import pageObjects.nopcommerce.user.UserAddressesPageObject;
-import pageObjects.nopcommerce.user.UserChangePasswordPageObject;
 import pageObjects.nopcommerce.user.UserHomePageObject;
-import pageObjects.nopcommerce.user.UserMyProductReviewsPageObject;
-import pageObjects.nopcommerce.user.UserOrdersPageObject;
 import pageUIs.nopcommerce.user.BasePageUI;
 import pageObjects.nopcommerce.admin.AdminLoginPageObject;
 import pageObjects.nopcommerce.user.PageGeneratorManager;
@@ -58,7 +55,7 @@ public class BasePage {
 		driver.navigate().forward();
 	}
 	
-	protected void refreshCurrentPage (WebDriver driver) {
+	public void refreshCurrentPage (WebDriver driver) {
 		driver.navigate().refresh();
 	}
 	
@@ -120,7 +117,7 @@ public class BasePage {
 		driver.switchTo().window(parentWindowID);
 	}
 	
-	protected void sleepInSecond(long timeInSecond) {
+	public void sleepInSecond(long timeInSecond) {
 		try {
 			Thread.sleep(timeInSecond * 1000);
 		} catch (InterruptedException e) {
@@ -158,7 +155,7 @@ public class BasePage {
 		return driver.findElement(getByLocator(locatorType));
 	}
 	
-	private List<WebElement> getListWebElement (WebDriver driver, String locatorType) {
+	public List<WebElement> getListWebElement (WebDriver driver, String locatorType) {
 		return driver.findElements(getByLocator(locatorType));
 	}
 	
@@ -257,8 +254,15 @@ public class BasePage {
 		return getListWebElement(driver, getDynamicXpath(locator, dynamicValues)).size();
 	}
 	
-	protected void checkToDefautCheckboxRadio(WebDriver driver, String locator) {
+	protected void checkToDefautCheckboxOrRadio(WebDriver driver, String locator) {
 		WebElement element = getWebElement(driver, locator);
+		if (!element.isSelected()) {
+			element.click();
+		}
+	}
+	
+	protected void checkToDefautCheckboxOrRadio(WebDriver driver, String locator, String... dynamicValues) {
+		WebElement element = getWebElement(driver, getDynamicXpath(locator, dynamicValues));
 		if (!element.isSelected()) {
 			element.click();
 		}
@@ -266,6 +270,13 @@ public class BasePage {
 	
 	protected void uncheckToDefaultCheckbox (WebDriver driver, String locator) {
 		WebElement element = getWebElement(driver, locator);
+		if (element.isSelected()) {
+			element.click();
+		}
+	}
+	
+	protected void uncheckToDefaultCheckbox (WebDriver driver, String locator, String...dynamicValues) {
+		WebElement element = getWebElement(driver, getDynamicXpath(locator, dynamicValues));
 		if (element.isSelected()) {
 			element.click();
 		}
@@ -298,6 +309,16 @@ public class BasePage {
 	protected void hoverMouseToElement (WebDriver driver, String locator) {
 		Actions action = new Actions(driver);
 		action.moveToElement(getWebElement(driver, locator)).perform();
+	}
+	
+	protected void pressKeyToElement (WebDriver driver, String locator, Keys key) {
+		Actions action = new Actions(driver);
+		action.sendKeys(getWebElement(driver, locator), key).perform();
+	}
+	
+	protected void pressKeyToElement (WebDriver driver, String locator, Keys key, String... dynamicValues) {
+		Actions action = new Actions(driver);
+		action.sendKeys(getWebElement(driver, getDynamicXpath(locator, dynamicValues)), key).perform();
 	}
 	
 	protected Object executeForBrowser(WebDriver driver, String javaScript) {
@@ -486,5 +507,5 @@ public class BasePage {
 		return PageGeneratorManager.getAdminLoginPage(driver);
 	}
 	
-	private long longTimeout = 30;
+	private long longTimeout = GlobalConstant.LONG_TIMEOUT;
 }
