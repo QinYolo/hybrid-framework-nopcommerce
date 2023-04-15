@@ -19,4 +19,12 @@ public class PageGeneratorManager {
 		return new MyDashboardPageObject(driver);
 	}
 	
+	public static LoginPageAdminObject getLoginPageAdmin(WebDriver driver) {
+		return new LoginPageAdminObject(driver);
+	}
+	
+	public static AdminPanelPageObject getAdminPanel(WebDriver driver) {
+		return new AdminPanelPageObject(driver);
+	}
+	
 }

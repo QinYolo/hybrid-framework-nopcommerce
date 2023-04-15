@@ -87,5 +87,10 @@ public class HomePageObject extends BasePage {
 		uncheckToDefaultCheckbox(driver, HomePageUI.CHECKBOX_BY_COLUMN_INDEX_AND_ROW_INDEX, rowNumber, String.valueOf(columnIndex));
 	}
 
+	public void clickToIconByRowNumber(String rowNumber, String iconName) {
+		waitForElementClickable(driver, HomePageUI.ICON_NAME_BY_ROW_INDEX, rowNumber, iconName);
+		clickToElement(driver, HomePageUI.ICON_NAME_BY_ROW_INDEX, rowNumber, iconName);
+	}
+
 	
 }

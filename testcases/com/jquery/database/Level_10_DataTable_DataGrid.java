@@ -79,6 +79,11 @@ public class Level_10_DataTable_DataGrid extends BaseTest {
 		homePage.uncheckToCheckBoxByColumnNameAtRowNumber("NPO?","1");
 		homePage.uncheckToCheckBoxByColumnNameAtRowNumber("NPO?","4");
 		homePage.uncheckToCheckBoxByColumnNameAtRowNumber("NPO?","5");
+		
+		homePage.clickToIconByRowNumber("1", "Remove Current Row");
+		homePage.clickToIconByRowNumber("4", "Remove Current Row");
+		homePage.clickToIconByRowNumber("2", "Move Up");
+		homePage.clickToIconByRowNumber("1", "Insert Row Above");
 	}
 
 	@AfterClass

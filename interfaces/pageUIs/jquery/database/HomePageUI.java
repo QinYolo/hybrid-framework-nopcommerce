@@ -14,4 +14,5 @@ public class HomePageUI {
 	public static final String TEXTBOX_BY_COLUMN_INDEX_AND_ROW_INDEX = "xpath=//tr[%s]/td[%s]/input";
 	public static final String DROP_DOWN_BY_COLUMN_INDEX_AND_ROW_INDEX = "xpath=//tr[%s]/td[%s]//select";
 	public static final String CHECKBOX_BY_COLUMN_INDEX_AND_ROW_INDEX = "xpath=//tr[%s]/td[%s]//input[@type='checkbox']";
+	public static final String ICON_NAME_BY_ROW_INDEX = "xpath=//tr[%s]//button[@title='%s']";
 }

@@ -64,6 +64,7 @@ public class BasePage {
 		return explicitWait.until(ExpectedConditions.alertIsPresent());
 	}
 	
+	
 	protected void acceptAlert (WebDriver driver) {
 		waitForAlertPresence(driver).accept();
 	}

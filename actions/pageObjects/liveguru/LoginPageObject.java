@@ -33,4 +33,9 @@ public class LoginPageObject extends BasePage{
 		return PageGeneratorManager.getMyDashboardPage(driver);
 	}
 
+	public String isErrorMessageDisplayed() {
+		waitForElementVisible(driver, LoginPageUI.ERROR_MESSAGE);
+		return getElementText(driver, LoginPageUI.ERROR_MESSAGE);
+	}
+
 }
