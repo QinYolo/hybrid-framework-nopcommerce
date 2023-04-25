@@ -5,12 +5,12 @@
 		<listener class-name="commons.MethodListener" />
 	</listeners>
 	
-	<parameter name="url" value="https://blueimp.github.io/jQuery-File-Upload/" />
+	<parameter name="url" value="https://www.facebook.com/" />
 	
 	<test name="Run On Firefox">
 		<parameter name="browser" value="firefox" />
 		<classes>
-			<class name="com.jquery.database.Level_11_UploadFile" />
+			<class name="com.facebook.Level_13_Element_Undisplayed" />
 		</classes>
 	</test>
 
