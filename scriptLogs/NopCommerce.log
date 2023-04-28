@@ -102,3 +102,127 @@
 [2023-04-25 23:39:42,977] Register 06 - Password confirmation does not match - Step 07: Click to register button
 [2023-04-25 23:39:43,706] Register 06 - Password confirmation does not match - Step 08: Verify error message displayed at confirm password textbox
 [2023-04-25 23:39:43,731]  -------------------------- PASSED -------------------------- 
+[2023-04-27 17:04:15,245] Register 01 - Empty Data - Step 01: Click to register link from HomePage
+[2023-04-27 17:04:16,166] Register 01 - Empty Data - Step 02: Click to register button with out any action
+[2023-04-27 17:04:16,453] Register 01 - Empty Data - Step 03: Verify Error Message is displayed at First Name Textbox
+[2023-04-27 17:04:16,488]  -------------------------- PASSED -------------------------- 
+[2023-04-27 17:04:16,488] Register 01 - Empty Data - Step 04: Verify Error Message is displayed at Last Name Textbox
+[2023-04-27 17:04:16,520]  -------------------------- PASSED -------------------------- 
+[2023-04-27 17:04:16,531] Register 01 - Empty Data - Step 05: Verify Error Message is displayed at Email Textbox
+[2023-04-27 17:04:16,576]  -------------------------- PASSED -------------------------- 
+[2023-04-27 17:04:16,576] Register 01 - Empty Data - Step 06: Verify Error Message is displayed at Password Textbox
+[2023-04-27 17:04:16,606]  -------------------------- PASSED -------------------------- 
+[2023-04-27 17:04:16,606] Register 01 - Empty Data - Step 07: Verify Error Message is displayed at Confirm Password Textbox
+[2023-04-27 17:04:16,639]  -------------------------- PASSED -------------------------- 
+[2023-04-27 17:04:16,643] Register 02 - Email Not Valid - Step 01: Click to register link from HomePage
+[2023-04-27 17:04:17,053] Register 02 - Email Not Valid - Step 02: Input 'Automation' to first name textbox
+[2023-04-27 17:04:17,133] Register 02 - Email Not Valid - Step 03: Input 'Testing' to last name textbox
+[2023-04-27 17:04:17,191] Register 02 - Email Not Valid - Step 04: Input 'randdddd678@yu.67#!' to email textbox
+[2023-04-27 17:04:17,246] Register 02 - Email Not Valid - Step 05: Input '123456' to password textbox
+[2023-04-27 17:04:17,299] Register 02 - Email Not Valid - Step 06: Input '123456' to confirm password textbox
+[2023-04-27 17:04:17,349] Register 02 - Email Not Valid - Step 07: Click to register button
+[2023-04-27 17:04:17,605] Register 02 - Email Not Valid - Step 08: Verify error message display at Email textbox
+[2023-04-27 17:04:17,635]  -------------------------- FAILED -------------------------- 
+[2023-04-27 17:04:17,735] Register 03 - Register Successful - Step 01: Click to register link from HomePage
+[2023-04-27 17:04:18,160] Register 03 - Register Successful - Step 02: Input 'Automation' to first name textbox
+[2023-04-27 17:04:18,227] Register 03 - Register Successful - Step 03: Input 'Testing' to last name textbox
+[2023-04-27 17:04:18,282] Register 03 - Register Successful - Step 04: Input 'automationTest2668@gmail.com' to email textbox
+[2023-04-27 17:04:18,339] Register 03 - Register Successful - Step 05: Input '123456' to password textbox
+[2023-04-27 17:04:18,392] Register 03 - Register Successful - Step 06: Input '123456' to confirm password textbox
+[2023-04-27 17:04:18,453] Register 03 - Register Successful - Step 07: Click to register button
+[2023-04-27 17:04:19,202] Register 03 - Register Successful - Step 08: Verify successful message displayed
+[2023-04-27 17:04:19,256]  -------------------------- PASSED -------------------------- 
+[2023-04-27 17:04:19,258] Register 04 - Email already exits - Step 01: Click to register link from HomePage
+[2023-04-27 17:04:19,637] Register 04 - Email already exits - Step 02: Input 'Automation' to first name textbox
+[2023-04-27 17:04:19,716] Register 04 - Email already exits - Step 03: Input 'Testing' to last name textbox
+[2023-04-27 17:04:19,768] Register 04 - Email already exits - Step 04: Input 'automationTest2668@gmail.com' to email textbox
+[2023-04-27 17:04:19,823] Register 04 - Email already exits - Step 05: Input '123456' to password textbox
+[2023-04-27 17:04:19,871] Register 04 - Email already exits - Step 06: Input '123456' to confirm password textbox
+[2023-04-27 17:04:19,918] Register 04 - Email already exits - Step 07: Click to register button
+[2023-04-27 17:04:20,321] Register 04 - Email already exits - Step 08: Verify email error message displayed
+[2023-04-27 17:04:20,379]  -------------------------- FAILED -------------------------- 
+[2023-04-27 17:04:20,432] Register 05 - Password less than 6 chars - Step 01: Click to register link from HomePage
+[2023-04-27 17:04:20,818] Register 05 - Password less than 6 chars - Step 02: Input 'Automation' to first name textbox
+[2023-04-27 17:04:20,897] Register 05 - Password less than 6 chars - Step 03: Input 'Testing' to last name textbox
+[2023-04-27 17:04:20,949] Register 05 - Password less than 6 chars - Step 04: Input 'automationTest2668@gmail.com' to email textbox
+[2023-04-27 17:04:21,002] Register 05 - Password less than 6 chars - Step 05: Input '123' to password textbox
+[2023-04-27 17:04:21,049] Register 05 - Password less than 6 chars - Step 06: Input '123' to confirm password textbox
+[2023-04-27 17:04:21,101] Register 05 - Password less than 6 chars - Step 07: Click to register button
+[2023-04-27 17:04:21,357] Register 05 - Password less than 6 chars - Step 08: Verify error message displayed at password textbox
+[2023-04-27 17:04:21,401]  -------------------------- PASSED -------------------------- 
+[2023-04-27 17:04:21,402] Register 06 - Password confirmation does not match - Step 01: Click to register link from HomePage
+[2023-04-27 17:04:22,988] Register 06 - Password confirmation does not match - Step 02: Input 'Automation' to first name textbox
+[2023-04-27 17:04:23,063] Register 06 - Password confirmation does not match - Step 03: Input 'Testing' to last name textbox
+[2023-04-27 17:04:23,113] Register 06 - Password confirmation does not match - Step 04: Input 'automationTest2668@gmail.com' to email textbox
+[2023-04-27 17:04:23,169] Register 06 - Password confirmation does not match - Step 05: Input '123456' to password textbox
+[2023-04-27 17:04:23,216] Register 06 - Password confirmation does not match - Step 06: Input '123' to confirm password textbox
+[2023-04-27 17:04:23,266] Register 06 - Password confirmation does not match - Step 07: Click to register button
+[2023-04-27 17:04:24,002] Register 06 - Password confirmation does not match - Step 08: Verify error message displayed at confirm password textbox
+[2023-04-27 17:04:24,029]  -------------------------- FAILED -------------------------- 
+[2023-04-28 16:21:18,334] Register 01 - Empty Data - Step 01: Click to register link from HomePage
+[2023-04-28 16:21:18,874] Register 01 - Empty Data - Step 02: Click to register button with out any action
+[2023-04-28 16:21:19,161] Register 01 - Empty Data - Step 03: Verify Error Message is displayed at First Name Textbox
+[2023-04-28 16:21:19,202]  -------------------------- PASSED -------------------------- 
+[2023-04-28 16:21:19,202] Register 01 - Empty Data - Step 04: Verify Error Message is displayed at Last Name Textbox
+[2023-04-28 16:21:19,233]  -------------------------- PASSED -------------------------- 
+[2023-04-28 16:21:19,233] Register 01 - Empty Data - Step 05: Verify Error Message is displayed at Email Textbox
+[2023-04-28 16:21:19,277]  -------------------------- PASSED -------------------------- 
+[2023-04-28 16:21:19,278] Register 01 - Empty Data - Step 06: Verify Error Message is displayed at Password Textbox
+[2023-04-28 16:21:19,307]  -------------------------- PASSED -------------------------- 
+[2023-04-28 16:21:19,308] Register 01 - Empty Data - Step 07: Verify Error Message is displayed at Confirm Password Textbox
+[2023-04-28 16:21:19,335]  -------------------------- PASSED -------------------------- 
+[2023-04-28 16:21:19,339] Register 02 - Email Not Valid - Step 01: Click to register link from HomePage
+[2023-04-28 16:21:19,729] Register 02 - Email Not Valid - Step 02: Input 'Automation' to first name textbox
+[2023-04-28 16:21:19,812] Register 02 - Email Not Valid - Step 03: Input 'Testing' to last name textbox
+[2023-04-28 16:21:19,868] Register 02 - Email Not Valid - Step 04: Input 'randdddd678@yu.67#!' to email textbox
+[2023-04-28 16:21:19,924] Register 02 - Email Not Valid - Step 05: Input '123456' to password textbox
+[2023-04-28 16:21:19,978] Register 02 - Email Not Valid - Step 06: Input '123456' to confirm password textbox
+[2023-04-28 16:21:20,033] Register 02 - Email Not Valid - Step 07: Click to register button
+[2023-04-28 16:21:20,287] Register 02 - Email Not Valid - Step 08: Verify error message display at Email textbox
+[2023-04-28 16:21:20,315]  -------------------------- FAILED -------------------------- 
+[2023-04-28 16:21:20,318] Register 03 - Register Successful - Step 01: Click to register link from HomePage
+[2023-04-28 16:21:20,771] Register 03 - Register Successful - Step 02: Input 'Automation' to first name textbox
+[2023-04-28 16:21:20,853] Register 03 - Register Successful - Step 03: Input 'Testing' to last name textbox
+[2023-04-28 16:21:20,906] Register 03 - Register Successful - Step 04: Input 'automationTest623@gmail.com' to email textbox
+[2023-04-28 16:21:20,970] Register 03 - Register Successful - Step 05: Input '123456' to password textbox
+[2023-04-28 16:21:21,023] Register 03 - Register Successful - Step 06: Input '123456' to confirm password textbox
+[2023-04-28 16:21:21,073] Register 03 - Register Successful - Step 07: Click to register button
+[2023-04-28 16:21:21,779] Register 03 - Register Successful - Step 08: Verify successful message displayed
+[2023-04-28 16:21:21,832]  -------------------------- PASSED -------------------------- 
+[2023-04-28 16:21:21,835] Register 04 - Email already exits - Step 01: Click to register link from HomePage
+[2023-04-28 16:21:27,257] Register 04 - Email already exits - Step 02: Input 'Automation' to first name textbox
+[2023-04-28 16:21:27,337] Register 04 - Email already exits - Step 03: Input 'Testing' to last name textbox
+[2023-04-28 16:21:27,392] Register 04 - Email already exits - Step 04: Input 'automationTest623@gmail.com' to email textbox
+[2023-04-28 16:21:27,449] Register 04 - Email already exits - Step 05: Input '123456' to password textbox
+[2023-04-28 16:21:27,496] Register 04 - Email already exits - Step 06: Input '123456' to confirm password textbox
+[2023-04-28 16:21:27,544] Register 04 - Email already exits - Step 07: Click to register button
+[2023-04-28 16:21:27,933] Register 04 - Email already exits - Step 08: Verify email error message displayed
+[2023-04-28 16:21:27,997]  -------------------------- FAILED -------------------------- 
+[2023-04-28 16:21:27,999] Register 05 - Password less than 6 chars - Step 01: Click to register link from HomePage
+[2023-04-28 16:21:28,372] Register 05 - Password less than 6 chars - Step 02: Input 'Automation' to first name textbox
+[2023-04-28 16:21:28,457] Register 05 - Password less than 6 chars - Step 03: Input 'Testing' to last name textbox
+[2023-04-28 16:21:28,521] Register 05 - Password less than 6 chars - Step 04: Input 'automationTest623@gmail.com' to email textbox
+[2023-04-28 16:21:28,577] Register 05 - Password less than 6 chars - Step 05: Input '123' to password textbox
+[2023-04-28 16:21:28,635] Register 05 - Password less than 6 chars - Step 06: Input '123' to confirm password textbox
+[2023-04-28 16:21:28,689] Register 05 - Password less than 6 chars - Step 07: Click to register button
+[2023-04-28 16:21:28,951] Register 05 - Password less than 6 chars - Step 08: Verify error message displayed at password textbox
+[2023-04-28 16:21:28,984]  -------------------------- PASSED -------------------------- 
+[2023-04-28 16:21:28,985] Register 06 - Password confirmation does not match - Step 01: Click to register link from HomePage
+[2023-04-28 16:21:29,355] Register 06 - Password confirmation does not match - Step 02: Input 'Automation' to first name textbox
+[2023-04-28 16:21:29,433] Register 06 - Password confirmation does not match - Step 03: Input 'Testing' to last name textbox
+[2023-04-28 16:21:29,482] Register 06 - Password confirmation does not match - Step 04: Input 'automationTest623@gmail.com' to email textbox
+[2023-04-28 16:21:29,540] Register 06 - Password confirmation does not match - Step 05: Input '123456' to password textbox
+[2023-04-28 16:21:29,587] Register 06 - Password confirmation does not match - Step 06: Input '123' to confirm password textbox
+[2023-04-28 16:21:29,637] Register 06 - Password confirmation does not match - Step 07: Click to register button
+[2023-04-28 16:21:30,372] Register 06 - Password confirmation does not match - Step 08: Verify error message displayed at confirm password textbox
+[2023-04-28 16:21:30,399]  -------------------------- FAILED -------------------------- 
+[2023-04-28 17:55:57,389]  -------------------------- PASSED -------------------------- 
+[2023-04-28 17:55:57,433]  -------------------------- PASSED -------------------------- 
+[2023-04-28 17:55:57,462]  -------------------------- PASSED -------------------------- 
+[2023-04-28 17:55:57,490]  -------------------------- PASSED -------------------------- 
+[2023-04-28 17:55:57,517]  -------------------------- PASSED -------------------------- 
+[2023-04-28 17:55:58,440]  -------------------------- FAILED -------------------------- 
+[2023-04-28 17:55:59,836]  -------------------------- PASSED -------------------------- 
+[2023-04-28 17:56:00,873]  -------------------------- FAILED -------------------------- 
+[2023-04-28 17:56:01,782]  -------------------------- PASSED -------------------------- 
+[2023-04-28 17:56:03,116]  -------------------------- FAILED -------------------------- 

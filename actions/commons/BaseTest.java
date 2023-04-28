@@ -24,6 +24,10 @@ public class BaseTest {
 		log = LogFactory.getLog(getClass());
 	}
 	
+	public WebDriver getDriverInstance() {
+		return this.driver;
+	}
+	
 	protected WebDriver getBrowserDriver(String browserName) {
 		BrowserList browserList = BrowserList.valueOf(browserName.toUpperCase());
 		if (browserList == BrowserList.FIREFOX) {
