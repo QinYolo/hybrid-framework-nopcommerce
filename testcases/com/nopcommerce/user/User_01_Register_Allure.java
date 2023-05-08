@@ -39,13 +39,9 @@ public class User_01_Register_Allure extends BaseTest {
 		userRegisterPage.clickToRegisterButton();
 
 		verifyEquals(userRegisterPage.getErrorMessageAtFirstNameTextbox(), "First name is required.");
-		
 		verifyEquals(userRegisterPage.getErrorMessageAtLastNameTextbox(), "Last name is required.");
-
 		verifyEquals(userRegisterPage.getErrorMessageAtEmailTextbox(), "Email is required.");
-		
 		verifyEquals(userRegisterPage.getErrorMessageAtPasswordTextbox(), "Password is required.");
-		
 		verifyEquals(userRegisterPage.getErrorMessageAtConfirmPasswordTextbox(), "Password is required.");
 	}
 
@@ -56,17 +52,12 @@ public class User_01_Register_Allure extends BaseTest {
 		userRegisterPage = userHomePage.clickToRegisterLink();
 
 		userRegisterPage.inputToFirstNameTextbox(firstName);
-		
 		userRegisterPage.inputToLastNameTextbox(lastName);
-		
 		userRegisterPage.inputToEmailTextbox("randdddd678@yu.67#!");
-		
 		userRegisterPage.inputToPasswordTextbox(password);
-		
 		userRegisterPage.inputToConfirmPasswordTextbox(password);
 
 		userRegisterPage.clickToRegisterButton();
-
 		// error
 		verifyEquals(userRegisterPage.getErrorMessageAtEmailTextbox(), "Wrong email____");
 	}
@@ -78,15 +69,11 @@ public class User_01_Register_Allure extends BaseTest {
 		userRegisterPage = userHomePage.clickToRegisterLink();
 
 		userRegisterPage.inputToFirstNameTextbox(firstName);
-		
 		userRegisterPage.inputToLastNameTextbox(lastName);
-		
 		userRegisterPage.inputToEmailTextbox(emailAdress);
-		
 		userRegisterPage.inputToPasswordTextbox(password);
-		
 		userRegisterPage.inputToConfirmPasswordTextbox(password);
-
+		
 		userRegisterPage.clickToRegisterButton();
 
 		verifyEquals(userRegisterPage.getRegisterSuccessMessage(), "Your registration completed");
@@ -99,17 +86,12 @@ public class User_01_Register_Allure extends BaseTest {
 		userRegisterPage = userHomePage.clickToRegisterLink();
 
 		userRegisterPage.inputToFirstNameTextbox(firstName);
-		
 		userRegisterPage.inputToLastNameTextbox(lastName);
-		
 		userRegisterPage.inputToEmailTextbox(emailAdress);
-		
 		userRegisterPage.inputToPasswordTextbox(password);
-		
 		userRegisterPage.inputToConfirmPasswordTextbox(password);
 
 		userRegisterPage.clickToRegisterButton();
-
 		// error
 		verifyEquals(userRegisterPage.getErrorEmailExistingMessage(), "The specified email already exists____");
 	}
@@ -121,15 +103,10 @@ public class User_01_Register_Allure extends BaseTest {
 		userRegisterPage = userHomePage.clickToRegisterLink();
 
 		userRegisterPage.inputToFirstNameTextbox(firstName);
-		
 		userRegisterPage.inputToLastNameTextbox(lastName);
-		
 		userRegisterPage.inputToEmailTextbox(emailAdress);
-		
 		userRegisterPage.inputToPasswordTextbox("123");
-		
 		userRegisterPage.inputToConfirmPasswordTextbox("123");
-
 		userRegisterPage.clickToRegisterButton();
 
 		verifyEquals(userRegisterPage.getErrorMessageAtPasswordTextbox(),
@@ -143,24 +120,19 @@ public class User_01_Register_Allure extends BaseTest {
 		userRegisterPage = userHomePage.clickToRegisterLink();
 
 		userRegisterPage.inputToFirstNameTextbox(firstName);
-		
 		userRegisterPage.inputToLastNameTextbox(lastName);
-		
 		userRegisterPage.inputToEmailTextbox(emailAdress);
-		
 		userRegisterPage.inputToPasswordTextbox(password);
-		
 		userRegisterPage.inputToConfirmPasswordTextbox("123");
 
 		userRegisterPage.clickToRegisterButton();
-		
 		// error
 		verifyEquals(userRegisterPage.getErrorMessageAtConfirmPasswordTextbox(), "The password and confirmation password do not match.___");
 	}
 
-	@AfterClass
+	@AfterClass(alwaysRun = true)
 	public void afterClass() {
-		driver.quit();
+		closeBrowserDriver();
 	}
 
 	private WebDriver driver;
