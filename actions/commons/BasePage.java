@@ -18,12 +18,16 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import pageObjects.nopcommerce.admin.AdminLoginPageObject;
+import pageObjects.nopcommerce.user.PageGeneratorManager;
 import pageObjects.nopcommerce.user.UserHomePageObject;
 import pageUIs.jquery.upload.BasePageJQueryUI;
 import pageUIs.nopcommerce.user.BasePageNopCommerceUI;
-import pageObjects.nopcommerce.admin.AdminLoginPageObject;
-import pageObjects.nopcommerce.user.PageGeneratorManager;
 
+/**
+ * @author ASUS
+ *
+ */
 public class BasePage {
 
 	public static BasePage getBasePageObject() {
@@ -61,11 +65,11 @@ public class BasePage {
 	public void refreshCurrentPage(WebDriver driver) {
 		driver.navigate().refresh();
 	}
-	
-	public Set<Cookie> getAllCookie (WebDriver driver) {
+
+	public Set<Cookie> getAllCookie(WebDriver driver) {
 		return driver.manage().getCookies();
 	}
-	
+
 	public void setCookies(WebDriver driver, Set<Cookie> cookies) {
 		for (Cookie cookie : cookies) {
 			driver.manage().addCookie(cookie);
@@ -323,11 +327,11 @@ public class BasePage {
 			return false;
 		}
 	}
-	
+
 	private void overrideGlobalTimeout(WebDriver driver, long timeOut) {
 		driver.manage().timeouts().implicitlyWait(timeOut, TimeUnit.SECONDS);
 	}
-	
+
 	protected boolean isElementEnabled(WebDriver driver, String locator) {
 		return getWebElement(driver, locator).isEnabled();
 	}
@@ -502,9 +506,9 @@ public class BasePage {
 		explicitWait.until(
 				ExpectedConditions.invisibilityOfElementLocated(getByLocator(getDynamicXpath(locator, dynamicValues))));
 	}
-	
+
 	/*
-	 * Wait for element undisplayed in DOM or not in DOM and override implicit Timeout 
+	 * Wait for element undisplayed in DOM or not in DOM and override implicit Timeout
 	 */
 	protected void waitForElementUndisplayed(WebDriver driver, String locator) {
 		WebDriverWait explicitWait = new WebDriverWait(driver, shortTimeout);
@@ -583,6 +587,70 @@ public class BasePage {
 		waitForElementClickable(driver, BasePageNopCommerceUI.LOGOUT_LINK_AT_ADMIN);
 		clickToElement(driver, BasePageNopCommerceUI.LOGOUT_LINK_AT_ADMIN);
 		return PageGeneratorManager.getAdminLoginPage(driver);
+	}
+
+	/**
+	 * Enter to Dynamic textbox by ID
+	 * 
+	 * @param driver
+	 * @param textboxID
+	 * @param valueSendToTextbox
+	 */
+	public void inputToTextboxByID(WebDriver driver, String textboxID, String valueSendToTextbox) {
+		waitForElementVisible(driver, BasePageNopCommerceUI.DYNAMIC_TEXTBOX_BY_ID, textboxID);
+		sendKeyToElement(driver, BasePageNopCommerceUI.DYNAMIC_TEXTBOX_BY_ID, valueSendToTextbox, textboxID);
+	}
+
+	/**
+	 * Click to button by Text
+	 * 
+	 * @param driver
+	 * @param buttonText
+	 */
+	public void clickToButtonByText(WebDriver driver, String buttonText) {
+		waitForElementClickable(driver, BasePageNopCommerceUI.DYNAMIC_BUTTON_BY_TEXT, buttonText);
+		clickToElement(driver, BasePageNopCommerceUI.DYNAMIC_BUTTON_BY_TEXT, buttonText);
+	}
+
+	/**
+	 * Select item in Default DropDown by value name
+	 * 
+	 * @param driver
+	 * @param nameValue
+	 * @param itemSelect
+	 */
+	public void clickToDropDownByValueName(WebDriver driver, String nameValue, String itemSelect) {
+		waitForElementClickable(driver, BasePageNopCommerceUI.DYNAMIC_DROPDOWN_BY_NAME_VALUE, nameValue);
+		selectItemInDefaultDropDown(driver, BasePageNopCommerceUI.DYNAMIC_DROPDOWN_BY_NAME_VALUE, itemSelect,
+				nameValue);
+	}
+	
+	/** Click To Radio button by Label name
+	 * @param driver
+	 * @param labelName
+	 */
+	public void clickToRadioByLabelName(WebDriver driver, String radioLabelName) {
+		waitForElementClickable(driver, BasePageNopCommerceUI.DYNAMIC_RADIO_BUTTON_BY_LABEL_NAME, radioLabelName);
+		checkToDefautCheckboxOrRadio(driver, BasePageNopCommerceUI.DYNAMIC_RADIO_BUTTON_BY_LABEL_NAME, radioLabelName);
+	}
+	
+	/** Click to checkbox by label name
+	 * @param driver
+	 * @param labelName
+	 */
+	public void clickToCheckboxByLabelName(WebDriver driver, String checkboxLabelName) {
+		waitForElementClickable(driver, BasePageNopCommerceUI.DYNAMIC_CHECKBOX_BY_LABEL_NAME, checkboxLabelName);
+		checkToDefautCheckboxOrRadio(driver, BasePageNopCommerceUI.DYNAMIC_CHECKBOX_BY_LABEL_NAME, checkboxLabelName);
+	}
+	
+	/** Get value in textbox by Textbox ID
+	 * @param driver
+	 * @param textboxID
+	 * @return
+	 */
+	public String getTextboxValueByID(WebDriver driver, String textboxID) {
+		waitForElementVisible(driver, BasePageNopCommerceUI.DYNAMIC_TEXTBOX_BY_ID, textboxID);
+		return getElementAttribute(driver, BasePageNopCommerceUI.DYNAMIC_TEXTBOX_BY_ID, "value",  textboxID);
 	}
 
 	private long longTimeout = GlobalConstant.LONG_TIMEOUT;

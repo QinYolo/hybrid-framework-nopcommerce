@@ -230,7 +230,7 @@ public class BaseTest {
 				browserDriverName = "safaridriver";
 			}
 
-			if (osName.contains("window")) {
+			if (osName.contains("Windows")) {
 				cmd = "taskkill /F /FI \"IMAGENAME eq " + browserDriverName + "*\"";
 			} else {
 				cmd = "pkill " + browserDriverName;

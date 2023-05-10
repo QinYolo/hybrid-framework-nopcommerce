@@ -59,7 +59,7 @@ public class User_01_Register_Allure extends BaseTest {
 
 		userRegisterPage.clickToRegisterButton();
 		// error
-		verifyEquals(userRegisterPage.getErrorMessageAtEmailTextbox(), "Wrong email____");
+		verifyEquals(userRegisterPage.getErrorMessageAtEmailTextbox(), "Wrong email");
 	}
 
 	@Description("Register to system is successful")
@@ -93,7 +93,7 @@ public class User_01_Register_Allure extends BaseTest {
 
 		userRegisterPage.clickToRegisterButton();
 		// error
-		verifyEquals(userRegisterPage.getErrorEmailExistingMessage(), "The specified email already exists____");
+		verifyEquals(userRegisterPage.getErrorEmailExistingMessage(), "The specified email already exists");
 	}
 
 	@Description("Register to system with password is less than 6 characters")
@@ -127,7 +127,7 @@ public class User_01_Register_Allure extends BaseTest {
 
 		userRegisterPage.clickToRegisterButton();
 		// error
-		verifyEquals(userRegisterPage.getErrorMessageAtConfirmPasswordTextbox(), "The password and confirmation password do not match.___");
+		verifyEquals(userRegisterPage.getErrorMessageAtConfirmPasswordTextbox(), "The password and confirmation password do not match.");
 	}
 
 	@AfterClass(alwaysRun = true)

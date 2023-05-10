@@ -4,8 +4,8 @@
 	<listeners>
 		<listener class-name="commons.MethodListener" />
 		<!-- <listener class-name="reportConfig.ReportNGListener" /> -->
-		<!-- <listener class-name="reportConfig.ExtentTestListener"/> -->
-		<listener class-name="reportConfig.AllureTestListener" />
+		<listener class-name="reportConfig.ExtentTestListener"/>
+		<!-- <listener class-name="reportConfig.AllureTestListener" /> -->
 		<!--  <listener class-name="org.uncommons.reportng.HTMLReporter" /> -->
 		<!--  <listener class-name="org.uncommons.reportng.JUnitXMLReporter" /> -->
 	</listeners>
@@ -14,7 +14,7 @@
 		<parameter name="browser" value="firefox" />
 		<classes>
 			<!-- <class name="com.nopcommerce.common.Common_01_Register_Cookie" /> -->
-			<class name="com.nopcommerce.user.User_01_Register_Allure" />
+			<class name="com.nopcommerce.user.User_01_Register" />
 		</classes>
 	</test>
 

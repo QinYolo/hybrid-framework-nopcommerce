@@ -62,26 +62,25 @@ public class User_01_Register extends BaseTest {
 		userRegisterPage = userHomePage.clickToRegisterLink();
 
 		ExtentTestManager.getTest().log(Status.INFO, "Register 02 - Email Not Valid - Step 02: Input '" + firstName + "' to first name textbox");
-		userRegisterPage.inputToFirstNameTextbox(firstName);
+		userRegisterPage.inputToTextboxByID(driver, "FirstName", firstName);
 		
 		ExtentTestManager.getTest().log(Status.INFO, "Register 02 - Email Not Valid - Step 03: Input '" + lastName + "' to last name textbox");
-		userRegisterPage.inputToLastNameTextbox(lastName);
+		userRegisterPage.inputToTextboxByID(driver, "LastName", lastName);
 		
 		ExtentTestManager.getTest().log(Status.INFO, "Register 02 - Email Not Valid - Step 04: Input '" + "randdddd678@yu.67#!" + "' to email textbox");
-		userRegisterPage.inputToEmailTextbox("randdddd678@yu.67#!");
+		userRegisterPage.inputToTextboxByID(driver, "Email", "randdddd678@yu.67#!");
 		
 		ExtentTestManager.getTest().log(Status.INFO, "Register 02 - Email Not Valid - Step 05: Input '" + password + "' to password textbox");
-		userRegisterPage.inputToPasswordTextbox(password);
+		userRegisterPage.inputToTextboxByID(driver, "Password", password);
 		
 		ExtentTestManager.getTest().log(Status.INFO, "Register 02 - Email Not Valid - Step 06: Input '" + password + "' to confirm password textbox");
-		userRegisterPage.inputToConfirmPasswordTextbox(password);
+		userRegisterPage.inputToTextboxByID(driver, "ConfirmPassword", password);
 
 		ExtentTestManager.getTest().log(Status.INFO, "Register 02 - Email Not Valid - Step 07: Click to register button");
 		userRegisterPage.clickToRegisterButton();
 
 		ExtentTestManager.getTest().log(Status.INFO, "Register 02 - Email Not Valid - Step 08: Verify error message display at Email textbox");
-		// error
-		verifyEquals(userRegisterPage.getErrorMessageAtEmailTextbox(), "Wrong email____");
+		verifyEquals(userRegisterPage.getErrorMessageAtEmailTextbox(), "Wrong email");
 	}
 
 	@Test
@@ -91,20 +90,20 @@ public class User_01_Register extends BaseTest {
 		userRegisterPage = userHomePage.clickToRegisterLink();
 
 		ExtentTestManager.getTest().log(Status.INFO, "Register 03 - Register Successful - Step 02: Input '" + firstName + "' to first name textbox");
-		userRegisterPage.inputToFirstNameTextbox(firstName);
+		userRegisterPage.inputToTextboxByID(driver, "FirstName", firstName);
 		
 		ExtentTestManager.getTest().log(Status.INFO, "Register 03 - Register Successful - Step 03: Input '" + lastName + "' to last name textbox");
-		userRegisterPage.inputToLastNameTextbox(lastName);
+		userRegisterPage.inputToTextboxByID(driver, "LastName", lastName);
 		
 		ExtentTestManager.getTest().log(Status.INFO, "Register 03 - Register Successful - Step 04: Input '" + emailAdress + "' to email textbox");
-		userRegisterPage.inputToEmailTextbox(emailAdress);
+		userRegisterPage.inputToTextboxByID(driver, "Email", emailAdress);
 		
 		ExtentTestManager.getTest().log(Status.INFO, "Register 03 - Register Successful - Step 05: Input '" + password + "' to password textbox");
-		userRegisterPage.inputToPasswordTextbox(password);
+		userRegisterPage.inputToTextboxByID(driver, "Password", password);
 		
 		ExtentTestManager.getTest().log(Status.INFO, "Register 03 - Register Successful - Step 06: Input '" + password + "' to confirm password textbox");
-		userRegisterPage.inputToConfirmPasswordTextbox(password);
-
+		userRegisterPage.inputToTextboxByID(driver, "ConfirmPassword", password);
+		
 		ExtentTestManager.getTest().log(Status.INFO, "Register 03 - Register Successful - Step 07: Click to register button");
 		userRegisterPage.clickToRegisterButton();
 
@@ -119,26 +118,25 @@ public class User_01_Register extends BaseTest {
 		userRegisterPage = userHomePage.clickToRegisterLink();
 
 		ExtentTestManager.getTest().log(Status.INFO, "Register 04 - Email already exits - Step 02: Input '" + firstName + "' to first name textbox");
-		userRegisterPage.inputToFirstNameTextbox(firstName);
+		userRegisterPage.inputToTextboxByID(driver, "FirstName", firstName);
 		
 		ExtentTestManager.getTest().log(Status.INFO, "Register 04 - Email already exits - Step 03: Input '" + lastName + "' to last name textbox");
-		userRegisterPage.inputToLastNameTextbox(lastName);
+		userRegisterPage.inputToTextboxByID(driver, "LastName", lastName);
 		
 		ExtentTestManager.getTest().log(Status.INFO, "Register 04 - Email already exits - Step 04: Input '" + emailAdress + "' to email textbox");
-		userRegisterPage.inputToEmailTextbox(emailAdress);
+		userRegisterPage.inputToTextboxByID(driver, "Email", emailAdress);
 		
 		ExtentTestManager.getTest().log(Status.INFO, "Register 04 - Email already exits - Step 05: Input '" + password + "' to password textbox");
-		userRegisterPage.inputToPasswordTextbox(password);
+		userRegisterPage.inputToTextboxByID(driver, "Password", password);
 		
 		ExtentTestManager.getTest().log(Status.INFO, "Register 04 - Email already exits - Step 06: Input '" + password + "' to confirm password textbox");
-		userRegisterPage.inputToConfirmPasswordTextbox(password);
+		userRegisterPage.inputToTextboxByID(driver, "ConfirmPassword", password);
 
 		ExtentTestManager.getTest().log(Status.INFO, "Register 04 - Email already exits - Step 07: Click to register button");
 		userRegisterPage.clickToRegisterButton();
 
 		ExtentTestManager.getTest().log(Status.INFO, "Register 04 - Email already exits - Step 08: Verify email error message displayed");
-		// error
-		verifyEquals(userRegisterPage.getErrorEmailExistingMessage(), "The specified email already exists____");
+		verifyEquals(userRegisterPage.getErrorEmailExistingMessage(), "The specified email already exists");
 	}
 
 	@Test
@@ -148,19 +146,19 @@ public class User_01_Register extends BaseTest {
 		userRegisterPage = userHomePage.clickToRegisterLink();
 
 		ExtentTestManager.getTest().log(Status.INFO, "Register 05 - Password less than 6 chars - Step 02: Input '" + firstName + "' to first name textbox");
-		userRegisterPage.inputToFirstNameTextbox(firstName);
+		userRegisterPage.inputToTextboxByID(driver, "FirstName", firstName);
 		
 		ExtentTestManager.getTest().log(Status.INFO, "Register 05 - Password less than 6 chars - Step 03: Input '" + lastName + "' to last name textbox");
-		userRegisterPage.inputToLastNameTextbox(lastName);
+		userRegisterPage.inputToTextboxByID(driver, "LastName", lastName);
 		
 		ExtentTestManager.getTest().log(Status.INFO, "Register 05 - Password less than 6 chars - Step 04: Input '" + emailAdress + "' to email textbox");
-		userRegisterPage.inputToEmailTextbox(emailAdress);
+		userRegisterPage.inputToTextboxByID(driver, "Email", emailAdress);
 		
 		ExtentTestManager.getTest().log(Status.INFO, "Register 05 - Password less than 6 chars - Step 05: Input '" + "123" + "' to password textbox");
-		userRegisterPage.inputToPasswordTextbox("123");
+		userRegisterPage.inputToTextboxByID(driver, "Password", "123");
 		
 		ExtentTestManager.getTest().log(Status.INFO, "Register 05 - Password less than 6 chars - Step 06: Input '" + "123" + "' to confirm password textbox");
-		userRegisterPage.inputToConfirmPasswordTextbox("123");
+		userRegisterPage.inputToTextboxByID(driver, "ConfirmPassword", "123");
 
 		ExtentTestManager.getTest().log(Status.INFO, "Register 05 - Password less than 6 chars - Step 07: Click to register button");
 		userRegisterPage.clickToRegisterButton();
@@ -177,31 +175,31 @@ public class User_01_Register extends BaseTest {
 		userRegisterPage = userHomePage.clickToRegisterLink();
 
 		ExtentTestManager.getTest().log(Status.INFO, "Register 06 - Password confirmation does not match - Step 02: Input '" + firstName + "' to first name textbox");
-		userRegisterPage.inputToFirstNameTextbox(firstName);
+		userRegisterPage.inputToTextboxByID(driver, "FirstName", firstName);
 		
 		ExtentTestManager.getTest().log(Status.INFO, "Register 06 - Password confirmation does not match - Step 03: Input '" + lastName + "' to last name textbox");
-		userRegisterPage.inputToLastNameTextbox(lastName);
+		userRegisterPage.inputToTextboxByID(driver, "LastName", lastName);
 		
 		ExtentTestManager.getTest().log(Status.INFO, "Register 06 - Password confirmation does not match - Step 04: Input '" + emailAdress + "' to email textbox");
-		userRegisterPage.inputToEmailTextbox(emailAdress);
+		userRegisterPage.inputToTextboxByID(driver, "Email", emailAdress);
 		
 		ExtentTestManager.getTest().log(Status.INFO, "Register 06 - Password confirmation does not match - Step 05: Input '" + password + "' to password textbox");
 		userRegisterPage.inputToPasswordTextbox(password);
+		userRegisterPage.inputToTextboxByID(driver, "Password", password);
 		
 		ExtentTestManager.getTest().log(Status.INFO, "Register 06 - Password confirmation does not match - Step 06: Input '" + "123" + "' to confirm password textbox");
-		userRegisterPage.inputToConfirmPasswordTextbox("123");
+		userRegisterPage.inputToTextboxByID(driver, "ConfirmPassword", "123");
 
 		ExtentTestManager.getTest().log(Status.INFO, "Register 06 - Password confirmation does not match - Step 07: Click to register button");
 		userRegisterPage.clickToRegisterButton();
 		
 		ExtentTestManager.getTest().log(Status.INFO, "Register 06 - Password confirmation does not match - Step 08: Verify error message displayed at confirm password textbox");
-		// error
-		verifyEquals(userRegisterPage.getErrorMessageAtConfirmPasswordTextbox(), "The password and confirmation password do not match.___");
+		verifyEquals(userRegisterPage.getErrorMessageAtConfirmPasswordTextbox(), "The password and confirmation password do not match.");
 	}
 
-	@AfterClass
+	@AfterClass(alwaysRun = true)
 	public void afterClass() {
-		driver.quit();
+		closeBrowserDriver();
 	}
 
 	private WebDriver driver;
