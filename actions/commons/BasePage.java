@@ -25,7 +25,7 @@ import pageUIs.jquery.upload.BasePageJQueryUI;
 import pageUIs.nopcommerce.user.BasePageNopCommerceUI;
 
 /**
- * @author ASUS
+ * @author QingBao
  *
  */
 public class BasePage {
@@ -46,7 +46,7 @@ public class BasePage {
 		return driver.getTitle();
 	}
 
-	protected String getPageURL(WebDriver driver) {
+	public String getPageURL(WebDriver driver) {
 		return driver.getCurrentUrl();
 	}
 

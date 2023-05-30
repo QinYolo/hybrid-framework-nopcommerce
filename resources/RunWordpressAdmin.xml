@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Wordpress - Admin">
+
+	<listeners>
+		<listener class-name="commons.MethodListener" />
+		<listener class-name="reportConfig.ExtentTestListener" />
+	</listeners>
+
+	<parameter name="urlAdmin" value="http://localhost/wp-admin/" />
+	<parameter name="urlUser" value="http://localhost/" />
+	
+	<test name="Run On Firefox">
+		<parameter name="browser" value="firefox" />
+		 <classes>
+			<class name="com.wordpress.admin.Post_01_Create_Read_Update_Delete_Search" />
+		</classes>
+		
+		<!-- <packages>
+			<package name="com.wordpress.admin"/>
+		</packages>  -->
+		
+	</test>
+
+</suite>
