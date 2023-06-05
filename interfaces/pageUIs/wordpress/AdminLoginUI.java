@@ -1,4 +1,4 @@
-package pageUIs.wordpress.admin;
+package pageUIs.wordpress;
 
 public class AdminLoginUI {
 	public static final String USERNAME_TEXTBOX = "css=#user_login";

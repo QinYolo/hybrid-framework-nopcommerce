@@ -21,6 +21,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import pageObjects.nopcommerce.admin.AdminLoginPageObject;
 import pageObjects.nopcommerce.user.PageGeneratorManager;
 import pageObjects.nopcommerce.user.UserHomePageObject;
+import pageObjects.wordpress.AdminDashboardPO;
+import pageObjects.wordpress.UserHomePO;
 import pageUIs.jquery.upload.BasePageJQueryUI;
 import pageUIs.nopcommerce.user.BasePageNopCommerceUI;
 
@@ -199,6 +201,11 @@ public class BasePage {
 		element.clear();
 		element.sendKeys(textValue);
 	}
+	
+	protected void clearValueInElementByDeleteKey(WebDriver driver, String locator) {
+		WebElement element = getWebElement(driver, locator);
+		element.sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
+	}
 
 	protected void selectItemInDefaultDropDown(WebDriver driver, String locator, String textItem) {
 		Select select = new Select(getWebElement(driver, locator));
@@ -314,10 +321,23 @@ public class BasePage {
 	protected boolean isElementDisplayed(WebDriver driver, String locator, String... dynamicValues) {
 		return getWebElement(driver, getDynamicXpath(locator, dynamicValues)).isDisplayed();
 	}
-
+	
 	protected boolean isElementUndisplayed(WebDriver driver, String locator) {
 		overrideGlobalTimeout(driver, shortTimeout);
 		List<WebElement> elements = getListWebElement(driver, locator);
+		overrideGlobalTimeout(driver, longTimeout);
+		if (elements.size() == 0) {
+			return true;
+		} else if (elements.size() > 0 && !elements.get(0).isDisplayed()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	protected boolean isElementUndisplayed(WebDriver driver, String locator, String... dynamicValues) {
+		overrideGlobalTimeout(driver, shortTimeout);
+		List<WebElement> elements = getListWebElement(driver, getDynamicXpath(locator, dynamicValues));
 		overrideGlobalTimeout(driver, longTimeout);
 		if (elements.size() == 0) {
 			return true;
@@ -651,6 +671,15 @@ public class BasePage {
 	public String getTextboxValueByID(WebDriver driver, String textboxID) {
 		waitForElementVisible(driver, BasePageNopCommerceUI.DYNAMIC_TEXTBOX_BY_ID, textboxID);
 		return getElementAttribute(driver, BasePageNopCommerceUI.DYNAMIC_TEXTBOX_BY_ID, "value",  textboxID);
+	}
+	
+	public UserHomePO openEndUserSite(WebDriver driver, String userURL) {
+		openPageURL(driver, userURL);
+		return pageObjects.wordpress.PageGeneratorManager.getUserHomePage(driver);
+	}
+	public AdminDashboardPO openAdminSite(WebDriver driver, String adminURL) {
+		openPageURL(driver, adminURL);
+		return pageObjects.wordpress.PageGeneratorManager.getAdminDashboardPage(driver);
 	}
 
 	private long longTimeout = GlobalConstant.LONG_TIMEOUT;

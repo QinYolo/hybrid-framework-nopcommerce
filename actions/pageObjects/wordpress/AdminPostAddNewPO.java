@@ -1,9 +1,9 @@
-package pageObjects.wordpress.admin;
+package pageObjects.wordpress;
 
 import org.openqa.selenium.WebDriver;
 
 import commons.BasePage;
-import pageUIs.wordpress.admin.AdminPostAddNewUI;
+import pageUIs.wordpress.AdminPostAddNewUI;
 
 public class AdminPostAddNewPO extends BasePage{
 	private WebDriver driver;
@@ -18,11 +18,12 @@ public class AdminPostAddNewPO extends BasePage{
 		waitForElementClickable(driver, AdminPostAddNewUI.PRE_BODY_POST_TEXTBOX);
 		clickToElement(driver, AdminPostAddNewUI.PRE_BODY_POST_TEXTBOX);
 		waitForElementVisible(driver, AdminPostAddNewUI.BODY_POST_TEXTBOX);
+		clearValueInElementByDeleteKey(driver, AdminPostAddNewUI.BODY_POST_TEXTBOX);
 		sendKeyToElement(driver, AdminPostAddNewUI.BODY_POST_TEXTBOX, postBodyValue);
 	}
-	public void clickToPublishButton() {
-		waitForElementClickable(driver, AdminPostAddNewUI.PUBLISH_BUTTON);
-		clickToElement(driver, AdminPostAddNewUI.PUBLISH_BUTTON);
+	public void clickToPublishButton(String buttonName) {
+		waitForElementClickable(driver, AdminPostAddNewUI.PUBLISH_BUTTON, buttonName);
+		clickToElement(driver, AdminPostAddNewUI.PUBLISH_BUTTON, buttonName);
 	}
 	public void clickToRePublishButton() {
 		waitForElementClickable(driver, AdminPostAddNewUI.PRE_PUBLISH_BUTTON);
@@ -32,8 +33,8 @@ public class AdminPostAddNewPO extends BasePage{
 		waitForElementVisible(driver, AdminPostAddNewUI.POST_PUBLISHED_BY_MESSAGE, publishMessage);
 		return isElementDisplayed(driver, AdminPostAddNewUI.POST_PUBLISHED_BY_MESSAGE, publishMessage);
 	}
-	public void clickToCloseTutorialPopup() {
-		waitForElementClickable(driver, AdminPostAddNewUI.CLOSE_BUTTON_TUTORIAL);
-		clickToElement(driver, AdminPostAddNewUI.CLOSE_BUTTON_TUTORIAL);
+	public AdminPostSearchPO openSearchPostPageUrl(String searchPostPageURL) {
+		openPageURL(driver, searchPostPageURL);
+		return PageGeneratorManager.getAdminPostSearchPage(driver);
 	}
 }
