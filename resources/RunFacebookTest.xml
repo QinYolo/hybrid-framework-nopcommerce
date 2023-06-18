@@ -7,8 +7,8 @@
 	
 	<parameter name="url" value="https://www.facebook.com/" />
 	
-	<test name="Run On Firefox">
-		<parameter name="browser" value="firefox" />
+	<test name="Run On Chrome">
+		<parameter name="browser" value="chrome" />
 		<classes>
 			<class name="com.facebook.Level_13_Element_Undisplayed" />
 		</classes>

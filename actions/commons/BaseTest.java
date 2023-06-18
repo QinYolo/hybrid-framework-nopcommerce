@@ -2,6 +2,7 @@ package commons;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -41,7 +42,11 @@ public class BaseTest {
 		BrowserList browserList = BrowserList.valueOf(browserName.toUpperCase());
 		if (browserList == BrowserList.FIREFOX) {
 			WebDriverManager.firefoxdriver().setup();
-			driver = new FirefoxDriver();
+			System.setProperty(FirefoxDriver.SystemProperty.DRIVER_USE_MARIONETTE, "true");
+			System.setProperty(FirefoxDriver.SystemProperty.BROWSER_LOGFILE, GlobalConstant.PROJECT_PATH + "\\browserLogs\\FirefoxLog.log");
+			FirefoxOptions options = new FirefoxOptions();
+			options.addArguments("--disable-notifications");
+			driver = new FirefoxDriver(options);
 		} else if (browserList == BrowserList.H_FIREFOX) {
 			WebDriverManager.firefoxdriver().setup();
 			FirefoxOptions options = new FirefoxOptions();
@@ -50,7 +55,13 @@ public class BaseTest {
 			driver = new FirefoxDriver(options);
 		} else if (browserList == BrowserList.CHROME) {
 			WebDriverManager.chromedriver().setup();
-			driver = new ChromeDriver();
+			System.setProperty("webdriver.chrome.args", "--disable-logging");
+			System.setProperty("webdriver.chrome.silentOutput", "true");
+			ChromeOptions options = new ChromeOptions();
+			options.addArguments("--disable-notifications");
+			options.setExperimentalOption("useAutomationExtension", false);
+			options.setExperimentalOption("excludeSwitches", Collections.singletonList("enable-automation"));
+			driver = new ChromeDriver(options);
 		} else if (browserList == BrowserList.H_CHROME) {
 			WebDriverManager.chromedriver().setup();
 			ChromeOptions options = new ChromeOptions();
