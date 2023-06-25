@@ -15,6 +15,7 @@ import pageObjects.nopcommerce.user.UserHomePageObject;
 import pageObjects.nopcommerce.user.PageGeneratorManager;
 import pageObjects.nopcommerce.user.UserRegisterPageObject;
 import reportConfig.ExtentTestManager;
+import utilities.DataHelper;
 
 public class User_01_Register extends BaseTest {
 
@@ -22,10 +23,12 @@ public class User_01_Register extends BaseTest {
 	@BeforeClass
 	public void beforeClass(String browserName) {
 		driver = getBrowserDriver(browserName);
-		firstName = "Automation";
-		lastName = "Testing";
-		password = "123456";
-		emailAdress = "automationTest" + getRandomNumber() + "@gmail.com";
+		dataFaker = DataHelper.getData();
+		
+		firstName = dataFaker.getFirstName();
+		lastName = dataFaker.getLastName();
+		password = dataFaker.getPassword();
+		emailAdress = dataFaker.getEmail();
 		
 		userHomePage = PageGeneratorManager.getUserHomePage(driver);
 	}
@@ -204,6 +207,7 @@ public class User_01_Register extends BaseTest {
 
 	private WebDriver driver;
 	private String firstName, lastName, emailAdress, password;
+	private DataHelper dataFaker;
 	private UserHomePageObject userHomePage;
 	private UserRegisterPageObject userRegisterPage;
 }
