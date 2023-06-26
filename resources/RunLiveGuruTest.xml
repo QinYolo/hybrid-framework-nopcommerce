@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="NopCommerce">
 
+	<parameter name="url" value="http://live.techpanda.org/" />
 	<test name="Run On Firefox">
 		<parameter name="browser" value="firefox" />
 		<classes>
-			<class name="com.liveguru.user.User_02_Data_Grid" />
+			<class name="com.liveguru.user.User_02_Data_Grid_Json_Database" />
 		</classes>
 	</test>
 

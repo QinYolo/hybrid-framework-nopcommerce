@@ -61,7 +61,7 @@ public class User_01_Register_Login extends BaseTest {
 
 	@AfterClass
 	public void afterClass() {
-		driver.quit();
+		closeBrowserDriver();
 	}
 
 	private WebDriver driver;

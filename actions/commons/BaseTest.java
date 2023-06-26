@@ -94,7 +94,7 @@ public class BaseTest {
 		return driver;
 	}
 	
-	protected WebDriver getBrowserDriver(String browserName, String jQueryURL) {
+	protected WebDriver getBrowserDriver(String browserName, String browserURL) {
 		BrowserList browserList = BrowserList.valueOf(browserName.toUpperCase());
 		if (browserList == BrowserList.FIREFOX) {
 			WebDriverManager.firefoxdriver().setup();
@@ -135,7 +135,7 @@ public class BaseTest {
 
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
-		driver.get(jQueryURL);
+		driver.get(browserURL);
 
 		return driver;
 	}
