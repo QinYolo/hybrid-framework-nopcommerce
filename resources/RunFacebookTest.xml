@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="NopCommerce">
 
-	<listeners>
-		<listener class-name="commons.MethodListener" />
-	</listeners>
-	
-	<parameter name="url" value="https://www.facebook.com/" />
-	
-	<test name="Run On Chrome">
-		<parameter name="browser" value="chrome" />
-		<classes>
-			<class name="com.facebook.Level_13_Element_Undisplayed" />
-		</classes>
-	</test>
+    <listeners>
+        <listener class-name="commons.MethodListener"/>
+    </listeners>
 
-	
+    <parameter name="url" value="https://www.facebook.com/"/>
+
+    <test name="Run On Chrome">
+        <parameter name="browser" value="chrome"/>
+        <classes>
+            <class name="com.facebook.Level_13_Element_Undisplayed"/>
+        </classes>
+    </test>
+
+
 </suite>

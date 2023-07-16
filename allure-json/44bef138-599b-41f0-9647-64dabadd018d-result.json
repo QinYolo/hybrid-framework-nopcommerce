@@ -1,0 +1,66 @@
+{
+  "name": "Register_04_Email_Already_Exists",
+  "status": "passed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false
+  },
+  "stage": "finished",
+  "steps": [],
+  "attachments": [],
+  "parameters": [
+    {
+      "name": "browser",
+      "value": "chrome"
+    }
+  ],
+  "start": 1688565483555,
+  "stop": 1688565484857,
+  "uuid": "44bef138-599b-41f0-9647-64dabadd018d",
+  "historyId": "ae37accfa19b4f368885a7d5e0b13632",
+  "fullName": "com.nopcommerce.user.User_01_Register.Register_04_Email_Already_Exists",
+  "labels": [
+    {
+      "name": "package",
+      "value": "com.nopcommerce.user.User_01_Register"
+    },
+    {
+      "name": "testClass",
+      "value": "com.nopcommerce.user.User_01_Register"
+    },
+    {
+      "name": "testMethod",
+      "value": "Register_04_Email_Already_Exists"
+    },
+    {
+      "name": "parentSuite",
+      "value": "NopCommerce"
+    },
+    {
+      "name": "suite",
+      "value": "Run On Chrome"
+    },
+    {
+      "name": "subSuite",
+      "value": "com.nopcommerce.user.User_01_Register"
+    },
+    {
+      "name": "host",
+      "value": "DESKTOP-KJ9K7OV"
+    },
+    {
+      "name": "thread",
+      "value": "12916@DESKTOP-KJ9K7OV.main(1)"
+    },
+    {
+      "name": "framework",
+      "value": "testng"
+    },
+    {
+      "name": "language",
+      "value": "java"
+    }
+  ],
+  "links": []
+}

@@ -18,125 +18,125 @@ import pageObjects.nopcommerce.user.UserRegisterPageObject;
 
 public class User_01_Register_Allure extends BaseTest {
 
-	@Parameters("browser")
-	@BeforeClass
-	public void beforeClass(String browserName) {
-		driver = getBrowserDriver(browserName);
-		firstName = "Automation";
-		lastName = "Testing";
-		password = "123456";
-		emailAdress = "automationTest" + getRandomNumber() + "@gmail.com";
-		
-		userHomePage = PageGeneratorManager.getUserHomePage(driver);
-	}
+    @Parameters("browser")
+    @BeforeClass
+    public void beforeClass(String browserName) {
+        driver = getBrowserDriver(browserName);
+        firstName = "Automation";
+        lastName = "Testing";
+        password = "123456";
+        emailAdress = "automationTest" + getRandomNumber() + "@gmail.com";
 
-	@Description("Register to system without data")
-	@Severity(SeverityLevel.NORMAL)
-	@Test
-	public void Register_01_Empty_Data( ) {
-		userRegisterPage = userHomePage.clickToRegisterLink();
+        userHomePage = PageGeneratorManager.getUserHomePage(driver);
+    }
 
-		userRegisterPage.clickToRegisterButton();
+    @Description("Register to system without data")
+    @Severity(SeverityLevel.NORMAL)
+    @Test
+    public void Register_01_Empty_Data() {
+        userRegisterPage = userHomePage.clickToRegisterLink();
 
-		verifyEquals(userRegisterPage.getErrorMessageAtFirstNameTextbox(), "First name is required.");
-		verifyEquals(userRegisterPage.getErrorMessageAtLastNameTextbox(), "Last name is required.");
-		verifyEquals(userRegisterPage.getErrorMessageAtEmailTextbox(), "Email is required.");
-		verifyEquals(userRegisterPage.getErrorMessageAtPasswordTextbox(), "Password is required.");
-		verifyEquals(userRegisterPage.getErrorMessageAtConfirmPasswordTextbox(), "Password is required.");
-	}
+        userRegisterPage.clickToRegisterButton();
 
-	@Description("Register to system with email is not valid")
-	@Severity(SeverityLevel.NORMAL)
-	@Test
-	public void Register_02_Email_NotValid( ) {
-		userRegisterPage = userHomePage.clickToRegisterLink();
+        verifyEquals(userRegisterPage.getErrorMessageAtFirstNameTextbox(), "First name is required.");
+        verifyEquals(userRegisterPage.getErrorMessageAtLastNameTextbox(), "Last name is required.");
+        verifyEquals(userRegisterPage.getErrorMessageAtEmailTextbox(), "Email is required.");
+        verifyEquals(userRegisterPage.getErrorMessageAtPasswordTextbox(), "Password is required.");
+        verifyEquals(userRegisterPage.getErrorMessageAtConfirmPasswordTextbox(), "Password is required.");
+    }
 
-		userRegisterPage.inputToFirstNameTextbox(firstName);
-		userRegisterPage.inputToLastNameTextbox(lastName);
-		userRegisterPage.inputToEmailTextbox("randdddd678@yu.67#!");
-		userRegisterPage.inputToPasswordTextbox(password);
-		userRegisterPage.inputToConfirmPasswordTextbox(password);
+    @Description("Register to system with email is not valid")
+    @Severity(SeverityLevel.NORMAL)
+    @Test
+    public void Register_02_Email_NotValid() {
+        userRegisterPage = userHomePage.clickToRegisterLink();
 
-		userRegisterPage.clickToRegisterButton();
-		// error
-		verifyEquals(userRegisterPage.getErrorMessageAtEmailTextbox(), "Wrong email");
-	}
+        userRegisterPage.inputToFirstNameTextbox(firstName);
+        userRegisterPage.inputToLastNameTextbox(lastName);
+        userRegisterPage.inputToEmailTextbox("randdddd678@yu.67#!");
+        userRegisterPage.inputToPasswordTextbox(password);
+        userRegisterPage.inputToConfirmPasswordTextbox(password);
 
-	@Description("Register to system is successful")
-	@Severity(SeverityLevel.CRITICAL)
-	@Test
-	public void Register_03_Register_Successful( ) {
-		userRegisterPage = userHomePage.clickToRegisterLink();
+        userRegisterPage.clickToRegisterButton();
+        // error
+        verifyEquals(userRegisterPage.getErrorMessageAtEmailTextbox(), "Wrong email");
+    }
 
-		userRegisterPage.inputToFirstNameTextbox(firstName);
-		userRegisterPage.inputToLastNameTextbox(lastName);
-		userRegisterPage.inputToEmailTextbox(emailAdress);
-		userRegisterPage.inputToPasswordTextbox(password);
-		userRegisterPage.inputToConfirmPasswordTextbox(password);
-		
-		userRegisterPage.clickToRegisterButton();
+    @Description("Register to system is successful")
+    @Severity(SeverityLevel.CRITICAL)
+    @Test
+    public void Register_03_Register_Successful() {
+        userRegisterPage = userHomePage.clickToRegisterLink();
 
-		verifyEquals(userRegisterPage.getRegisterSuccessMessage(), "Your registration completed");
-	}
+        userRegisterPage.inputToFirstNameTextbox(firstName);
+        userRegisterPage.inputToLastNameTextbox(lastName);
+        userRegisterPage.inputToEmailTextbox(emailAdress);
+        userRegisterPage.inputToPasswordTextbox(password);
+        userRegisterPage.inputToConfirmPasswordTextbox(password);
 
-	@Description("Register to system with email is already exists")
-	@Severity(SeverityLevel.NORMAL)
-	@Test
-	public void Register_04_Email_Already_Exists( ) {
-		userRegisterPage = userHomePage.clickToRegisterLink();
+        userRegisterPage.clickToRegisterButton();
 
-		userRegisterPage.inputToFirstNameTextbox(firstName);
-		userRegisterPage.inputToLastNameTextbox(lastName);
-		userRegisterPage.inputToEmailTextbox(emailAdress);
-		userRegisterPage.inputToPasswordTextbox(password);
-		userRegisterPage.inputToConfirmPasswordTextbox(password);
+        verifyEquals(userRegisterPage.getRegisterSuccessMessage(), "Your registration completed");
+    }
 
-		userRegisterPage.clickToRegisterButton();
-		// error
-		verifyEquals(userRegisterPage.getErrorEmailExistingMessage(), "The specified email already exists");
-	}
+    @Description("Register to system with email is already exists")
+    @Severity(SeverityLevel.NORMAL)
+    @Test
+    public void Register_04_Email_Already_Exists() {
+        userRegisterPage = userHomePage.clickToRegisterLink();
 
-	@Description("Register to system with password is less than 6 characters")
-	@Severity(SeverityLevel.NORMAL)
-	@Test
-	public void  Register_05_Password_Less_Than_6_Chars( ) {
-		userRegisterPage = userHomePage.clickToRegisterLink();
+        userRegisterPage.inputToFirstNameTextbox(firstName);
+        userRegisterPage.inputToLastNameTextbox(lastName);
+        userRegisterPage.inputToEmailTextbox(emailAdress);
+        userRegisterPage.inputToPasswordTextbox(password);
+        userRegisterPage.inputToConfirmPasswordTextbox(password);
 
-		userRegisterPage.inputToFirstNameTextbox(firstName);
-		userRegisterPage.inputToLastNameTextbox(lastName);
-		userRegisterPage.inputToEmailTextbox(emailAdress);
-		userRegisterPage.inputToPasswordTextbox("123");
-		userRegisterPage.inputToConfirmPasswordTextbox("123");
-		userRegisterPage.clickToRegisterButton();
+        userRegisterPage.clickToRegisterButton();
+        // error
+        verifyEquals(userRegisterPage.getErrorEmailExistingMessage(), "The specified email already exists");
+    }
 
-		verifyEquals(userRegisterPage.getErrorMessageAtPasswordTextbox(),
-				"Password must meet the following rules:\nmust have at least 6 characters");
-	}
+    @Description("Register to system with password is less than 6 characters")
+    @Severity(SeverityLevel.NORMAL)
+    @Test
+    public void Register_05_Password_Less_Than_6_Chars() {
+        userRegisterPage = userHomePage.clickToRegisterLink();
 
-	@Description("Register to system with password confirmation does not match")
-	@Severity(SeverityLevel.NORMAL)
-	@Test
-	public void  Register_06_Password_Confirmation_Does_Not_Match( ) {
-		userRegisterPage = userHomePage.clickToRegisterLink();
+        userRegisterPage.inputToFirstNameTextbox(firstName);
+        userRegisterPage.inputToLastNameTextbox(lastName);
+        userRegisterPage.inputToEmailTextbox(emailAdress);
+        userRegisterPage.inputToPasswordTextbox("123");
+        userRegisterPage.inputToConfirmPasswordTextbox("123");
+        userRegisterPage.clickToRegisterButton();
 
-		userRegisterPage.inputToFirstNameTextbox(firstName);
-		userRegisterPage.inputToLastNameTextbox(lastName);
-		userRegisterPage.inputToEmailTextbox(emailAdress);
-		userRegisterPage.inputToPasswordTextbox(password);
-		userRegisterPage.inputToConfirmPasswordTextbox("123");
+        verifyEquals(userRegisterPage.getErrorMessageAtPasswordTextbox(),
+                "Password must meet the following rules:\nmust have at least 6 characters");
+    }
 
-		userRegisterPage.clickToRegisterButton();
-		// error
-		verifyEquals(userRegisterPage.getErrorMessageAtConfirmPasswordTextbox(), "The password and confirmation password do not match.");
-	}
+    @Description("Register to system with password confirmation does not match")
+    @Severity(SeverityLevel.NORMAL)
+    @Test
+    public void Register_06_Password_Confirmation_Does_Not_Match() {
+        userRegisterPage = userHomePage.clickToRegisterLink();
 
-	@AfterClass(alwaysRun = true)
-	public void afterClass() {
-		closeBrowserDriver();
-	}
+        userRegisterPage.inputToFirstNameTextbox(firstName);
+        userRegisterPage.inputToLastNameTextbox(lastName);
+        userRegisterPage.inputToEmailTextbox(emailAdress);
+        userRegisterPage.inputToPasswordTextbox(password);
+        userRegisterPage.inputToConfirmPasswordTextbox("123");
 
-	private WebDriver driver;
-	private String firstName, lastName, emailAdress, password;
-	private UserHomePageObject userHomePage;
-	private UserRegisterPageObject userRegisterPage;
+        userRegisterPage.clickToRegisterButton();
+        // error
+        verifyEquals(userRegisterPage.getErrorMessageAtConfirmPasswordTextbox(), "The password and confirmation password do not match.");
+    }
+
+    @AfterClass(alwaysRun = true)
+    public void afterClass() {
+        closeBrowserDriver();
+    }
+
+    private WebDriver driver;
+    private String firstName, lastName, emailAdress, password;
+    private UserHomePageObject userHomePage;
+    private UserRegisterPageObject userRegisterPage;
 }

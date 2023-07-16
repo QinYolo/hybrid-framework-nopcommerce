@@ -1,5 +1,5 @@
 package commons;
 
 public enum PlatformList {
-	WINDOW, MAC, LINUX, IOS, ANDROID;
+    WINDOW, MAC, LINUX, IOS, ANDROID;
 }

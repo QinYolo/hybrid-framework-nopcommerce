@@ -1,0 +1,66 @@
+{
+  "name": "Register_01_Empty_Data",
+  "status": "passed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false
+  },
+  "stage": "finished",
+  "steps": [],
+  "attachments": [],
+  "parameters": [
+    {
+      "name": "browser",
+      "value": "chrome"
+    }
+  ],
+  "start": 1688565479756,
+  "stop": 1688565480760,
+  "uuid": "81f2f4bb-4b67-496c-9447-86d264a3231f",
+  "historyId": "e45994aeb109267e40afb85f6177eb13",
+  "fullName": "com.nopcommerce.user.User_01_Register.Register_01_Empty_Data",
+  "labels": [
+    {
+      "name": "package",
+      "value": "com.nopcommerce.user.User_01_Register"
+    },
+    {
+      "name": "testClass",
+      "value": "com.nopcommerce.user.User_01_Register"
+    },
+    {
+      "name": "testMethod",
+      "value": "Register_01_Empty_Data"
+    },
+    {
+      "name": "parentSuite",
+      "value": "NopCommerce"
+    },
+    {
+      "name": "suite",
+      "value": "Run On Chrome"
+    },
+    {
+      "name": "subSuite",
+      "value": "com.nopcommerce.user.User_01_Register"
+    },
+    {
+      "name": "host",
+      "value": "DESKTOP-KJ9K7OV"
+    },
+    {
+      "name": "thread",
+      "value": "12916@DESKTOP-KJ9K7OV.main(1)"
+    },
+    {
+      "name": "framework",
+      "value": "testng"
+    },
+    {
+      "name": "language",
+      "value": "java"
+    }
+  ],
+  "links": []
+}

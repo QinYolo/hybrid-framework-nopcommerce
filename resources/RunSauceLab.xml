@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="SauceLab">
 
-	<listeners>
-		<listener class-name="commons.MethodListener" />
-	</listeners>
-	
-	<parameter name="url" value="https://www.saucedemo.com/" />
-	
-	<test name="Run On Firefox">
-		<parameter name="browser" value="firefox" />
-		<classes>
-			<class name="com.sauceLab.User_01_Sort_Asc_Desc" />
-		</classes>
-	</test>
+    <listeners>
+        <listener class-name="commons.MethodListener"/>
+    </listeners>
 
-	
+    <parameter name="url" value="https://www.saucedemo.com/"/>
+
+    <test name="Run On Firefox">
+        <parameter name="browser" value="firefox"/>
+        <classes>
+            <class name="com.sauceLab.User_01_Sort_Asc_Desc"/>
+        </classes>
+    </test>
+
+
 </suite>

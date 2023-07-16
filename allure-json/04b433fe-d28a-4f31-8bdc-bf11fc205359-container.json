@@ -1,0 +1,41 @@
+{
+  "uuid": "04b433fe-d28a-4f31-8bdc-bf11fc205359",
+  "name": "com.nopcommerce.user.User_01_Register",
+  "children": [
+    "81f2f4bb-4b67-496c-9447-86d264a3231f",
+    "278b2b53-576e-411b-a6a1-c9b0bd59bf51",
+    "78624493-8da7-4f51-a525-8f4cfc7fe190",
+    "44bef138-599b-41f0-9647-64dabadd018d",
+    "8ea2fa2b-144d-4b68-a670-00dd388a5a30",
+    "d1818c82-5dbe-4874-87a3-ccd70c8ca356"
+  ],
+  "befores": [
+    {
+      "name": "beforeClass",
+      "status": "passed",
+      "stage": "finished",
+      "description": "",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1688565471316,
+      "stop": 1688565479681
+    }
+  ],
+  "afters": [
+    {
+      "name": "afterClass",
+      "status": "passed",
+      "stage": "finished",
+      "description": "",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1688565486840,
+      "stop": 1688565487660
+    }
+  ],
+  "links": [],
+  "start": 1688565471308,
+  "stop": 1688565487666
+}

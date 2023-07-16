@@ -16,109 +16,109 @@ import org.testng.annotations.AfterClass;
 
 public class User_02_Login extends BaseTest {
 
-	@Parameters("browser")
-	@BeforeClass
-	public void beforeClass(String browserName) {
-		driver = getBrowserDriver(browserName);
+    @Parameters("browser")
+    @BeforeClass
+    public void beforeClass(String browserName) {
+        driver = getBrowserDriver(browserName);
 
-		validEmail = "automationTest" + getRandomNumber() + "@gmail.com";
-		password = "123456";
-		noAccountEmail = "emailtesting" + getRandomNumber() + "@gmail.com";
-		
-		userHomePage = PageGeneratorManager.getUserHomePage(driver);
-		userRegisterPage = userHomePage.clickToRegisterLink();
+        validEmail = "automationTest" + getRandomNumber() + "@gmail.com";
+        password = "123456";
+        noAccountEmail = "emailtesting" + getRandomNumber() + "@gmail.com";
 
-		userRegisterPage.inputToFirstNameTextbox("Automation");
-		userRegisterPage.inputToLastNameTextbox("Testing");
-		userRegisterPage.inputToEmailTextbox(validEmail);
-		userRegisterPage.inputToPasswordTextbox(password);
-		userRegisterPage.inputToConfirmPasswordTextbox(password);
+        userHomePage = PageGeneratorManager.getUserHomePage(driver);
+        userRegisterPage = userHomePage.clickToRegisterLink();
 
-		userRegisterPage.clickToRegisterButton();
+        userRegisterPage.inputToFirstNameTextbox("Automation");
+        userRegisterPage.inputToLastNameTextbox("Testing");
+        userRegisterPage.inputToEmailTextbox(validEmail);
+        userRegisterPage.inputToPasswordTextbox(password);
+        userRegisterPage.inputToConfirmPasswordTextbox(password);
 
-		verifyEquals(userRegisterPage.getRegisterSuccessMessage(), "Your registration completed");
-		
-		userHomePage = PageGeneratorManager.getUserHomePage(driver);
-	}
+        userRegisterPage.clickToRegisterButton();
 
-	@Test
-	public void Login_01_Empty_Data() {
-		userLoginPage = userHomePage.clickToLoginLink();
+        verifyEquals(userRegisterPage.getRegisterSuccessMessage(), "Your registration completed");
 
-		userLoginPage.clickToLoginButton();
+        userHomePage = PageGeneratorManager.getUserHomePage(driver);
+    }
 
-		verifyEquals(userLoginPage.getErrorMessageAtEmailTextBox(), "Please enter your email");
-	}
+    @Test
+    public void Login_01_Empty_Data() {
+        userLoginPage = userHomePage.clickToLoginLink();
 
-	@Test
-	public void Login_02_Email_NotValid() {
-		userLoginPage = userHomePage.clickToLoginLink();
+        userLoginPage.clickToLoginButton();
 
-		userLoginPage.inputToEmailTexbox("emailtesting63947#^@mila%c");
-		userLoginPage.inputToPasswordTextbox(password);
+        verifyEquals(userLoginPage.getErrorMessageAtEmailTextBox(), "Please enter your email");
+    }
 
-		userLoginPage.clickToLoginButton();
+    @Test
+    public void Login_02_Email_NotValid() {
+        userLoginPage = userHomePage.clickToLoginLink();
 
-		verifyEquals(userLoginPage.getErrorMessageAtEmailTextBox(), "Wrong email");
-	}
+        userLoginPage.inputToEmailTexbox("emailtesting63947#^@mila%c");
+        userLoginPage.inputToPasswordTextbox(password);
 
-	@Test
-	public void Login_03_No_Customer_Account_Found() {
-		userLoginPage = userHomePage.clickToLoginLink();
+        userLoginPage.clickToLoginButton();
 
-		userLoginPage.inputToEmailTexbox(noAccountEmail);
-		userLoginPage.inputToPasswordTextbox(password);
+        verifyEquals(userLoginPage.getErrorMessageAtEmailTextBox(), "Wrong email");
+    }
 
-		userLoginPage.clickToLoginButton();
+    @Test
+    public void Login_03_No_Customer_Account_Found() {
+        userLoginPage = userHomePage.clickToLoginLink();
 
-		verifyEquals(userLoginPage.getLoginErrorMessage(),
-				"Login was unsuccessful. Please correct the errors and try again.\nNo customer account found");
-	}
+        userLoginPage.inputToEmailTexbox(noAccountEmail);
+        userLoginPage.inputToPasswordTextbox(password);
 
-	@Test
-	public void Login_04_No_Input_Password() {
-		userLoginPage = userHomePage.clickToLoginLink();
+        userLoginPage.clickToLoginButton();
 
-		userLoginPage.inputToEmailTexbox(validEmail);
-		userLoginPage.clickToLoginButton();
+        verifyEquals(userLoginPage.getLoginErrorMessage(),
+                "Login was unsuccessful. Please correct the errors and try again.\nNo customer account found");
+    }
 
-		verifyEquals(userLoginPage.getLoginErrorMessage(),
-				"Login was unsuccessful. Please correct the errors and try again.\nThe credentials provided are incorrect");
-	}
+    @Test
+    public void Login_04_No_Input_Password() {
+        userLoginPage = userHomePage.clickToLoginLink();
 
-	@Test
-	public void Login_05_Wrong_Password() {
-		userLoginPage = userHomePage.clickToLoginLink();
+        userLoginPage.inputToEmailTexbox(validEmail);
+        userLoginPage.clickToLoginButton();
 
-		userLoginPage.inputToEmailTexbox(validEmail);
-		userLoginPage.inputToPasswordTextbox("789456");
+        verifyEquals(userLoginPage.getLoginErrorMessage(),
+                "Login was unsuccessful. Please correct the errors and try again.\nThe credentials provided are incorrect");
+    }
 
-		userLoginPage.clickToLoginButton();
+    @Test
+    public void Login_05_Wrong_Password() {
+        userLoginPage = userHomePage.clickToLoginLink();
 
-		verifyEquals(userLoginPage.getLoginErrorMessage(),
-				"Login was unsuccessful. Please correct the errors and try again.\nThe credentials provided are incorrect");
-	}
+        userLoginPage.inputToEmailTexbox(validEmail);
+        userLoginPage.inputToPasswordTextbox("789456");
 
-	@Test
-	public void Login_06_Login_Successful() {
-		userLoginPage = userHomePage.clickToLoginLink();
+        userLoginPage.clickToLoginButton();
 
-		userLoginPage.inputToEmailTexbox(validEmail);
-		userLoginPage.inputToPasswordTextbox(password);
-		
-		userLoginPage.clickToLoginButton();
-		
-		verifyTrue(userHomePage.isMyAccountLinkDisplayed());
-	}
+        verifyEquals(userLoginPage.getLoginErrorMessage(),
+                "Login was unsuccessful. Please correct the errors and try again.\nThe credentials provided are incorrect");
+    }
 
-	@AfterClass
-	public void afterClass() {
-		driver.quit();
-	}
-	
-	private WebDriver driver;
-	private String validEmail, noAccountEmail, password;
-	private UserHomePageObject userHomePage;
-	private UserLoginPageObject userLoginPage;
-	private UserRegisterPageObject userRegisterPage;
+    @Test
+    public void Login_06_Login_Successful() {
+        userLoginPage = userHomePage.clickToLoginLink();
+
+        userLoginPage.inputToEmailTexbox(validEmail);
+        userLoginPage.inputToPasswordTextbox(password);
+
+        userLoginPage.clickToLoginButton();
+
+        verifyTrue(userHomePage.isMyAccountLinkDisplayed());
+    }
+
+    @AfterClass
+    public void afterClass() {
+        driver.quit();
+    }
+
+    private WebDriver driver;
+    private String validEmail, noAccountEmail, password;
+    private UserHomePageObject userHomePage;
+    private UserLoginPageObject userLoginPage;
+    private UserRegisterPageObject userRegisterPage;
 }

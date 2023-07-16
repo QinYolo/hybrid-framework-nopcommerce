@@ -13,38 +13,38 @@ import pageObjects.sauceLab.ProductPageObject;
 
 public class User_01_Sort_Asc_Desc extends BaseTest {
 
-	@Parameters({ "browser", "url" })
-	@BeforeClass
-	public void beforeClass(String browserName, String urljQuery) {
-		driver = getBrowserDriver(browserName, urljQuery);
-		loginPage = PageGeneratorManager.getLoginPage(driver);
-	}
+    @Parameters({"browser", "url"})
+    @BeforeClass
+    public void beforeClass(String browserName, String urljQuery) {
+        driver = getBrowserDriver(browserName, urljQuery);
+        loginPage = PageGeneratorManager.getLoginPage(driver);
+    }
 
-	@Test
-	public void Sort_01_By_Name() {
-		loginPage.inputToUserNameTextbox("standard_user");
-		loginPage.inputToPasswordTextbox("secret_sauce");
-		productPage = loginPage.clickToLoginButton();
-		productPage.selectItemInProductDropdown("Name (A to Z)");
-		verifyTrue(productPage.isProductNameSortByAscending());
-		productPage.selectItemInProductDropdown("Name (Z to A)");
-		verifyTrue(productPage.isProductNameSortByDescending());
-	}
-	
-	@Test
-	public void Sort_02_By_Price() {
-		productPage.selectItemInProductDropdown("Price (low to high)");
-		verifyTrue(productPage.isProductPriceSortByAscending());
-		productPage.selectItemInProductDropdown("Price (high to low)");
-		verifyTrue(productPage.isProductPriceSortByDescending());
-	}
+    @Test
+    public void Sort_01_By_Name() {
+        loginPage.inputToUserNameTextbox("standard_user");
+        loginPage.inputToPasswordTextbox("secret_sauce");
+        productPage = loginPage.clickToLoginButton();
+        productPage.selectItemInProductDropdown("Name (A to Z)");
+        verifyTrue(productPage.isProductNameSortByAscending());
+        productPage.selectItemInProductDropdown("Name (Z to A)");
+        verifyTrue(productPage.isProductNameSortByDescending());
+    }
 
-	@AfterClass
-	public void afterClass() {
-		closeBrowserDriver();
-	}
+    @Test
+    public void Sort_02_By_Price() {
+        productPage.selectItemInProductDropdown("Price (low to high)");
+        verifyTrue(productPage.isProductPriceSortByAscending());
+        productPage.selectItemInProductDropdown("Price (high to low)");
+        verifyTrue(productPage.isProductPriceSortByDescending());
+    }
 
-	private WebDriver driver;
-	private LoginPageObject loginPage;
-	private ProductPageObject productPage;
+    @AfterClass
+    public void afterClass() {
+        closeBrowserDriver();
+    }
+
+    private WebDriver driver;
+    private LoginPageObject loginPage;
+    private ProductPageObject productPage;
 }

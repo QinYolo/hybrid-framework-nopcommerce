@@ -7,21 +7,21 @@ import com.aventstack.extentreports.reporter.configuration.Theme;
 import commons.GlobalConstant;
 
 public class ExtentManager {
-	public static final ExtentReports extentReports = new ExtentReports();
+    public static final ExtentReports extentReports = new ExtentReports();
 
-	public synchronized static ExtentReports createExtentReports() {
-		ExtentSparkReporter reporter = new ExtentSparkReporter(GlobalConstant.PROJECT_PATH + "/extentV5/ExtentReport.html");
-		reporter.config().setReportName("NopCommerce HTML Report");
-		reporter.config().setDocumentTitle("NopCommerce HTML Report");
-		reporter.config().setTimelineEnabled(true);
-		reporter.config().setEncoding("utf-8");
-		reporter.config().setTheme(Theme.DARK);
+    public synchronized static ExtentReports createExtentReports() {
+        ExtentSparkReporter reporter = new ExtentSparkReporter(GlobalConstant.PROJECT_PATH + "/extentV5/ExtentReport.html");
+        reporter.config().setReportName("NopCommerce HTML Report");
+        reporter.config().setDocumentTitle("NopCommerce HTML Report");
+        reporter.config().setTimelineEnabled(true);
+        reporter.config().setEncoding("utf-8");
+        reporter.config().setTheme(Theme.DARK);
 
-		extentReports.attachReporter(reporter);
-		extentReports.setSystemInfo("Company", "Automation FC");
-		extentReports.setSystemInfo("Project", "NopCommerce");
-		extentReports.setSystemInfo("Team", "AUTOVN");
-		extentReports.setSystemInfo("JDK version", GlobalConstant.JAVA_VERSION);
-		return extentReports;
-	}
+        extentReports.attachReporter(reporter);
+        extentReports.setSystemInfo("Company", "Automation FC");
+        extentReports.setSystemInfo("Project", "NopCommerce");
+        extentReports.setSystemInfo("Team", "AUTOVN");
+        extentReports.setSystemInfo("JDK version", GlobalConstant.JAVA_VERSION);
+        return extentReports;
+    }
 }

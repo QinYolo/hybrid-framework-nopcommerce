@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="NopCommerce">
 
-	<listeners>
-		<listener class-name="commons.MethodListener" />
-	</listeners>
-	
-	<parameter name="url" value="https://blueimp.github.io/jQuery-File-Upload/" />
-	
-	<test name="Run On Firefox">
-		<parameter name="browser" value="firefox" />
-		<classes>
-			<class name="com.jquery.database.Level_11_UploadFile" />
-		</classes>
-	</test>
+    <listeners>
+        <listener class-name="commons.MethodListener"/>
+    </listeners>
 
-	
+    <parameter name="url" value="https://blueimp.github.io/jQuery-File-Upload/"/>
+
+    <test name="Run On Firefox">
+        <parameter name="browser" value="firefox"/>
+        <classes>
+            <class name="com.jquery.database.Level_11_UploadFile"/>
+        </classes>
+    </test>
+
+
 </suite>

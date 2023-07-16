@@ -15,28 +15,28 @@ import commons.GlobalConstant;
 
 public class UserDataMapper {
 
-	public static UserDataMapper getUserData() {
-		try {
-			ObjectMapper mapper = new ObjectMapper();
-			mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    public static UserDataMapper getUserData() {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 //			List<UserDataMapper> listData = mapper.readValue(new File(GlobalConstant.PROJECT_PATH + "/resources/UserData.json"), 
 //					new TypeReference<List<UserDataMapper>>(){});
 //			for (UserDataMapper userData : listData) {
 //				return userData;
 //			}
-			return mapper.readValue(new File(GlobalConstant.PROJECT_PATH + "/resources/UserData.json"), UserDataMapper.class);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			return null;
-		}
-	}
-	
-	@DataProvider(name = "getData")
+            return mapper.readValue(new File(GlobalConstant.PROJECT_PATH + "/resources/UserData.json"), UserDataMapper.class);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
+    @DataProvider(name = "getData")
     public Object[] getData() {
         return readUserData().toArray();
     }
-	
-	public List<UserDataMapper> readUserData() {
+
+    public List<UserDataMapper> readUserData() {
         try {
             ObjectMapper mapper = new ObjectMapper();
             String filePath = new File(GlobalConstant.PROJECT_PATH + "/resources/UserData.json").getAbsolutePath();
@@ -46,34 +46,34 @@ public class UserDataMapper {
             throw new RuntimeException(e);
         }
     }
-	
 
-	@JsonProperty("first_name")
-	private String first_name;
 
-	@JsonProperty("last_name")
-	private String last_name;
+    @JsonProperty("first_name")
+    private String first_name;
 
-	@JsonProperty("email")
-	private String email;
+    @JsonProperty("last_name")
+    private String last_name;
 
-	@JsonProperty("password")
-	private String password;
+    @JsonProperty("email")
+    private String email;
 
-	public String getFirst_name() {
-		return first_name;
-	}
+    @JsonProperty("password")
+    private String password;
 
-	public String getLast_name() {
-		return last_name;
-	}
+    public String getFirst_name() {
+        return first_name;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getLast_name() {
+        return last_name;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
 
 }
