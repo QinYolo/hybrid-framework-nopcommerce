@@ -150,7 +150,7 @@ public class BaseTest {
             envUrl = GlobalConstant.ADMIN_PAGE_URL;
         } else if (environment == EnvironmentList.STAGING) {
             envUrl = GlobalConstant.STAGING_PAGE_URL;
-        } else if (environment == EnvironmentList.PRODUCTION) {
+        } else if (environment == EnvironmentList.PROD) {
             envUrl = GlobalConstant.PRODUCTION_PAGE_URL;
         }
         return envUrl;

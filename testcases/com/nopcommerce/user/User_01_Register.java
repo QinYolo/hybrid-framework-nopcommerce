@@ -2,6 +2,7 @@ package com.nopcommerce.user;
 
 import java.lang.reflect.Method;
 
+import org.aeonbits.owner.ConfigFactory;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -16,13 +17,16 @@ import pageObjects.nopcommerce.user.PageGeneratorManager;
 import pageObjects.nopcommerce.user.UserRegisterPageObject;
 import reportConfig.ExtentTestManager;
 import utilities.DataHelper;
+import utilities.Environments;
 
 public class User_01_Register extends BaseTest {
 
-    @Parameters("browser")
+    @Parameters({"browser", "browserURL"})
     @BeforeClass
-    public void beforeClass(String browserName) {
-        driver = getBrowserDriver(browserName);
+    public void beforeClass(String browserName, String envName) {
+    	ConfigFactory.setProperty("env", envName);
+    	environment = ConfigFactory.create(Environments.class);
+        driver = getBrowserDriver(browserName, environment.getAppURL());
         dataFaker = DataHelper.getData();
 
         firstName = dataFaker.getFirstName();
@@ -210,4 +214,5 @@ public class User_01_Register extends BaseTest {
     private DataHelper dataFaker;
     private UserHomePageObject userHomePage;
     private UserRegisterPageObject userRegisterPage;
+    private Environments environment;
 }
