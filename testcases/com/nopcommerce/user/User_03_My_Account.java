@@ -9,6 +9,7 @@ import pageObjects.nopcommerce.user.UserLoginPageObject;
 import pageObjects.nopcommerce.user.UserRegisterPageObject;
 
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
 
@@ -18,10 +19,12 @@ import org.testng.annotations.AfterClass;
 
 public class User_03_My_Account extends BaseTest {
 
-    @Parameters("browser")
-    @BeforeClass
-    public void beforeClass(String browserName) {
-        driver = getBrowserDriver(browserName);
+	@Parameters({ "envName", "severName", "browserName", "browserVersion", "osName", "osVersion"})
+	@BeforeClass
+	public void beforeClass(@Optional("local") String envName, @Optional("dev") String severName,
+			@Optional("chrome") String browserName, @Optional("latest") String browserVersion,
+			@Optional("Windows 10") String osName, @Optional("10") String osVersion) {
+		driver = getBrowserDriver(envName, severName, browserName, browserVersion, osName, osVersion);
         homePage = new UserHomePageObject(driver);
 
         firstName1st = "Automation";

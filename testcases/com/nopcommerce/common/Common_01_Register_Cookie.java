@@ -11,14 +11,17 @@ import java.util.Set;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
 public class Common_01_Register_Cookie extends BaseTest {
 
-    @Parameters("browser")
-    @BeforeTest(description = "Create new common user for all classes test")
-    public void beforeTest(String browserName) {
-        driver = getBrowserDriver(browserName);
+	@Parameters({ "envName", "severName", "browserName", "browserVersion", "osName", "osVersion"})
+	@BeforeTest(description = "Create new common user for all classes test")
+	public void beforeTest(@Optional("local") String envName, @Optional("dev") String severName,
+			@Optional("chrome") String browserName, @Optional("latest") String browserVersion,
+			@Optional("Windows 10") String osName, @Optional("10") String osVersion) {
+		driver = getBrowserDriver(envName, severName, browserName, browserVersion, osName, osVersion);
         userHomePage = PageGeneratorManager.getUserHomePage(driver);
 
         firstName = "Automation";

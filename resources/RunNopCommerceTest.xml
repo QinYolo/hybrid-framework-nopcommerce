@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="NopCommerce">
 
+	<parameter name="envName" value="local"/>
+	<parameter name="severName" value="dev"/>
+
     <listeners>
         <listener class-name="commons.MethodListener"/>
         <!-- <listener class-name="reportConfig.ReportNGListener" /> -->
-        <listener class-name="reportConfig.ExtentTestListener"/>
-        <!-- <listener class-name="reportConfig.AllureTestListener" /> -->
+         <!-- <listener class-name="reportConfig.ExtentTestListener"/> -->
+        <listener class-name="reportConfig.AllureTestListener" />
         <!--  <listener class-name="org.uncommons.reportng.HTMLReporter" /> -->
         <!--  <listener class-name="org.uncommons.reportng.JUnitXMLReporter" /> -->
     </listeners>
@@ -14,7 +17,7 @@
         <parameter name="browser" value="chrome"/>
         <classes>
             <!-- <class name="com.nopcommerce.common.Common_01_Register_Cookie" /> -->
-            <class name="com.nopcommerce.user.User_01_Register"/>
+            <class name="com.nopcommerce.user.User_01_Register_Allure"/>
         </classes>
     </test>
 

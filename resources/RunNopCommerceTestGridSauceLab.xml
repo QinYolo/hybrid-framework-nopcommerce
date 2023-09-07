@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="NopCommerce - User">
 
+	<parameter name="envName" value="sauceLab"/>
+	<parameter name="severName" value="dev"/>
+	
     <listeners>
         <listener class-name="commons.MethodListener"/>
         <listener class-name="reportConfig.ExtentTestListener"/>
     </listeners>
 	 <parameter name="browserURL" value="dev"/>
-<!--    <test name="Run On Firefox">
-        <parameter name="browser" value="firefox"/>
+	<test name="Run On Firefox">
+        <parameter name="browserName" value="firefox"/>
         <parameter name="osName" value="Windows 10"/>
         <classes>
             <class name="base.testcase.NC_User_01_Register_Grid_II_SauceLab"/>
         </classes>
-    </test> --> 
+    </test>
     
     <test name="Run On Chrome - MAC">
-        <parameter name="browser" value="chrome"/>
+        <parameter name="browserName" value="chrome"/>
         <parameter name="osName" value="macOS 12"/>
         <classes>
             <class name="base.testcase.NC_User_01_Register_Grid_II_SauceLab"/>

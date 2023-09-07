@@ -2,11 +2,6 @@ package commons;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -19,13 +14,10 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
 import org.testng.Reporter;
 import org.testng.annotations.BeforeSuite;
 
-import exception.BrowserNotSupport;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class BaseTest {
@@ -44,62 +36,32 @@ public class BaseTest {
     public WebDriver getDriverInstance() {
         return this.driver;
     }
-
-    protected WebDriver getBrowserDriver(String browserName) {
-        BrowserList browserList = BrowserList.valueOf(browserName.toUpperCase());
-        if (browserList == BrowserList.FIREFOX) {
-            WebDriverManager.firefoxdriver().setup();
-            System.setProperty(FirefoxDriver.SystemProperty.DRIVER_USE_MARIONETTE, "true");
-            System.setProperty(FirefoxDriver.SystemProperty.BROWSER_LOGFILE, GlobalConstant.PROJECT_PATH + "\\browserLogs\\FirefoxLog.log");
-            FirefoxOptions options = new FirefoxOptions();
-            options.addArguments("--disable-notifications");
-            driver = new FirefoxDriver(options);
-        } else if (browserList == BrowserList.H_FIREFOX) {
-            WebDriverManager.firefoxdriver().setup();
-            FirefoxOptions options = new FirefoxOptions();
-            options.addArguments("--headless");
-            options.addArguments("window-size=1920x1080");
-            driver = new FirefoxDriver(options);
-        } else if (browserList == BrowserList.CHROME) {
-            WebDriverManager.chromedriver().setup();
-            System.setProperty("webdriver.chrome.args", "--disable-logging");
-            System.setProperty("webdriver.chrome.silentOutput", "true");
-            ChromeOptions options = new ChromeOptions();
-            options.addArguments("--disable-notifications");
-            options.setExperimentalOption("useAutomationExtension", false);
-            options.setExperimentalOption("excludeSwitches", Collections.singletonList("enable-automation"));
-            driver = new ChromeDriver(options);
-        } else if (browserList == BrowserList.H_CHROME) {
-            WebDriverManager.chromedriver().setup();
-            ChromeOptions options = new ChromeOptions();
-            options.addArguments("--headless");
-            options.addArguments("window-size=1920x1080");
-            driver = new ChromeDriver(options);
-        } else if (browserList == BrowserList.EDGE) {
-            WebDriverManager.edgedriver().setup();
-            driver = new EdgeDriver();
-        } else if (browserList == BrowserList.OPERA) {
-            driver = WebDriverManager.operadriver().create();
-        } else if (browserList == BrowserList.COCCOC) {
-            WebDriverManager.chromedriver().driverVersion("109.0.5414.74").setup();
-            ChromeOptions options = new ChromeOptions();
-            options.setBinary("C:\\Program Files\\CocCoc\\Browser\\Application\\browser.exe");
-            driver = new ChromeDriver(options);
-        } else if (browserList == BrowserList.BRAVE) {
-            WebDriverManager.chromedriver().driverVersion("110.0.5481.77").setup();
-            ChromeOptions options = new ChromeOptions();
-            options.setBinary("C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe");
-            driver = new ChromeDriver(options);
-        } else {
-            throw new BrowserNotSupport(browserName);
-        }
-
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+    
+    public WebDriver getBrowserDriver(String envName, String severName, String browserName, 
+    		String browserVersion, String osName, String osVersion) {
+    	switch (envName) {
+    	case "local":
+    		driver = new LocalFactory(browserName).createDriver();
+    		break;
+    	case "browserStack":
+    		driver = new BrowserstackFactory(browserName, browserVersion, osName, osVersion).createDriver();
+    		break;
+    	case "sauceLab":
+    		driver = new SauceLabFactory(browserName, osName).createDriver();
+    		break;
+    	case "lambda":
+    		driver = new LambdaFactory(browserName, osName).createDriver();
+    		break;
+		default:
+			driver = new LocalFactory(browserName).createDriver();
+			break;
+		}
+    	driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         driver.manage().window().maximize();
-        driver.get(GlobalConstant.USER_PAGE_URL);
-
-        return driver;
+        driver.get(getEnvironmentValue(severName));
+    	return driver;
     }
+
 
     protected WebDriver getBrowserDriver(String browserName, String browserURL) {
     	BrowserList browserList = BrowserList.valueOf(browserName.toUpperCase());
@@ -145,77 +107,6 @@ public class BaseTest {
     	driver.get(browserURL);
     	
     	return driver;
-    }
-    
-    protected WebDriver getBrowserDriverBrowserStack(String browserName, String browserURL, String browserVersion, String osName, String osVersion) {
-    	DesiredCapabilities caps = new DesiredCapabilities();
-    	caps.setCapability("os", osName);
-    	caps.setCapability("os_version", osVersion);
-    	caps.setCapability("browser", browserName);
-    	caps.setCapability("browser_version", browserVersion);
-    	caps.setCapability("browserstack.debug", "true");
-    	caps.setCapability("name", "Run On " + osName + " and " + browserName + " with version " + browserVersion);
-    	caps.setCapability("resolution","1600x1200");
-    	try {
-    		driver = new RemoteWebDriver(new URL(GlobalConstant.BROWSER_STACK_URL), caps);
-    	} catch (MalformedURLException e) {
-    		e.printStackTrace();
-    	}
-    	driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-    	driver.manage().window().maximize();
-    	driver.get(browserURL);
-    	
-    	return driver;
-    }
-    
-    protected WebDriver getBrowserDriverSauceLab(String browserName, String browserURL, String osName) {
-    	DesiredCapabilities caps = new DesiredCapabilities();
-    	caps.setCapability("platformName", osName);
-    	caps.setCapability("browserName", browserName);
-    	Map<String, Object> sauceOptions = new HashMap<>();
-    	if (osName.contains("Window")) {
-    		sauceOptions.put("screenResolution","1920x1080");
-    	} else {
-    		sauceOptions.put("screenResolution","1600x1200");
-    	}
-    	sauceOptions.put("name", "Run On " + osName + " and " + browserName + " with version ");
-    	caps.setCapability("sauce:options", sauceOptions);
-    	try {
-    		driver = new RemoteWebDriver(new URL(GlobalConstant.SAUCE_URL), caps);
-    	} catch (MalformedURLException e) {
-    		e.printStackTrace();
-    	}
-    	driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-    	driver.manage().window().maximize();
-    	driver.get(browserURL);
-    	
-    	return driver;
-    }
-    
-    protected WebDriver getBrowserDriverLambda(String browserName, String browserURL, String osName) {
-    	DesiredCapabilities caps = new DesiredCapabilities();
-    	caps.setCapability("platform", osName);
-    	caps.setCapability("browserName", browserName);
-    	caps.setCapability("version", "latest");
-    	caps.setCapability("visual", true);
-    	caps.setCapability("video", true);
-    	caps.setCapability("name", "Run On " + osName + " and " + browserName );
-    	Map<String, Object> lambdaOptions = new HashMap<>();
-    	if (osName.contains("Window")) {
-    		lambdaOptions.put("resolution","1600x1200");
-		} else {
-			lambdaOptions.put("resolution","1920x1080");
-		}
-    	try {
-			driver = new RemoteWebDriver(new URL(GlobalConstant.LAMBDA_URL), caps);
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
-        driver.get(browserURL);
-
-        return driver;
     }
 
     protected String getEnvironmentValue(String severName) {

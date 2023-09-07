@@ -18,6 +18,7 @@ import pageObjects.nopcommerce.admin.AdminLoginPageObject;
 import pageObjects.nopcommerce.user.PageGeneratorManager;
 
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
 
@@ -27,10 +28,12 @@ import org.testng.annotations.AfterClass;
 
 public class Level_02_Shared_Data extends BaseTest {
 
-    @Parameters("browser")
-    @BeforeClass
-    public void beforeClass(String browserName) {
-        driver = getBrowserDriver(browserName);
+	@Parameters({ "envName", "severName", "browser" })
+	@BeforeClass
+	public void beforeClass(@Optional("local") String envName, @Optional("dev") String severName,
+			@Optional("chrome") String browserName, @Optional("latest") String browserVersion,
+			@Optional("Windows 10") String osName, @Optional("10") String osVersion) {
+		driver = getBrowserDriver(envName, severName, browserName, browserVersion, osName, osVersion);
         userEmailAdress = Common_01_Register_End_User.emailAdress;
         userPassword = Common_01_Register_End_User.password;
         adminEmailAddress = "admin@yourstore.com";

@@ -2,10 +2,10 @@ package base.testcase;
 
 import java.lang.reflect.Method;
 
-import org.aeonbits.owner.ConfigFactory;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
@@ -17,16 +17,15 @@ import pageObjects.nopcommerce.user.PageGeneratorManager;
 import pageObjects.nopcommerce.user.UserRegisterPageObject;
 import reportConfig.ExtentTestManager;
 import utilities.DataHelper;
-import utilities.Environments;
 
 public class NC_User_01_Register_Grid_II_SauceLab extends BaseTest {
 
-    @Parameters({"browser", "browserURL", "osName"})
+    @Parameters({ "envName", "severName", "browserName", "browserVersion", "osName", "osVersion"})
     @BeforeClass
-    public void beforeClass(String browserName, String envName, String osName) {
-    	ConfigFactory.setProperty("env", envName);
-    	environment = ConfigFactory.create(Environments.class);
-        driver = getBrowserDriverSauceLab(browserName, environment.getAppURL(), osName);
+    public void beforeClass(@Optional("local") String envName, @Optional("dev") String severName,
+			@Optional("chrome") String browserName, @Optional("latest") String browserVersion,
+			@Optional("Windows 10") String osName, @Optional("10") String osVersion) {
+    	driver = getBrowserDriver(envName, severName, browserName, browserVersion, osName, osVersion);
         dataFaker = DataHelper.getData();
 
         firstName = dataFaker.getFirstName();
@@ -214,5 +213,4 @@ public class NC_User_01_Register_Grid_II_SauceLab extends BaseTest {
     private DataHelper dataFaker;
     private UserHomePageObject userHomePage;
     private UserRegisterPageObject userRegisterPage;
-    private Environments environment;
 }
