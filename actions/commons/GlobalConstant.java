@@ -20,5 +20,17 @@ public class GlobalConstant {
     public static final long SHORT_TIMEOUT = 5;
     public static final long LONG_TIMEOUT = 30;
     public static final long RETRY_TEST_FAIL = 3;
+    
+    public static final String BROWSER_USERNAME = "haterest_v8bwiA";
+    public static final String BROWSER_AUTOMATE_KEY = "fqLMfoXbwdPbzxgi2Lxv";
+    public static final String BROWSER_STACK_URL = "https://" + BROWSER_USERNAME + ":" + BROWSER_AUTOMATE_KEY + "@hub-cloud.browserstack.com/wd/hub";
+    
+    public static final String SAUCE_USERNAME = "oauth-pu3kluz-854a8";
+    public static final String SAUCE_AUTOMATE_KEY = "68842e0a-9bf6-40e0-863c-2b42bba2adde";
+    public static final String SAUCE_URL = "https://" + SAUCE_USERNAME + ":" + SAUCE_AUTOMATE_KEY + "@ondemand.us-west-1.saucelabs.com:443/wd/hub";
+    
+    public static final String LAMBDA_USERNAME = "pu3kluz";
+    public static final String LAMBDA_AUTOMATE_KEY = "EUzM5tvZ7Ugtc464vAZdjHKlAcpev32ckwk5UsUJhmBwdpr79e";
+    public static final String LAMBDA_URL = "https://" + LAMBDA_USERNAME + ":" + LAMBDA_AUTOMATE_KEY + "@hub.lambdatest.com/wd/hub";
 
 }

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="NopCommerce - User">
+
+    <listeners>
+        <listener class-name="commons.MethodListener"/>
+        <listener class-name="reportConfig.ExtentTestListener"/>
+    </listeners>
+	 <parameter name="browserURL" value="dev"/>
+    <test name="Run On Firefox">
+        <parameter name="browser" value="firefox"/>
+        <parameter name="browser_version" value="latest"/>
+        <parameter name="os" value="Windows"/>
+        <parameter name="os_version" value="10"/>
+        <classes>
+            <class name="base.testcase.NC_User_01_Register_Grid_I_BrowserStack"/>
+        </classes>
+    </test>
+    
+    <test name="Run On Chrome - MAC">
+        <parameter name="browser" value="chrome"/>
+        <parameter name="browser_version" value="latest"/>
+        <parameter name="os" value="OS X"/>
+        <parameter name="os_version" value="Monterey"/>
+        <classes>
+            <class name="base.testcase.NC_User_01_Register_Grid_I_BrowserStack"/>
+        </classes>
+    </test>
+
+</suite>
