@@ -20,6 +20,15 @@ import utilities.DataHelper;
 import utilities.Environments;
 
 public class User_01_Register extends BaseTest {
+	
+//	@Parameters({ "envName", "severName", "browserName", "browserVersion", "osName", "osVersion" })
+//	@BeforeClass
+//	public void beforeClass(@Optional("local") String envName, @Optional("dev") String severName,
+//			@Optional("chrome") String browserName, @Optional("latest") String browserVersion,
+//			@Optional("Windows 10") String osName, @Optional("10") String osVersion) {
+//		ConfigFactory.setProperty("env", envName);
+//    	environment = ConfigFactory.create(Environments.class);
+//		driver = getBrowserDriver(envName, environment.getAppURL(), browserName, browserVersion, osName, osVersion);
 
     @Parameters({"browser", "browserURL"})
     @BeforeClass
@@ -27,6 +36,7 @@ public class User_01_Register extends BaseTest {
     	ConfigFactory.setProperty("env", envName);
     	environment = ConfigFactory.create(Environments.class);
         driver = getBrowserDriver(browserName, environment.getAppURL());
+        
         dataFaker = DataHelper.getData();
 
         firstName = dataFaker.getFirstName();

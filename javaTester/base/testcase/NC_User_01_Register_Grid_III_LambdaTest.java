@@ -20,12 +20,14 @@ import utilities.DataHelper;
 
 public class NC_User_01_Register_Grid_III_LambdaTest extends BaseTest {
 
-	   @Parameters({ "envName", "severName", "browserName", "browserVersion", "osName", "osVersion"})
-	    @BeforeClass
-	    public void beforeClass(@Optional("local") String envName, @Optional("dev") String severName,
-				@Optional("chrome") String browserName, @Optional("latest") String browserVersion,
-				@Optional("Windows 10") String osName, @Optional("10") String osVersion) {
-	    	driver = getBrowserDriver(envName, severName, browserName, browserVersion, osName, osVersion);
+	@Parameters({ "envName", "severName", "browserName", "browserVersion", "osName", "osVersion", "ipAddress", "portNumber" })
+	@BeforeClass
+	public void beforeClass(@Optional("local") String envName, @Optional("dev") String severName,
+			@Optional("chrome") String browserName, @Optional("latest") String browserVersion,
+			@Optional("Windows 10") String osName, @Optional("10") String osVersion, @Optional("192") String ipAddress,
+			@Optional("4444") String portNumber) {
+		driver = getBrowserDriver(envName, severName, browserName, browserVersion, osName, osVersion, ipAddress,
+				portNumber);
         dataFaker = DataHelper.getData();
 
         firstName = dataFaker.getFirstName();

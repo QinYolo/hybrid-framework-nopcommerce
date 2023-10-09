@@ -38,10 +38,13 @@ public class BaseTest {
     }
     
     public WebDriver getBrowserDriver(String envName, String severName, String browserName, 
-    		String browserVersion, String osName, String osVersion) {
+    		String browserVersion, String osName, String osVersion, String ipAddress, String portNumber) {
     	switch (envName) {
     	case "local":
     		driver = new LocalFactory(browserName).createDriver();
+    		break;
+    	case "grid":
+    		driver = new GridFactory(browserName, osName, ipAddress, portNumber).createDriver();
     		break;
     	case "browserStack":
     		driver = new BrowserstackFactory(browserName, browserVersion, osName, osVersion).createDriver();
@@ -61,7 +64,6 @@ public class BaseTest {
         driver.get(getEnvironmentValue(severName));
     	return driver;
     }
-
 
     protected WebDriver getBrowserDriver(String browserName, String browserURL) {
     	BrowserList browserList = BrowserList.valueOf(browserName.toUpperCase());

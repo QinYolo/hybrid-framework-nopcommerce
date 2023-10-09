@@ -19,12 +19,14 @@ import org.testng.annotations.AfterClass;
 
 public class User_03_My_Account extends BaseTest {
 
-	@Parameters({ "envName", "severName", "browserName", "browserVersion", "osName", "osVersion"})
+	@Parameters({ "envName", "severName", "browserName", "browserVersion", "osName", "osVersion", "ipAddress", "portNumber" })
 	@BeforeClass
 	public void beforeClass(@Optional("local") String envName, @Optional("dev") String severName,
 			@Optional("chrome") String browserName, @Optional("latest") String browserVersion,
-			@Optional("Windows 10") String osName, @Optional("10") String osVersion) {
-		driver = getBrowserDriver(envName, severName, browserName, browserVersion, osName, osVersion);
+			@Optional("Windows 10") String osName, @Optional("10") String osVersion, @Optional("192") String ipAddress,
+			@Optional("4444") String portNumber) {
+		driver = getBrowserDriver(envName, severName, browserName, browserVersion, osName, osVersion, ipAddress,
+				portNumber);
         homePage = new UserHomePageObject(driver);
 
         firstName1st = "Automation";
@@ -281,7 +283,7 @@ public class User_03_My_Account extends BaseTest {
 
 
     private WebDriver driver;
-    private String emailAdress, emailAdress2, productToReview, reviewTitle;
+    private String emailAdress, emailAdress2,productToReview, reviewTitle ;
     private String firstName1st, lastName1st, pwd1st, firstName2st, lastName2st, company2st, pwd2st;
     private UserHomePageObject homePage;
     private UserRegisterPageObject registerPage;
