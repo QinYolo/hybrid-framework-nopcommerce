@@ -10,6 +10,7 @@ import factoryBrowser.FirefoxDriverManager;
 import factoryBrowser.HeadlessChromeDriverManager;
 import factoryBrowser.HeadlessFirefoxDriverManager;
 import factoryBrowser.OperaDriverManager;
+import factoryBrowser.SafariDriverManager;
 
 public class LocalFactory {
 	private WebDriver driver;
@@ -36,6 +37,9 @@ public class LocalFactory {
 			 break;
 		 case EDGE:
 			 driver = new EdgeDriverManager().getBrowserDriver();
+			 break;
+		 case SAFARI:
+			 driver = new SafariDriverManager().getBrowserDriver();
 			 break;
 		 case OPERA:
 			 driver = new OperaDriverManager().getBrowserDriver();
