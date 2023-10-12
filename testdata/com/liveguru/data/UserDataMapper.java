@@ -24,7 +24,7 @@ public class UserDataMapper {
 //			for (UserDataMapper userData : listData) {
 //				return userData;
 //			}
-            return mapper.readValue(new File(GlobalConstant.PROJECT_PATH + "/resources/UserData.json"), UserDataMapper.class);
+            return mapper.readValue(new File(GlobalConstant.getGlobalConstants().getProjectPath() + "/resources/UserData.json"), UserDataMapper.class);
         } catch (Exception ex) {
             ex.printStackTrace();
             return null;
@@ -39,7 +39,7 @@ public class UserDataMapper {
     public List<UserDataMapper> readUserData() {
         try {
             ObjectMapper mapper = new ObjectMapper();
-            String filePath = new File(GlobalConstant.PROJECT_PATH + "/resources/UserData.json").getAbsolutePath();
+            String filePath = new File(GlobalConstant.getGlobalConstants().getProjectPath() + "/resources/UserData.json").getAbsolutePath();
             JavaType typeOfT = mapper.getTypeFactory().constructCollectionType(Collection.class, UserDataMapper.class);
             return mapper.readValue(new File(filePath), typeOfT);
         } catch (Exception e) {

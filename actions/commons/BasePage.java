@@ -559,7 +559,7 @@ public class BasePage {
     }
 
     public void uploadMultipleFiles(WebDriver driver, String... fileNames) {
-        String filePath = GlobalConstant.UPLOAD_FILE;
+        String filePath = GlobalConstant.getGlobalConstants().getUploadFile();
         String fullFileName = "";
         for (String file : fileNames) {
             fullFileName = fullFileName + filePath + file + "\n";
@@ -688,6 +688,6 @@ public class BasePage {
         return pageObjects.wordpress.PageGeneratorManager.getAdminDashboardPage(driver);
     }
 
-    private long longTimeout = GlobalConstant.LONG_TIMEOUT;
-    private long shortTimeout = GlobalConstant.SHORT_TIMEOUT;
+    private long longTimeout = GlobalConstant.getGlobalConstants().getLongTimeout();
+    private long shortTimeout = GlobalConstant.getGlobalConstants().getShortTimeout();
 }

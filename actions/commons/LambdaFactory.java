@@ -34,7 +34,7 @@ public class LambdaFactory {
 			lambdaOptions.put("resolution","1920x1080");
 		}
     	try {
-			driver = new RemoteWebDriver(new URL(GlobalConstant.LAMBDA_URL), caps);
+			driver = new RemoteWebDriver(new URL(GlobalConstant.getGlobalConstants().getLambdaURL()), caps);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}

@@ -61,7 +61,6 @@ public class User_01_Register_Allure extends BaseTest {
 		userRegisterPage.inputToConfirmPasswordTextbox(password);
 
 		userRegisterPage.clickToRegisterButton();
-		// error
 		verifyEquals(userRegisterPage.getErrorMessageAtEmailTextbox(), "Wrong email");
 	}
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite name="NopCommerce">
+<suite name="NopCommerce" parallel="tests" thread-count="2">
 
 	<parameter name="envName" value="local"/>
 	<parameter name="severName" value="dev"/>
@@ -12,7 +12,15 @@
     </listeners>
 	 <!--  <parameter name="browserURL" value="dev"/>-->
     <test name="Run On Firefox">
-        <parameter name="browserName" value="brave"/>
+        <parameter name="browserName" value="firefox"/>
+        <classes>
+            <!-- <class name="com.nopcommerce.common.Common_01_Register_Cookie" /> -->
+            <class name="com.nopcommerce.user.User_01_Register_Allure"/>
+        </classes>
+    </test>
+    
+    <test name="Run On Chrome">
+        <parameter name="browserName" value="chrome"/>
         <classes>
             <!-- <class name="com.nopcommerce.common.Common_01_Register_Cookie" /> -->
             <class name="com.nopcommerce.user.User_01_Register_Allure"/>

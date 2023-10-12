@@ -81,7 +81,7 @@ public class Level_01_Switch_Page extends BaseTest {
     public void User_05_Switch_Role_User_To_Admin() {
         userHomePage = PageGeneratorManager.getUserHomePage(driver);
         userHomePage.clickToLogOutLinkAtUserPage(driver);
-        userHomePage.openPageURL(driver, GlobalConstant.ADMIN_PAGE_URL);
+        userHomePage.openPageURL(driver, GlobalConstant.getGlobalConstants().getAdminPageURL());
         adminLoginPage = PageGeneratorManager.getAdminLoginPage(driver);
         adminDashboardPage = adminLoginPage.loginAsAdmin(adminEmailAddress, adminPassword);
         Assert.assertTrue(adminDashboardPage.isAdminDashboardHeaderDisplayed());
@@ -90,7 +90,7 @@ public class Level_01_Switch_Page extends BaseTest {
 
     @Test
     public void User_06_Switch_Role_Admin_To_User() {
-        adminLoginPage.openPageURL(driver, GlobalConstant.USER_PAGE_URL);
+        adminLoginPage.openPageURL(driver, GlobalConstant.getGlobalConstants().getUserPageURL());
         userHomePage = PageGeneratorManager.getUserHomePage(driver);
         userLoginPage = userHomePage.clickToLoginLink();
         userHomePage = userLoginPage.loginAsUser(userEmailAdress, userPassword);
